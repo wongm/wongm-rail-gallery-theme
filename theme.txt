@@ -1,0 +1,6 @@
+# Zenphoto theme definition file
+name::Wongm
+author::Marcus Wong
+version::1.0.0
+date::August 16, 2009
+desc::Variant of the Rail Geelong theme, itself based upon the 'Sub-Albums Testing Theme' by Tristan Harward. Now resets the last visited dats when in admin 'recent uploads' or 'popular' views.

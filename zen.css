@@ -1,0 +1,336 @@
+/* site menu formatting stuff
+------------------------------ */
+.menu a {
+	height: 1%;
+}
+.sitemenu{
+	margin: 0; 
+	padding: 0; 
+	list-style-type: none; 
+}
+.buttonbar {
+	width: 100%;
+}
+.menu {
+	width: 12%;
+	text-align: center;
+}
+
+.menu a {
+	display: block;
+	padding: 3px;
+	border: 1px solid;
+	border-color: #ddd #000 #000 #ddd;
+	background-color: #EEE;
+	color: #336633;
+	text-decoration: none;
+}
+.menu a:hover {
+	background-color: #336633;
+	color: white;
+}
+.group a {
+	text-align:left;
+}
+#navigation a.sub {
+	font-weight: bold;
+	font-size: 1.1em;
+	color:#336633;
+} 
+.righthead {
+	float: right;
+}
+/* Admin Toolbox
+------------------------------ */
+#admin, #admin_data{
+	position: fixed;
+  _position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 130px;
+	border-bottom: 1px solid #E6E6DF;
+	border-left: 1px solid #E6E6DF;
+	background: #fff;
+    z-index: 2; 	text-align: left;
+}
+#admin_data{
+	top: 0px;
+	padding-top: 20px;
+	z-index: 1;
+	line-height: 1.6em;
+
+}
+#admin h3 {
+	font-size:12px;
+	color: #999;
+	margin:0;
+	padding:0; 
+	text-align: center;
+}
+#admin h3:hover { color: #036; }
+
+/* font style attributes
+------------------------------ */
+body td, th, p, div, input, form, textarea {
+	font-family:verdana,helvetica, sans-serif;
+	font-size:12px;
+}
+h1, h2, h3, h4, h5, .h4 {
+	background-color: inherit;
+	text-decoration: none;
+	color:#336633;
+}
+h1 {
+	padding:.1em 0 0;
+}
+h1 a {
+	font-size:30px;
+	text-decoration: none;
+	color:#336633;
+}
+h1 a:hover {
+	text-decoration: underline;
+}
+h2 {
+	font-size:22px;
+}
+h3 {
+	font-size:18px; 
+	text-align:center;
+}
+h4 {
+	font-size:15px;
+	margin: 1.2em 0 0.5em;
+}
+h4 a {
+	text-decoration: none;
+	color:#336633;
+}
+h4 a:hover {
+	text-decoration: underline;
+}
+.photocredit {
+	font-style:italic; 
+	font-size:xx-small;
+}
+h5 {
+	font-size:13px;
+	display: inline;
+	vertical-align: bottom;
+}
+a {
+	color:black;
+	background-color: inherit;
+}
+a:hover {
+	color:#336633;
+	background-color: inherit;
+	text-decoration: none;
+}
+.credit {
+	font-size: .8em;
+	line-height: 1em;
+}
+/* gallery specific stuff
+------------------------------ */
+.centeredTable td {
+	padding: 5px 10px;
+	text-align: center;
+}
+.nextables { 
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px 0 solid white;
+  background: #FAFAFA;
+  width: 100%;
+}
+.topbar h3 {
+	text-align: left;
+	margin: 0 0 5px 0;
+}
+.topbar {
+	margin-top: 10px;
+}
+#search {
+	float: right;
+	padding: 5px;
+	text-align: center;
+}
+/* front page stuff 
+------------------------------ */
+.indexalbums {
+	width: 100%;
+	padding: 5px;
+}
+.indexalbums .albumthumb {
+	width: 280px;
+	text-align: center;
+	padding: 10px;
+}
+.indexalbums .albumdesc {
+	text-align: left;
+	vertical-align: top;
+}
+.nextables A.next { 
+	float: right;
+	text-align: left; 
+	height: 100%;
+}
+.nextables A.prev { 
+	float: left; 
+	text-align: right; 
+	height: 100%;
+}
+.nextables A:hover, .nextables A:active { 
+	text-decoration: none; 
+}
+#thumbnav td {
+	width: 25%;
+}
+.album, .image {
+	background-color: #F5F6F5;
+	padding: 10px !important;
+}
+.album h4, .image h4 {
+	padding: 5px 0;
+	margin: 0;
+}
+.albumdesc h4 {
+	padding: 10px 0 0 0.5em;
+}
+.pages {
+	margin: 10px 0;
+}
+.imageDisplay {
+	background-color: white;
+	padding: 10px !important;
+}
+.exif {
+	text-align: center;
+	position: relative;
+	width: 30em !important;
+	background-color: #F5F6F5;
+	font-size: 0.9em !important;
+	width: 50%;
+}
+/* general page layout stuff 
+------------------------------ */
+#content {
+	padding: 5px;
+	background:#EEE;
+	color: inherit;
+	min-height: 500px;
+}
+#content li {
+	line-height: 1.4em;
+}	
+#header {
+	line-height: 0.8em;
+}
+p {
+	width: 95%;
+	margin: 0.7em auto;
+	line-height: 1.3em;
+}
+#footer { 
+	margin: 10px 0 0 0;
+	text-align: center;
+	font-size: 0.8em;
+}
+.centeredTable {
+	margin: auto;
+	width: 95%;
+	margin-top: 5px;
+}
+.error {
+	text-align: center;
+	padding: 5px;
+	background: red;
+	color: white; 
+	font-weight: bold;
+	font-size:15px;
+	text-decoration: none;
+}
+.success {
+	text-align: center;
+	padding: 5px;
+	background: green;
+	color: white; 
+	font-weight: bold;
+	font-size:15px;
+	text-decoration: none;
+}
+.error a:hover {
+	text-decoration:none;
+	color: white;
+}
+.error a {
+	text-decoration:underline;
+	color: white;
+}
+/* image formatting stuff 
+------------------------------ */
+img {
+	border: none;
+}
+/* for the link bar along the top
+------------------------------ */
+.headbar {
+	font-size : 11px;
+	width: 100%;
+	border: #999;
+	border-style: solid;
+	border-width: 1px 0;
+	min-height: 2em;
+	background-color: #FAFAFA;
+}
+.headbar a {
+	text-decoration: none;
+}
+.headbar a:hover {
+	text-decoration: underline;
+}
+/* gallery stuff
+------------------------------ */
+.i {
+	background-color: #FAFAFA;
+	padding: 10px !important;
+	vertical-align: top;
+}
+.i h4 {
+	padding: 5px 0;
+	margin: 0;
+}
+.i h4:hover {
+	text-decoration: underline;
+}
+#search_form a {
+	display: none;
+}
+/* lighbox
+------------------------------ */
+#overlay { background-image: url(/zp-core/images/overlay.png); }
+
+* html #overlay {
+	background-color: #000;
+	back\ground-color: transparent;
+	background-image: url(/zp-core/images/blank.gif);
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/zp-core/images/overlay.png", sizingMethod="scale");
+}
+
+#lightbox {
+	background-color:#eee;
+	padding: 10px;
+	border-bottom: 2px solid #666;
+	border-right: 2px solid #666;
+}
+
+#lightboxDetails {
+	font-size: 0.8em;
+	padding-top: 0.4em;
+}
+	
+#lightboxCaption{ float: left; }
+#keyboardMsg{ float: right; }
+#lightbox img{ border: none; } 
+#overlay img{ border: none; }
