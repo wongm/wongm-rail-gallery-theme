@@ -11,7 +11,7 @@ $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die()
 
 $pageTitle = ' - Popular photos';
 include_once('header.php');
-require_once("search-functions.php");
+require_once("functions-search.php");
 //$pageBreadCrumb = "<a href=\"".POPULAR_URL_PATH."\" title=\"Popular photos\">Popular photos</a>";
 $pageBreadCrumb = 'Popular photos';
 ?>

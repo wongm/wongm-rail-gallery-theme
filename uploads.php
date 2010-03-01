@@ -10,7 +10,7 @@
  */ 
 $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
-require_once("wongmrailgallery-functions.php");
+require_once("functions-wongmrailgallery.php");
 
 // set up variables
 $recentPageNumber = $_REQUEST['page'];
@@ -66,7 +66,7 @@ else if ($pageType == '')
 
 $pageTitle = " - $pageTitle";
 include_once('header.php'); 
-require_once("search-functions.php");
+require_once("functions-search.php");
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;

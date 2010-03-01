@@ -236,8 +236,13 @@ function calculateScore($ratings_win, $ratings_view)
 
 function getRandomImageForRatings()
 {
+	global $_zp_current_image;
+	
 	$random = getRandomImages();
-	$toExclude = array('wagons','buses','track-machines','etm-devices','platform-faces');
+	$_zp_current_image = $random;
+	$id = $random->get('id');
+	
+	$toExclude = array('wagons','buses','track-machines','etm-devices','platform-faces', '-bits');
 	$randomFolderName = $random->getAlbum()->getFolder();
 	
 	//old code
@@ -247,7 +252,7 @@ function getRandomImageForRatings()
 	//so that it can be excluded
 	foreach ($toExclude as $folderNameToCheck)
 	{
-		if (strpos($folderNameToCheck, $randomFolderName) !== false)
+		if (strpos($randomFolderName, $folderNameToCheck) !== false)
 		{
 			return getRandomImageForRatings();
 		}

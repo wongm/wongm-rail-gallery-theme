@@ -82,103 +82,7 @@ function getImageAlbumLink() {
 	return "<br/>In album: <a href=\"/$folder\">$title</a>";
 }
 
-function drawIndexMisc()
-{
-	global $_zp_current_album, $albumNumber, $randomImages;
-	
-	$randomFilepath3 = getThumbnailURLFromRandomImagesSet($randomImages[1]);
-	$randomFilepath4 = getThumbnailURLFromRandomImagesSet($randomImages[2]);
-	$randomFilepath5 = getThumbnailURLFromRandomImagesSet($randomImages[3]);
-?>
-<table class="indexalbums">
-<tr class="album">
-	<td class="albumthumb">
-		<a href="<?=POPULAR_URL_PATH?>" title="Popular photos"><img src="<?=$randomFilepath4?>" alt="Popular photos" /></a>
-	 </td><td class="albumdesc">
-		<h4><a href="<?=POPULAR_URL_PATH?>" title="Popular photos">Popular photos</a></h4>
-		<p>The most popular photos - by week, month, all time, or your ratings!</p>
-	</td>
-</tr>
-<tr class="album">
-	<td class="albumthumb">
-		<a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos"><img src="<?=$randomFilepath5?>" alt="Rate my photos" /></a>
-	 </td><td class="albumdesc">
-		<h4><a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos">Rate my photos</a></h4>
-		<p>Photo death match - I show you two random photos, you choose which one you like better.</p>
-	</td>
-</tr>
-<tr class="album">
-	<td class="albumthumb">
-		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath3?>" alt="Random photos" /></a>
-	 </td><td class="albumdesc">
-		<h4><a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos">Random photos</a></h4>
-		<p>A selection of random photos each time you refresh the page</p>
-	</td>
-</tr>
-</table>
-<?
-}	// end function
 
-function drawIndexAlbums($type=null, $site=null)
-{
-	global $_zp_current_album, $albumNumber, $randomImages;
-	
-	echo "<table class=\"indexalbums\">\n";
-	
-	if ($type == 'frontpage')
-	{
-		$randomFilepath = getThumbnailURLFromRandomImagesSet($randomImages[4]);
-?>
-<tr class="album">
-	<td class="albumthumb">
-		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath?>" alt="All albums" /></a>
-	 </td><td class="albumdesc">
-		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
-	 	<p><small><?=getMostRecentImageDate();?></small></p>
-		<p>Every album - <?=$albumNumber?> of them</p>
-	</td>
-</tr>
-<?php 
-	} // end if
-	
-	if ($type == 'dynamiconly' OR $type == 'frontpage')
-	{
-		while (next_album(true))
-		{
-			if ($_zp_current_album->isDynamic())
-			{
-				drawWongmAlbumRow();
-			}
-		}
-	}
-	elseif($type=='nodynamic')	
-	{
-		while (next_non_dynamic_album())
-		{
-			if (!$_zp_current_album->isDynamic())
-			{
-				drawWongmAlbumRow();
-			}
-		}
-	}
-	elseif($type=='recent')	
-	{
-		while (next_non_dynamic_album(false, 'ID', 'DESC'))
-		{
-			drawWongmAlbumRow();
-		}
-	}
-	else
-	{
-		while (next_album())
-		{
-			drawWongmAlbumRow();
-		}
-	}
- ?>
-</table>
-<?
-}
 
 function drawWongmListSubalbums()
 {
@@ -187,7 +91,7 @@ function drawWongmListSubalbums()
 <table class="indexalbums">
 <?php 
 	// neater for when only 4 items
-	if (getNumSubAlbums() == 4)
+	if (getNumAlbums() == 4)
 	{
 		$i = 1;
 	}

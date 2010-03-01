@@ -1,100 +1,17 @@
 <?php
-if(isset($_REQUEST['recent-albums']))
-{
-	$rssType = 'AlbumsRSS';
-	$rssTitle = 'Recent albums';
-	$pageTitle = ' - '.$rssTitle;
-	
-	include_once('header.php'); 
-?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<a href="<?=RECENT_ALBUM_PATH?>" title="Recent albums">Recent albums</a>
-	</td><td><?printSearchForm();?></td></tr>
-</table>
-<p>Occasionally I will add new albums that contain older photos, here are the <?=MAXALBUMS_PERPAGE?> most recently added</p>
-<?
-	drawIndexAlbums('recent');	
-}
-/*
- * draw all albums in the gallery
- * 
- */
-else if(isset($_REQUEST['all-albums']))
-{
-	$pageTitle = ' - All albums';
-	$rssType = 'Gallery';
-	$rssTitle = 'Recent uploads';
-	
-	include_once('header.php'); 
-?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a>
-	</td><td><?printSearchForm();?></td></tr>
-</table>
-<?
-	$prevPageUrl = EVERY_ALBUM_PATH.getPrevPageURL();
-	$nextPageUrl = EVERY_ALBUM_PATH.getNextPageURL();
-	
-	if(hasNextPage() || hasPrevPage())
-	{	?>
-  <table class="nextables"><tr><td>
-    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?=$prevPageUrl;?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-    <?php if (hasNextPage()) { ?> <a class="next" href="<?=$nextPageUrl;?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-  </td></tr></table>
-  <? }
-  
-	drawIndexAlbums('nodynamic');
-	
-	if(hasNextPage() || hasPrevPage())
-	{
-?>
-<table class="nextables"><tr><td>
-    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?=$prevPageUrl;?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-    <?php if (hasNextPage()) { ?> <a class="next" href="<?=$nextPageUrl;?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-</td></tr></table>
-<div class="pages">
-<?php drawGalleryPageNumberLinks(EVERY_ALBUM_PATH); ?>
-</div>
-<? 
-	}
-}
-/*
- * draw all dynamic albums in the gallery
- * 
- */
-else if(isset($_REQUEST['by-theme']))
-{
-	$pageTitle = ' - Albums by theme';
-	$rssType = 'Gallery';
-	$rssTitle = 'Recent uploads';
-	
-	include_once('header.php'); 
-?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<a href="/gallery" title="Albums by theme">Albums by theme</a></td>
-	<td><?printSearchForm();?></td></tr>
-</table>
-<?
-	drawIndexAlbums('dynamiconly');
-}
-/*
- * plain home page, dynamic albums plus other bits up the top
- * 
- */
-else
-{
-	$pageTitle = ' - Welcome';
-	$rssType = 'Gallery';
-	$rssTitle = 'Recent uploads';
-	
-	include_once('header.php');
-	global $randomImages;
-	
-	$randomImages = getRandomImagesSet(5);
-	$filepath = getThumbnailURLFromRandomImagesSet($randomImages[0]);
+
+$pageTitle = ' - Welcome';
+$rssType = 'Gallery';
+$rssTitle = 'Recent uploads';
+
+include_once('header.php');
+require_once("functions-random.php");
+
+global $_randomImages, $_randomImageAttempts;
+
+$_randomImageAttempts = 0;
+$_randomImages = getRandomImagesSet(5);
+$filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; Home</td>
@@ -112,7 +29,7 @@ else
 	</td>
 </tr>
 <?					
-	while (next_news() AND $i++ < 2): ;?>
+while (next_news() AND $i++ < 2): ;?>
 <tr class="album">
  	<? if ($i == 1) { ?>
 	<td class="albumthumb" rowspan="2" valign="top"></td>
@@ -126,15 +43,60 @@ else
     </td>
 </tr>    
 <?php
-	endwhile; 
-	echo "</table>\n";
 	
-	echo "<h3>Sliced and diced</h3>\n";
-	drawIndexMisc();
+endwhile; 
+echo "</table>\n";
+
+echo "<h3>Sliced and diced</h3>\n";
+
+$randomFilepath3 = getThumbnailURLFromRandomImagesSet($_randomImages[1]);
+$randomFilepath4 = getThumbnailURLFromRandomImagesSet($_randomImages[2]);
+$randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
+?>
+<table class="indexalbums">
+<tr class="album">
+	<td class="albumthumb">
+		<a href="<?=POPULAR_URL_PATH?>" title="Popular photos"><img src="<?=$randomFilepath4?>" alt="Popular photos" /></a>
+	 </td><td class="albumdesc">
+		<h4><a href="<?=POPULAR_URL_PATH?>" title="Popular photos">Popular photos</a></h4>
+		<p>The most popular photos - by week, month, all time, or your ratings!</p>
+	</td>
+</tr>
+<tr class="album">
+	<td class="albumthumb">
+		<a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos"><img src="<?=$randomFilepath5?>" alt="Rate my photos" /></a>
+	 </td><td class="albumdesc">
+		<h4><a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos">Rate my photos</a></h4>
+		<p>Photo death match - I show you two random photos, you choose which one you like better.</p>
+	</td>
+</tr>
+<tr class="album">
+	<td class="albumthumb">
+		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath3?>" alt="Random photos" /></a>
+	 </td><td class="albumdesc">
+		<h4><a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos">Random photos</a></h4>
+		<p>A selection of random photos each time you refresh the page</p>
+	</td>
+</tr>
+</table>
+<?php
+
+// dynamic albums
+echo "<h3>Albums</h3>\n";
+
+/*
+echo $sql = " SELECT `title`, `desc`, hitcounter, hitcounter_month, hitcounter_week, thumb  FROM " . prefix('albums') . "
+		WHERE folder LIKE '%.album' ORDER BY title";
+		
+	$dynamicAlbumResults = query_full_array( $sql );
 	
-	// dynamic albums
-	echo "<h3>Albums</h3>\n";
-	drawIndexAlbums('frontpage');
-}
+echo "<pre>";
+	foreach ($dynamicAlbumResults as $album)
+	{
+		print_r($album);
+	}
+	echo "</pre>";
+*/
+drawIndexAlbums('frontpage');
 include_once('footer.php');
 ?>

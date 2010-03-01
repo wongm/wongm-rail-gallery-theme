@@ -2,7 +2,8 @@
 
 $pageTitle = ' - Random photos';
 include_once('header.php'); 
-require_once("search-functions.php");
+require_once("functions-search.php");
+require_once("functions-random.php");
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;

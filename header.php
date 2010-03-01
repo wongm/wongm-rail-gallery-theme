@@ -2,7 +2,7 @@
 
 // don't display errors
 $server = $_SERVER['HTTP_HOST'];
-if ($server == 'y' OR $server == 'localhost')
+if ($server == 'y' OR $server == 'localhost' OR $server == 'wongm')
 {
 	$editablelinkforadmin = true;
 	//error_reporting(E_ALL);
@@ -10,11 +10,11 @@ if ($server == 'y' OR $server == 'localhost')
 else
 {
 	$editablelinkforadmin = false;
-	//error_reporting(0);
+	error_reporting(0);
 }
 
-require_once("wongmrailgallery-functions.php");
-include_once('gallery-formatting-functions.php');
+require_once("functions-wongmrailgallery.php");
+include_once('functions-gallery-formatting.php');
 
 $albumNumber = array_shift(query_single_row("SELECT count(*) FROM ".prefix('albums')));//getNumAlbums();
 $photosArray = query_single_row("SELECT count(*) FROM ".prefix('images'));

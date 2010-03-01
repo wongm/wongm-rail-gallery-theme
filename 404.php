@@ -36,7 +36,7 @@ header("Status: 404 Not Found");
 $startTime = array_sum(explode(" ",microtime())); 
 $pageTitle = ' - 404 Page Not Found Error';
 include_once('header.php');
-include_once('search-functions.php');
+include_once('functions-search.php');
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found Error

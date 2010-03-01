@@ -55,68 +55,7 @@ function getFullImageLinkURL() {
     }
 }
 
-function drawRandomPage()
-{
-	echo "<table class=\"centeredTable\">";
-	$i=0;
-	$j=0;
-	
-	while ($i < MAXIMAGES_PERRANDOM)
-	{
-		echo "<tr>";
-		
-		while ($j < 3)
-		{
-			$randomImage = getRandomImages();
-			$randomImageURL = getURL($randomImage);
-			$photoTitle = $randomImage->getTitle();
-			$photoDate = strftime(TIME_FORMAT, strtotime($randomImage->getDateTime()));
-			$imageCode = "<img src='".$randomImage->getThumb()."' alt='".$photoTitle."'>";
-			
-			$albumForPhoto = $randomImage->getAlbum();
-			$photoAlbumTitle = $albumForPhoto->getTitle();
-			$photoPath = $albumForPhoto->getAlbumLink();
-					
-			if ($photoDesc == '')
-			{
-				$photoDesc = $photoTitle;
-			}
-			else
-			{
-				$photoDesc = 'Description: '.$photoDesc;
-			}
-?>
-<td class="i" width="33%"><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$imageCode?></a>
-	<h4><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$photoTitle; ?></a></h4>
-	<small><?=$photoDate?><? printHitCounter($randomImage); ?></small><br/>
-	In Album: <a href="http://<?=$_SERVER['HTTP_HOST'].$photoPath; ?>"><?=$photoAlbumTitle; ?></a>
-</td>
-<?
-			$j++;
-			$i++;
-		}	//end while for cols
-		$j=0;
-		echo "</tr>";
-	}	//end while for rows
-	
-	echo "</table>";
-}	
 
-/*
-function getRecentImageLink()
-{
-	return "<h1>HOO</h1>";
-
-	$recentSQL = "SELECT " . prefix('images') . ".filename, " . prefix('images') . ".date, " . prefix('albums') . ".folder 
-		FROM " . prefix('images') . ", " . prefix('albums') . " 
-		WHERE zen_images.albumid = zen_albums.id 
-		ORDER BY zen_images.id DESC LIMIT 0 , 1";
-	$lastImage = query_full_array($recentSQL);
-	$recenturl = "http://".$_SERVER['HTTP_HOST'].'/'.$lastImage[0]['folder'].
-		'/image/'.getOption('thumb_size').'/'.$lastImage[0]['filename'];		
-	return "<img src=\"$recenturl\" title=\"Recent Uploads\" alt=\"Recent Uploads\" />";
-}
-*/
 
 function getMostRecentImageDate()
 {
@@ -153,12 +92,6 @@ function getNextImageTitle() {
 	return $nextimg->getTitle();
 }
 
-function getImageEXIFData()
-{
-	return getImageMetaData();
-}
-
-
 /**
  * Prints the exif data of the current image.
  *
@@ -166,7 +99,7 @@ function getImageEXIFData()
 function printEXIFData() 
 {
 	global $_zp_current_image;
-	$result = getImageEXIFData();
+	$result = getImageMetaData();
 	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
 	$ratingsText = formatRatingCounter(array(
 		$_zp_current_image->get('ratings_win'), 
@@ -436,7 +369,7 @@ function drawWongmGridSubalbums()
 <table class="centeredTable">
 <?php 
 	// neater for when only 4 items
-	if (getNumSubAlbums() == 4)
+	if (getNumAlbums() == 4)
 	{
 		$i = 1;
 	}
@@ -594,7 +527,7 @@ function printMyAdminToolbox($context=null, $id='admin')
 			if ($_zp_loggedin & (ADMIN_RIGHTS | ALBUM_RIGHTS)) {
 				// admin has edit rights so he can sort the gallery (at least those albums he is assigned)
 				echo "<li>";
-				printSortableGalleryLink(gettext('Sort gallery'), gettext('Manual sorting'));
+				printLink($zf . '/admin-edit.php?page=edit', gettext("Sort Gallery"), NULL, NULL, NULL);
 				echo "</li>\n";
 			}
 			if ($_zp_loggedin & (ADMIN_RIGHTS | UPLOAD_RIGHTS)) {
@@ -618,9 +551,20 @@ function printMyAdminToolbox($context=null, $id='admin')
 				echo "<li>";
 				printLink(WEBPATH.'/' . ZENFOLDER . '/admin-edit.php?page=edit&tab=imageinfo&album=' . urlencode($_zp_current_album->name), 'Move images', NULL, NULL, NULL);
 				if (!$_zp_current_album->isDynamic()) {
-					echo "<li>";
-					printSortableAlbumLink(gettext('Sort album'), gettext('Manual sorting'));
-					echo "</li>\n";
+					if ($_zp_current_album->getNumAlbums()) {
+						?>
+						<li>
+						<?php echo printLink($zf . '/admin-edit.php?page=edit&album=' . urlencode($albumname).'&tab=subalbuminfo', gettext("Sort subalbums"), NULL, NULL, NULL); ?>
+						</li>
+						<?php
+					}
+					if ($_zp_current_album->getNumImages()>0) {
+						?>
+						<li>
+						<?php echo printLink($zf . '/admin-albumsort.php?page=edit&album=' . urlencode($albumname).'&tab=sort', gettext("Sort album images"), NULL, NULL, NULL); ?>
+						</li>
+						<?php
+					}
 				}
 				// and a delete link
 				echo "<li><a href=\"javascript: confirmDeleteAlbum('".$zf."/admin-edit.php?page=edit&amp;action=deletealbum&amp;album=" .
@@ -933,43 +877,66 @@ function updateHitCounter($hitCounterAllTime, $hitCounterMonth, $hitCounterWeek,
 	return $toreturn;
 }
 
-
-/**
- * Returns a randomly selected image from the gallery. (May be NULL if none exists)
- * @param bool $daily set to true and the picture changes only once a day.
- *
- * @return object
- */
-function getRandomImagesSet($toReturn = 5) {
-	global $_zp_gallery;
-	
-	$SQLwhere = prefix('images') . ".show=1 AND (" . prefix('images') . ".hitCounter > " . HITCOUNTER_THRESHOLD . " AND " . prefix('images') . ".ratings_score > " . RATINGS_THRESHOLD . ")";
-	
-	$offset_result = mysql_query( " SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM " . prefix('images') . " WHERE " . $SQLwhere);
-	$offset_row = mysql_fetch_object( $offset_result );
-	$offset = $offset_row->offset;
-	
-	$sql = " SELECT " . prefix('images') . ".title, " . prefix('images') . ".filename, " . prefix('albums') . ".folder
-		FROM " . prefix('images') . "
-		INNER JOIN " . prefix('albums') . " ON " . prefix('images') . ".albumid = " . prefix('albums') . ".id 
-		WHERE " . $SQLwhere . " 
-		LIMIT $offset, $toReturn ";
-	$randomImagesResult = query_full_array( $sql );
-	$imageCount = count($randomImagesResult);
-	
-	if ($imageCount != $toReturn)
-	{
-		return getRandomImagesSet($toReturn);
-	}
-	
-	return $randomImagesResult;
-}
-
-function getThumbnailURLFromRandomImagesSet($array)
+function drawIndexAlbums($type=null, $site=null)
 {
-	return '/'.$array['folder']."/image/thumb/".$array['filename'];
+	global $_zp_current_album, $albumNumber, $_randomImages;
+	
+	echo "<table class=\"indexalbums\">\n";
+	
+	if ($type == 'frontpage')
+	{
+		$randomFilepath = getThumbnailURLFromRandomImagesSet($_randomImages[4]);
+?>
+<tr class="album">
+	<td class="albumthumb">
+		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath?>" alt="All albums" /></a>
+	 </td><td class="albumdesc">
+		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
+	 	<p><small><?=getMostRecentImageDate();?></small></p>
+		<p>Every album - <?=$albumNumber?> of them</p>
+	</td>
+</tr>
+<?php 
+	} // end if
+	
+	if ($type == 'dynamiconly' OR $type == 'frontpage')
+	{
+		while (next_album(true))
+		{
+			if ($_zp_current_album->isDynamic())
+			{
+				drawWongmAlbumRow();
+			}
+		}
+	}
+	elseif($type=='nodynamic')	
+	{
+		while (next_non_dynamic_album())
+		{
+			if (!$_zp_current_album->isDynamic())
+			{
+				drawWongmAlbumRow();
+			}
+		}
+	}
+	elseif($type=='recent')	
+	{
+		while (next_non_dynamic_album(false, 'ID', 'DESC'))
+		{
+			drawWongmAlbumRow();
+		}
+	}
+	else
+	{
+		while (next_album())
+		{
+			drawWongmAlbumRow();
+		}
+	}
+ ?>
+</table>
+<?
 }
-
 
 	
 ?>
