@@ -169,7 +169,7 @@ function drawGalleryPageNumberLinks($url='')
 	
 	if ($current > 3 AND $total > 7)
 	{
-		echo "\n <a href=\"".$url.getPageURL(1)."\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
+		echo "\n <a href=\"".$url.getMyPageURL(1)."\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
 		
 		if ($current > 4)
 		{
@@ -185,7 +185,7 @@ function drawGalleryPageNumberLinks($url='')
 		}
 		else
 		{
-			echo '<a href="'.$url.getPageURL($i).'"\" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
+			echo '<a href="'.$url.getMyPageURL($i).'"\" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
 		}
 		echo "&nbsp;";
 	}
@@ -196,9 +196,14 @@ function drawGalleryPageNumberLinks($url='')
 			echo "...&nbsp;";
 		}
 		
-		echo "<a href=\"".$url.getPageURL($total)."\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
+		echo "<a href=\"".$url.getMyPageURL($total)."\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
 	}
 	echo '</p>';
+}
+
+function getMyPageURL($i)
+{
+	return str_replace('/gallery/everything/', '/gallery/everything/page/', getPageURL($i));
 }
 
 /**
