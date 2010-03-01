@@ -7,6 +7,7 @@ $rssTitle = 'Recent uploads';
 include_once('header.php');
 require_once("functions-random.php");
 
+
 global $_randomImages, $_randomImageAttempts;
 
 $_randomImageAttempts = 0;
@@ -83,20 +84,52 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 
 // dynamic albums
 echo "<h3>Albums</h3>\n";
+echo "<table class=\"indexalbums\">\n";
 
-/*
-echo $sql = " SELECT `title`, `desc`, hitcounter, hitcounter_month, hitcounter_week, thumb  FROM " . prefix('albums') . "
+global $albumNumber;
+
+$randomFilepath6 = getThumbnailURLFromRandomImagesSet($_randomImages[4]);
+?>
+<tr class="album">
+	<td class="albumthumb">
+		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath6?>" alt="All albums" /></a>
+	 </td><td class="albumdesc">
+		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
+	 	<p><small><?=getMostRecentImageDate();?></small></p>
+		<p>Every album - <?=$albumNumber?> of them</p>
+	</td>
+</tr>
+<?php
+
+$sql = " SELECT `title`, `desc`, `folder`, thumb FROM " . prefix('albums') . "
 		WHERE folder LIKE '%.album' ORDER BY title";
-		
-	$dynamicAlbumResults = query_full_array( $sql );
+$dynamicAlbumResults = query_full_array( $sql );
+
+foreach ($dynamicAlbumResults as $album)
+{
+	$imgURL = str_replace('.jpg', '_250_thumb.jpg', '/cache'.$album['thumb']);
 	
-echo "<pre>";
-	foreach ($dynamicAlbumResults as $album)
+?>
+<tr class="album">
+	<td class="albumthumb">
+		<a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags($album['title']);?>">
+		<img src="<?=$imgURL; ?>" alt="<?php echo $album['title']; ?>" title="<?php echo $album['title']; ?>" /></a>
+	</td><td class="albumdesc">
+		<h4><a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo $album['title']; ?>"><?php echo $album['title']; ?></a></h4>
+		<p><?php echo $album['desc']; ?></p>
+<? 	if (zp_loggedin())
 	{
-		print_r($album);
-	}
-	echo "</pre>";
-*/
-drawIndexAlbums('frontpage');
+		echo "<p>";
+		echo printLink($zf . '/zp-core/admin-edit.php?page=edit&album=' . urlencode($album['folder']), gettext("Edit details"), NULL, NULL, NULL);
+		echo '</p>';
+	}		
+?>
+	</td>
+
+</tr>
+<?
+}
+
+echo "</table>\n";
 include_once('footer.php');
 ?>
