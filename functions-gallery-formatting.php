@@ -169,7 +169,7 @@ function drawGalleryPageNumberLinks($url='')
 	
 	if ($current > 3 AND $total > 7)
 	{
-		echo "\n <a href=\"".$url.getMyPageURL(1)."\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
+		echo "\n <a href=\"".$url.getMyPageURL(getPageURL(1))."\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
 		
 		if ($current > 4)
 		{
@@ -185,7 +185,7 @@ function drawGalleryPageNumberLinks($url='')
 		}
 		else
 		{
-			echo '<a href="'.$url.getMyPageURL($i).'"\" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
+			echo '<a href="'.$url.getMyPageURL(getPageURL($i)).'"\" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
 		}
 		echo "&nbsp;";
 	}
@@ -196,14 +196,15 @@ function drawGalleryPageNumberLinks($url='')
 			echo "...&nbsp;";
 		}
 		
-		echo "<a href=\"".$url.getMyPageURL($total)."\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
+		echo "<a href=\"".$url.getMyPageURL(getPageURL($total))."\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
 	}
 	echo '</p>';
 }
 
-function getMyPageURL($i)
+function getMyPageURL($defaultURL)
 {
-	return str_replace('/gallery/everything/', '/gallery/everything/page/', getPageURL($i));
+	$defaultURL = str_replace('/page/search/', '/gallery/search/', $defaultURL);
+	return str_replace('/gallery/everything/', '/gallery/everything/page/', $defaultURL);
 }
 
 /**
@@ -284,8 +285,8 @@ function drawWongmAlbumNextables($showpagelist)
   	{
 ?>
 <table class="nextables"><tr><td>
-	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
+	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getMyPageURL(getPrevPageURL());?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
+	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getMyPageURL(getNextPageURL());?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
 </td></tr></table>
 <?php 
 		if ($showpagelist)
@@ -556,7 +557,7 @@ function printMyAdminToolbox($context=null, $id='admin')
 				echo "<li>";
 				printLink(WEBPATH.'/' . ZENFOLDER . '/admin-edit.php?page=edit&tab=imageinfo&album=' . urlencode($_zp_current_album->name), 'Move images', NULL, NULL, NULL);
 				if (!$_zp_current_album->isDynamic()) {
-					if ($_zp_current_album->getNumAlbums()) {
+					if ($_zp_current_album->getAlbums()) {
 						?>
 						<li>
 						<?php echo printLink($zf . '/admin-edit.php?page=edit&album=' . urlencode($albumname).'&tab=subalbuminfo', gettext("Sort subalbums"), NULL, NULL, NULL); ?>
@@ -884,25 +885,9 @@ function updateHitCounter($hitCounterAllTime, $hitCounterMonth, $hitCounterWeek,
 
 function drawIndexAlbums($type=null, $site=null)
 {
-	global $_zp_current_album, $albumNumber, $_randomImages;
+	global $_zp_current_album;
 	
 	echo "<table class=\"indexalbums\">\n";
-	
-	if ($type == 'frontpage')
-	{
-		$randomFilepath = getThumbnailURLFromRandomImagesSet($_randomImages[4]);
-?>
-<tr class="album">
-	<td class="albumthumb">
-		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath?>" alt="All albums" /></a>
-	 </td><td class="albumdesc">
-		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
-	 	<p><small><?=getMostRecentImageDate();?></small></p>
-		<p>Every album - <?=$albumNumber?> of them</p>
-	</td>
-</tr>
-<?php 
-	} // end if
 	
 	if ($type == 'dynamiconly' OR $type == 'frontpage')
 	{
