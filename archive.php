@@ -3,9 +3,14 @@
 $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 $pageTitle = ' - Archive';
 
-if (isset($_GET['month']))
+if (isset($_GET['page']))
+	$showSingleMonth = true;
+else
+	$showSingleMonth = false;
+
+if ($showSingleMonth)
 {
-	$month = $_GET['month'];
+	$month = $_GET['page'];
 	$splitmonth = split('-', $month);
 	
 	if (is_numeric($splitmonth[0]))
@@ -33,7 +38,7 @@ include_once('header.php');
 </table>
 <div id="archive">
 <?	
-	if (isset($_GET['month']) and $month != '')
+	if ($showSingleMonth and $month != '')
 	{
 		printAllDays($month);
 	}
