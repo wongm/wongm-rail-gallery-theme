@@ -16,15 +16,8 @@ if (zp_loggedin())
 echo "$photosNumber images in $albumNumber albums.<br/>";
 ?>
 Copyright 2005 - <?=date('Y')?> &copy; Marcus Wong except where otherwise noted.<br/><br/>
-<script type="text/javascript" src="http://s40.sitemeter.com/js/counter.js?site=s40wongmgalleryextras">
-</script>
-<noscript>
-<a href="http://s40.sitemeter.com/stats.asp?site=s40wongmgalleryextras" target="_top">
-<img src="http://s40.sitemeter.com/meter.asp?site=s40wongmgalleryextras" alt="Site Meter" border="0"/></a>
-</noscript>
 </div>
-</td></tr>
-</table>
+</div>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

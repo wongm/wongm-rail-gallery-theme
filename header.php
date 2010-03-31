@@ -41,11 +41,9 @@ if ($rssType != "" AND $rssTitle != "")
 </head>
 <body>
 <?php printMyAdminToolbox(); ?>
-<table id="container" width="100%" cellspacing="5">
-<tr><td id="header">
+<div id="container">
+<div id="header">
 <h1><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a></h1>
-</td></tr>
-<tr><td valign="top">
 <table class="buttonbar"><tr class="sitemenu">
 <td class="menu"><a href="/news" alt="News" title="News">News</a></td>
 <td class="menu"><a href="<?=EVERY_ALBUM_PATH?>" alt="Show all albums" title="Show all albums">All albums</a></td>
@@ -57,4 +55,5 @@ if ($rssType != "" AND $rssTitle != "")
 <td class="menu"><a href="<?=ARCHIVE_URL_PATH?>" alt="View photos in the order they were taken" title="View photos in the order they were taken">Archives</a></td>
 <td class="menu"><a href="<?=CONTACT_URL_PATH?>" alt="Want to drop me a line?" title="Want to drop me a line?">Contact me</a></td>
 </td></tr></table>
+</div>
 <div id="content">
