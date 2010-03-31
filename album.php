@@ -28,9 +28,10 @@ include_once('header.php');
   		drawWongmGridImages();
 	}	
 	
-	drawWongmAlbumNextables(true, getAlbumLinkURL().'page/');
-	echo "<h4>Tags</h4>";
-	printTags('links', '', '', '', false);
+	drawWongmAlbumNextables(false, getAlbumLinkURL().'page/');
+
+	printPageList();
+	printTags('links', '<h4>Tags</h4>', '', '', false);
 	
 	echo "<p>".formatHitCounter(incrementAndReturnHitCounter('album'), false)."</p>";
 	include_once('footer.php');
