@@ -11,25 +11,32 @@ include_once('header.php');?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a>
 		<?php printNewsIndexURL("News"," &raquo; "); ?>
-		<?php printCurrentNewsCategory(" &raquo; Category - "); ?>
+		<?php printCurrentNewsCategory(" &raquo; "); ?>
 		<?php printNewsTitle(" &raquo; "); ?>
 	</td><td><?printSearchForm();?></td></tr>
 </table>
-<div id="news">
 <?php 
 
 // single news article
 if(is_NewsArticle()) { 
-	drawNewsNextables();
 ?>
+<div id="sidebar">
+	<?php include("sidebar.php"); ?>
+</div>
+<div id="news">
   <h4><?php printNewsTitle(); ?></h4> 
   <div class="newsarticlecredit"><span class="newsarticlecredit-left"><?php printNewsDate();?> | <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> | </span> <?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?></div>
-  <?php printNewsContent(); ?>
+  <p><?php printNewsContent(); ?></p>
 <?php 
 // COMMENTS TEST
-if (getOption('zenpage_comments_allowed')) { ?>
+
+
+	drawNewsNextables();
+	echo "<p>Viewed ".getHitcounter()." times.</p>";
+	
+if (getOption('comment_form_articles')) { ?>
 				<div id="comments">
-		<?php $num = getCommentCount(); echo ($num == 0) ? "" : ("<hr/><h4>".gettext("Comments")." ($num)</h4>"); ?>
+		<?php $num = getCommentCount(); echo ($num == 0) ? "" : ("<h5>".gettext("Comments")." ($num)</h5>"); ?>
 			<?php while (next_comment()){  ?>
 			<div class="comment">
 				<div class="commentmeta">
@@ -39,9 +46,7 @@ if (getOption('zenpage_comments_allowed')) { ?>
 					<?php echo getCommentBody();?>
 				</div>
 				<div class="commentdate">
-					<?php echo getCommentDate();?>
-					,
-					<?php echo getCommentTime();?>
+					<?php echo getCommentDateTime();?>
 								<?php printEditCommentLink(gettext('Edit'), ' | ', ''); ?>
 				</div>
 			</div>
@@ -50,7 +55,7 @@ if (getOption('zenpage_comments_allowed')) { ?>
 			<?php if (zenpageOpenedForComments()) { ?>
 			<div class="imgcommentform">
 							<!-- If comments are on for this image AND album... -->
-				<hr/><h4><?php echo gettext("Add a comment:"); ?></h4>
+				<h5><?php echo gettext("Add a comment:"); ?></h5>
 				<form id="commentform" action="#" method="post">
 				<div><input type="hidden" name="comment" value="1" />
 							<input type="hidden" name="remember" value="1" />
@@ -58,12 +63,11 @@ if (getOption('zenpage_comments_allowed')) { ?>
 								printCommentErrors();
 								$stored = getCommentStored();
 								?>
-					<table border="0">
+					<table border="0" width="100%">
 						<tr>
-							<td width="20em"><label for="name"><?php echo gettext("Name:"); ?></label>
-								(<input type="checkbox" name="anon" value="1"<?php if ($stored['anon']) echo " CHECKED"; ?> /> <?php echo gettext("don't publish"); ?>)
+							<td width="60px"><label for="name"><?php echo gettext("Name:"); ?></label>
 							</td>
-							<td><input type="text" id="name" name="name" size="40" value="<?php echo $stored['name'];?>" class="inputbox" />
+							<td><input type="text" id="name" name="name" size="40" value="<?php echo $stored['name'];?>" class="inputbox" />	(<input type="checkbox" name="anon" value="1"<?php if ($stored['anon']) echo " CHECKED"; ?> /> <?php echo gettext("don't publish"); ?>)
 							</td>
 						</tr>
 						<tr>
@@ -98,17 +102,19 @@ if (getOption('zenpage_comments_allowed')) { ?>
 
 </div><?php } // comments allowed - end
 
-	drawNewsNextables();
-	echo "<p>Viewed ".zenpageHitcounter('news')." times.</p>";
-
 } else {
 // news article loop
 
 drawNewsFrontpageNextables();
-
+?>
+<div id="sidebar">
+	<?php include("sidebar.php"); ?>
+</div>
+<div id="news">
+<?php
   while (next_news()): ;?> 
- <div class="newsarticle"> 
-    <h4><?php printNewsTitleLink(); ?></h4>
+	<div class="newsarticle"> 
+    	<h4><?php printNewsTitleLink(); ?></h4>
         <div class="newsarticlecredit">
         <span class="newsarticlecredit-left">
         <p><small><?php printNewsDate();?></small></p>
@@ -118,16 +124,16 @@ if(is_GalleryNewsType()) {
 }
 ?>
 		</div>
-    <p><?php printNewsContent(); ?>
-    <p><?php printNewsReadMoreLink(); ?></p>
-    <?php printCodeblock(1); ?></p>
-    
- </div>	
+    	<p><?php printNewsContent(); ?>
+    	<p><?php printNewsReadMoreLink(); ?></p>
+    	<?php printCodeblock(1); ?></p>
+ 	</div>	
 <?php
   endwhile; 
   drawNewsFrontpageNextables();
 } 
-
-echo '</div>';
+?>
+</div></div>
+<?
 include_once('footer.php'); 
 ?>

@@ -215,6 +215,9 @@ a:hover {
 }
 /* general page layout stuff 
 ------------------------------ */
+#container {
+	width: 100%;
+}
 #content {
 	padding: 5px;
 	background:#EEE;
@@ -223,8 +226,8 @@ a:hover {
 }
 #content li {
 	line-height: 1.4em;
-}	
-#header {
+}
+#header h1 {
 	line-height: 0.8em;
 }
 p {
@@ -290,6 +293,41 @@ img {
 .headbar a:hover {
 	text-decoration: underline;
 }
+/* news stuff
+------------------------------ */
+#sidebar {
+	background: #FAFAFA none repeat scroll 0 0;
+	clear:none;
+	float:right;
+	top: 5em;
+	padding: 5px 10px;
+	margin: 5px;
+}
+#sidebar ul {
+	list-style-type: none; 
+	padding-left: 10px;
+}
+#sidebar li {
+	line-height: 1.8em;
+}
+#sidebar h4 {
+	margin-top: 2px;
+}
+.newsarticlecredit ul, .newsarticlecredit li {
+	display: inline;
+	padding: 0px;
+}
+.newsarticlecredit {
+	font-size: smaller;
+}
+#news p {
+	width: 100%;
+}
+#news {
+	padding-left: 5px;
+}
+
+
 /* gallery stuff
 ------------------------------ */
 .i {
@@ -334,3 +372,43 @@ img {
 #keyboardMsg{ float: right; }
 #lightbox img{ border: none; } 
 #overlay img{ border: none; }
+
+/* Comments
+------------------------------ */
+#comments h5 {
+	margin: 10px 0;
+	display: block;
+}
+#comments {
+	clear: both;
+	width: 800px;
+	margin-top: 10px;
+	padding: 0;
+}
+#comments h3 {
+	font-size: 1.2em;
+	line-height: 1.6em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	letter-spacing: 0;
+}
+.error {
+	color: #C33;
+	font-weight: bold;
+}
+.comment {
+	padding: 5px 8px 12px 8px;
+	background: #FAFAFA;
+	margin-bottom: 12px;
+
+}
+.commentmeta {
+	margin-bottom: 12px;
+}
+.commentauthor {
+	font-weight: bold;
+}
+.commentdate {
+	margin-top: 12px;
+	font-size: 85%;
+}
