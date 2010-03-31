@@ -93,7 +93,7 @@ else
 	$wording = "You ";
 }
 ?>
-<p><?=$wording?>can use <a href="<?=SEARCH_URL_PATH?>">Search</a> to find what you are looking for. </p> 
+<p><?=$wording?>can use <a href="<?=SEARCH_URL_PATH?>/<?=$term?>">Search</a> to find what you are looking for. </p> 
 <p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="<?=CONTACT_URL_PATH?>">Contact Me</a>.</p>
 <?php include_once('footer.php');
 
