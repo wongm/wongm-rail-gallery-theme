@@ -43,6 +43,9 @@ include_once('header.php'); ?>
   </td></tr></table>
 <?php } ?>
 <?
-printForumLink();
+if(function_exists("printImageMarkupFields"))
+{	
+	printImageMarkupFields();
+}
 include_once('footer.php'); 
 ?>
