@@ -59,16 +59,6 @@ $popularImageText['ratings']['url'] = RATINGS_URL_PATH;
 $popularImageText['ratings']['title'] = 'Popular photos - Highest rated';
 $popularImageText['ratings']['text'] = 'Highest rated';
 
-function printSearchBreadcrumb()
-{
-	printSearchForm();
-}
-
-function drawPageNumberLinks($index, $totalimg, $max, $url)
-{
-	return drawSearchPageNumberLinks($index, $totalimg, $max, $url);
-}
-
 /**
  * Returns the raw title of the current image.
  *
@@ -226,8 +216,7 @@ function printAllDays($month) {
 
 		if ($lastyear != $year) {
 			$lastyear = $year;
-			if($nr != 1) {  echo "</ul>\n</li>\n";}
-			echo "<li $yearid>$month $year\n<ul $monthid>\n";
+			if($nr != 1) {  echo "</ul>\n";}
 		}
 		$searchURL = SEARCH_URL_PATH.'/archive/'.substr($key, 0, 11);
 		echo "<li><a href=\"".htmlspecialchars($searchURL)."\" rel=\"nofollow\">$month $day ($val photos)</a></li>\n";
