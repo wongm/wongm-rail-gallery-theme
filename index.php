@@ -5,8 +5,6 @@ $rssType = 'Gallery';
 $rssTitle = 'Recent uploads';
 
 include_once('header.php');
-require_once("functions-random.php");
-
 
 global $_randomImages, $_randomImageAttempts;
 
@@ -132,4 +130,44 @@ foreach ($dynamicAlbumResults as $album)
 
 echo "</table>\n";
 include_once('footer.php');
+
+
+/**
+ * Returns a randomly selected image from the gallery. (May be NULL if none exists)
+ * @param bool $daily set to true and the picture changes only once a day.
+ *
+ * @return object
+ */
+function getRandomImagesSet($toReturn = 5) {
+	global $_zp_gallery;
+	global $_randomImageAttempts;
+	
+	$SQLwhere = prefix('images') . ".show=1 AND (" . prefix('images') . ".hitCounter > " . HITCOUNTER_THRESHOLD . " AND " . prefix('images') . ".ratings_score > " . RATINGS_THRESHOLD . ")";
+	
+	$offset_result = mysql_query( " SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM " . prefix('images') . " WHERE " . $SQLwhere);
+	$offset_row = mysql_fetch_object( $offset_result );
+	$offset = $offset_row->offset;
+	
+	$sql = " SELECT " . prefix('images') . ".title, " . prefix('images') . ".filename, " . prefix('albums') . ".folder
+		FROM " . prefix('images') . "
+		INNER JOIN " . prefix('albums') . " ON " . prefix('images') . ".albumid = " . prefix('albums') . ".id 
+		WHERE " . $SQLwhere . " 
+		LIMIT $offset, $toReturn ";
+		
+	$randomImagesResult = query_full_array( $sql );
+	$imageCount = count($randomImagesResult);
+	
+	if ($imageCount != $toReturn AND $_randomImageAttempts < 5)
+	{
+		$_randomImageAttempts++;
+		return getRandomImagesSet($toReturn);
+	}
+	
+	return $randomImagesResult;
+}
+
+function getThumbnailURLFromRandomImagesSet($array)
+{
+	return '/'.$array['folder']."/image/thumb/".$array['filename'];
+}
 ?>
