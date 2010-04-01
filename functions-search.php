@@ -18,7 +18,7 @@
 //*****************************************************************************/
 
 
-function galleryPageNavigationLinks($index, $totalimg, $url)
+function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 {
 	$page = $index/MAXIMAGES_PERPAGE;
 	$url = fixNavigationUrl($url);
@@ -26,9 +26,9 @@ function galleryPageNavigationLinks($index, $totalimg, $url)
 	if ($totalimg == MAXIMAGES_PERPAGE OR $index > 0)
 	{
 		?>
-<table class="nextables"><tr><td>
+<table class="nextables"><tr id="pagelinked"><td>
 	<?
-	}
+	
 	if ($index > 0)
 	{	
 		if ($index-MAXIMAGES_PERPAGE < 0)
@@ -39,13 +39,18 @@ function galleryPageNavigationLinks($index, $totalimg, $url)
 <a class="prev" href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
 <?
 	}
+?>
+	</td><td>
+<?php
+	drawPageNumberLinks($index, $maxImagesCount, MAXIMAGES_PERPAGE, $url);
+?>
+	</td><td>
+<?php
 	if ($totalimg == MAXIMAGES_PERPAGE )
 	{	?>
 <a class="next" href="<? echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a>
 	<?
 	}
-	if ($totalimg == MAXIMAGES_PERPAGE OR $index > 0)
-	{
 		?>
 </td></tr></table>
 	<?
@@ -373,18 +378,13 @@ function drawAlbums($galleryResult, $error = false)
  * the number  to go per page,
  * and the URL to link to
  */
-function drawSearchPageNumberLinks($index, $totalimg, $max, $url)
+function drawPageNumberLinks($index, $totalimg, $max, $url)
 {
 	$total = floor(($totalimg)/$max)+1;
 	$current = $index/$max;
 	$url = fixNavigationUrl($url);
 	
-	echo '<p>';
-  
-  	if ($total > 0)
-  	{
-		echo 'Page: ';
-	}
+	echo "<div class=\"pagelist\"\n>";
 	
 	if ($current > 3 AND $total > 7)
 	{
@@ -418,7 +418,8 @@ function drawSearchPageNumberLinks($index, $totalimg, $max, $url)
 		
 		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
 	}
-	echo '</p>';
+	
+	echo "</div>";
 }	// end function
 
 function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start, $count, $currentImageResultIndex)
@@ -526,11 +527,11 @@ function fixNavigationUrl($url)
 {
 	if (strrpos($url, "=") > 0)
 	{
-		return $url;
+		return getMyPageURL($url);
 	}
 	else
 	{
-		return $url.'page/';
+		return getMyPageURL($url.'page/');
 	}
 	
 }
