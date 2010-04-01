@@ -16,7 +16,7 @@ $filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; Home</td>
 	<td><?printSearchForm();?></td></tr>
 </table>
-<h3>News</h3>
+<h2 class="index">News</h2>
 <table class="indexalbums">
 <tr class="album">
 	<td class="albumthumb">
@@ -46,9 +46,9 @@ while (next_news() AND $i++ < 2): ;?>
 endwhile; 
 echo "</table>\n";
 
-echo "<h3>Sliced and diced</h3>\n";
+echo "<h2 class=\"index\">Sliced and diced</h2>\n";
 
-$randomFilepath3 = getThumbnailURLFromRandomImagesSet($_randomImages[1]);
+$randomFilepath2 = getThumbnailURLFromRandomImagesSet($_randomImages[1]);
 $randomFilepath4 = getThumbnailURLFromRandomImagesSet($_randomImages[2]);
 $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 ?>
@@ -71,7 +71,7 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 </tr>
 <tr class="album">
 	<td class="albumthumb">
-		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath3?>" alt="Random photos" /></a>
+		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath2?>" alt="Random photos" /></a>
 	 </td><td class="albumdesc">
 		<h4><a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos">Random photos</a></h4>
 		<p>A selection of random photos each time you refresh the page</p>
@@ -81,7 +81,7 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 <?php
 
 // dynamic albums
-echo "<h3>Albums</h3>\n";
+echo "<h2 class=\"index\">Albums</h2>\n";
 echo "<table class=\"indexalbums\">\n";
 
 global $albumNumber;

@@ -1,4 +1,4 @@
-/* site menu formatting stuff
+/* Site menu formatting
 ------------------------------ */
 .menu a {
 	height: 1%;
@@ -15,7 +15,6 @@
 	width: 12%;
 	text-align: center;
 }
-
 .menu a {
 	display: block;
 	padding: 3px;
@@ -40,36 +39,42 @@
 .righthead {
 	float: right;
 }
-/* Admin Toolbox
+/* Admin toolbox
 ------------------------------ */
-#admin, #admin_data{
+#admin, #admin_data {
 	position: fixed;
   _position: absolute;
 	right: 0px;
 	top: 0px;
-	width: 130px;
+	width: 150px;
 	border-bottom: 1px solid #E6E6DF;
 	border-left: 1px solid #E6E6DF;
 	background: #fff;
-    z-index: 2; 	text-align: left;
+    z-index: 2; 	
+    text-align: left;
 }
-#admin_data{
+#admin_data {
 	top: 0px;
-	padding-top: 20px;
+	padding-top: 10px;
 	z-index: 1;
 	line-height: 1.6em;
-
+	text-align: center;
+}
+#admin_data ul {
+	padding-left: 5px;
 }
 #admin h3 {
 	font-size:12px;
-	color: #999;
-	margin:0;
-	padding:0; 
+	color: #989;
+	margin: 0;
+	padding: 0; 
 	text-align: center;
 }
-#admin h3:hover { color: #036; }
+#admin h3:hover { 
+	color: #036; 
+}
 
-/* font style attributes
+/* Font style attributes
 ------------------------------ */
 body td, th, p, div, input, form, textarea {
 	font-family:verdana,helvetica, sans-serif;
@@ -81,32 +86,27 @@ h1, h2, h3, h4, h5, .h4 {
 	color:#336633;
 }
 h1 {
+	font-size:30px;
 	padding:.1em 0 0;
 }
-h1 a {
-	font-size:30px;
-	text-decoration: none;
-	color:#336633;
-}
-h1 a:hover {
-	text-decoration: underline;
-}
 h2 {
-	font-size:22px;
+	font-size:18px;
+	text-align: left;
+	margin: 0 0 5px 0;
 }
 h3 {
-	font-size:18px; 
+	font-size:16px; 
 	text-align:center;
 }
 h4 {
 	font-size:15px;
 	margin: 1.2em 0 0.5em;
 }
-h4 a {
+h1 a, h2 a, h4 a {
 	text-decoration: none;
 	color:#336633;
 }
-h4 a:hover {
+h1 a:hover, h2 a:hover, h4 a:hover {
 	text-decoration: underline;
 }
 .photocredit {
@@ -144,20 +144,23 @@ a:hover {
   background: #FAFAFA;
   width: 100%;
 }
-.topbar h3 {
-	text-align: left;
-	margin: 0 0 5px 0;
-}
-.topbar {
-	margin-top: 10px;
-}
 #search {
 	float: right;
 	padding: 5px;
 	text-align: center;
 }
-/* front page stuff 
+
+#tag_cloud .tags a {
+	line-height: 1.5em;
+}
+/* Front page stuff 
 ------------------------------ */
+h2.index {
+	text-align: center;
+	padding: 10px 0 5px;
+	font-size:20px;
+	
+}
 .indexalbums {
 	width: 100%;
 	padding: 5px;
@@ -170,19 +173,6 @@ a:hover {
 .indexalbums .albumdesc {
 	text-align: left;
 	vertical-align: top;
-}
-.nextables A.next { 
-	float: right;
-	text-align: left; 
-	height: 100%;
-}
-.nextables A.prev { 
-	float: left; 
-	text-align: right; 
-	height: 100%;
-}
-.nextables A:hover, .nextables A:active { 
-	text-decoration: none; 
 }
 #thumbnav td {
 	width: 25%;
@@ -213,7 +203,7 @@ a:hover {
 	font-size: 0.9em !important;
 	width: 50%;
 }
-/* general page layout stuff 
+/* General page layout stuff 
 ------------------------------ */
 #container {
 	width: 100%;
@@ -231,7 +221,7 @@ a:hover {
 	line-height: 0.8em;
 }
 p {
-	width: 95%;
+	width: 98%;
 	margin: 0.7em auto;
 	line-height: 1.3em;
 }
@@ -240,9 +230,9 @@ p {
 	text-align: center;
 	font-size: 0.8em;
 }
-.centeredTable {
+.centeredTable, #centeredAlbums {
 	margin: auto;
-	width: 95%;
+	width: 98%;
 	margin-top: 5px;
 }
 .error {
@@ -271,17 +261,19 @@ p {
 	text-decoration:underline;
 	color: white;
 }
-/* image formatting stuff 
+
+/* Image formatting
 ------------------------------ */
 img {
 	border: none;
 }
-/* for the link bar along the top
+
+/* Link bar along the top
 ------------------------------ */
 .headbar {
 	font-size : 11px;
 	width: 100%;
-	border: #999;
+	border: #989;
 	border-style: solid;
 	border-width: 1px 0;
 	min-height: 2em;
@@ -293,7 +285,71 @@ img {
 .headbar a:hover {
 	text-decoration: underline;
 }
-/* news stuff
+.topbar span {
+	padding-bottom: 0.6em;
+}
+#search_input {
+	width: 200px;
+}
+.taglist, .topbar span {
+	display: block;
+	margin: 0 auto;
+	width: 98%;
+}
+.topbar h2 {
+	text-align: left;
+	margin: 0 0 5px 0;
+}
+.topbar {
+	margin-top: 10px;
+}
+
+/* gallery stuff
+------------------------------ */
+.i {
+	background-color: #FAFAFA;
+	padding: 10px !important;
+	vertical-align: top;
+}
+.i h4 {
+	padding: 5px 0;
+	margin: 0;
+}
+.i h4:hover {
+	text-decoration: underline;
+}
+#search_form a {
+	display: none;
+}
+/* Lighbox
+------------------------------ */
+#overlay { background-image: url(/zp-core/images/overlay.png); }
+
+* html #overlay {
+	background-color: #000;
+	back\ground-color: transparent;
+	background-image: url(/zp-core/images/blank.gif);
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/zp-core/images/overlay.png", sizingMethod="scale");
+}
+
+#lightbox {
+	background-color:#eee;
+	padding: 10px;
+	border-bottom: 2px solid #666;
+	border-right: 2px solid #666;
+}
+
+#lightboxDetails {
+	font-size: 0.8em;
+	padding-top: 0.4em;
+}
+	
+#lightboxCaption{ float: left; }
+#keyboardMsg{ float: right; }
+#lightbox img{ border: none; } 
+#overlay img{ border: none; }
+
+/* News
 ------------------------------ */
 #sidebar {
 	background: #FAFAFA none repeat scroll 0 0;
@@ -327,52 +383,6 @@ img {
 	padding-left: 5px;
 }
 
-
-/* gallery stuff
------------------------------- */
-.i {
-	background-color: #FAFAFA;
-	padding: 10px !important;
-	vertical-align: top;
-}
-.i h4 {
-	padding: 5px 0;
-	margin: 0;
-}
-.i h4:hover {
-	text-decoration: underline;
-}
-#search_form a {
-	display: none;
-}
-/* lighbox
------------------------------- */
-#overlay { background-image: url(/zp-core/images/overlay.png); }
-
-* html #overlay {
-	background-color: #000;
-	back\ground-color: transparent;
-	background-image: url(/zp-core/images/blank.gif);
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/zp-core/images/overlay.png", sizingMethod="scale");
-}
-
-#lightbox {
-	background-color:#eee;
-	padding: 10px;
-	border-bottom: 2px solid #666;
-	border-right: 2px solid #666;
-}
-
-#lightboxDetails {
-	font-size: 0.8em;
-	padding-top: 0.4em;
-}
-	
-#lightboxCaption{ float: left; }
-#keyboardMsg{ float: right; }
-#lightbox img{ border: none; } 
-#overlay img{ border: none; }
-
 /* Comments
 ------------------------------ */
 #comments h5 {
@@ -385,7 +395,7 @@ img {
 	margin-top: 10px;
 	padding: 0;
 }
-#comments h3 {
+#comments h2 {
 	font-size: 1.2em;
 	line-height: 1.6em;
 	margin-top: 0.5em;
@@ -400,7 +410,6 @@ img {
 	padding: 5px 8px 12px 8px;
 	background: #FAFAFA;
 	margin-bottom: 12px;
-
 }
 .commentmeta {
 	margin-bottom: 12px;
@@ -419,13 +428,13 @@ ul.pagelist {
 	font-size: 1em;
 	clear: both;
 	padding: 0;
-	margin: 20px 0 0 0;
+	margin: 0;
 	list-style-type: none;
 }
 ul.pagelist li {
 	display: inline;
 }
-ul.pagelist li a,ul.pagelist span.disabledlink {
+ul.pagelist li a,ul.pagelist span.disabledlink, .pagelist a {
 	padding: 2px;
 }
 ul.pagelist li.current a {
@@ -447,9 +456,28 @@ ul.pagelist li.next {
 }
 .disabled_nav {
 	visibility: hidden;
+	padding: 0 !important;
+	margin: 0 !important;
 }
-.pagelist {
-	display:block;
-	margin:0 auto;
-	width:95%;
+.nextables #pagelinked td {
+	width: 33%;
+}
+#pagelinked .pagelist {
+	text-align: center;
+}
+.nextables A.next { 
+	float: right;
+	text-align: left; 
+	height: 100%;
+}
+.nextables A.prev { 
+	float: left; 
+	text-align: right; 
+	height: 100%;
+}
+.nextables A:hover, .nextables A:active { 
+	text-decoration: none; 
+}
+h4.main_formhead {
+	display: none;
 }

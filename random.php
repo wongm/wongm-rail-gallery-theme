@@ -8,8 +8,11 @@ include_once('header.php');
 	<a href="<?=RANDOM_ALBUM_PATH?>" title="Random Images">Random photos</a>
 	</td><td><?printSearchForm();?></td></tr>
 </table>
-<?
-echo "<p>A selection of random photos each time you refresh the page</p>";
+<div class="topbar">
+	<h2>Random images</h2>
+	<p>A selection of random photos each time you refresh the page</p>
+</div>
+<?php
 
 echo "<table class=\"centeredTable\">";
 $i=0;

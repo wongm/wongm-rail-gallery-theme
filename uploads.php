@@ -71,8 +71,11 @@ require_once("functions-search.php");
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<?=$pageBreadCrumb?>
-	</td><td id="righthead"><?printSearchBreadcrumb();?></td></tr>
+	</td><td id="righthead"><?printSearchForm();?></td></tr>
 </table>
+<div class="topbar">
+	<h2><?=$leadingIntroText?></h2>
+</div>
 <?
 if (!is_numeric($recentPageNumber) OR $recentPageNumber < 1)
 {
@@ -99,10 +102,9 @@ else
 {
 	echo "<p>$leadingIntroText, photos ".getNumberCurrentDispayedRecords(MAXIMAGES_PERPAGE, $galleryResults['galleryResultCount'], $recentPageNumber-1)."$trailingIntroText</p>";
 	echo $adminOnlyText;
-	galleryPageNavigationLinks($currentImageResultIndex, $galleryResults['galleryResultCount'], $galleryResults['nextURL']);
+	
 	drawImageGallery($galleryResults['galleryResult'], $galleryType);
-	galleryPageNavigationLinks($currentImageResultIndex, $galleryResults['galleryResultCount'], $galleryResults['nextURL']);
-	drawPageNumberLinks($currentImageResultIndex, $galleryResults['maxImagesCount'], MAXIMAGES_PERPAGE, $galleryResults['nextURL']);
+	galleryPageNavigationLinks($currentImageResultIndex, $galleryResults['maxImagesCount'], $galleryResults['galleryResultCount'], $galleryResults['nextURL']);
 }
 include_once('footer.php'); 
 ?>

@@ -27,6 +27,7 @@ if ($showSingleMonth)
 }
 else
 {
+	$timeformatted = "Gallery archive";
 	$rssType = 'Gallery';
 	$rssTitle = 'Recent uploads';
 }
@@ -37,33 +38,36 @@ include_once('header.php');
 	<a href="<?=ARCHIVE_URL_PATH?>" title="Gallery Archive">Archive</a><?=$headbarextra?>
 	</td><td><?printSearchForm();?></td></tr>
 </table>
+<div class="topbar">
+	<h2><?=$timeformatted?></h2>
+</div>
 <div id="archive">
 <?	
-	if ($showSingleMonth and $month != '')
-	{
-		printAllDays($month);
-	}
-	else
-	{
+if ($showSingleMonth and $month != '')
+{
+	printAllDays($month);
+}
+else
+{
+	printAllMonths();
 ?>
-		<div id="archive"><h2><?php echo('Gallery archive') ?></h2><?php printAllMonths(); ?></div>
+</div>
 <?php
-		if ($zenpage = getOption('zp_plugin_zenpage')) 
-		{ 
-?>
-	<?php if(function_exists("printNewsArchive")) { ?>
-	<div id="archive_news"><h2><?php echo('News archive') ?></h2><?php printNewsArchive("archive");	?></div>
+		
+	if ($zenpage = getOption('zp_plugin_zenpage')) 
+	{ 
+		if(function_exists("printNewsArchive")) { ?>
+<div id="archive_news"><h2><?php echo('News archive') ?></h2><?php printNewsArchive("archive");	?></div>
 <?php 	}
 ?>
-		<div id="tag_cloud">
-		<h2><? echo gettext('Popular tags'); ?></h2>
-			<?php printAllTagsAs('cloud', 'tags'); ?>
-		</div>
-<?php 	}
-?>
-	</div>
-<?php	
+<div id="tag_cloud">
+	<h2><? echo gettext('Popular tags'); ?></h2>
+		<?php printAllTagsAs('cloud', 'tags'); ?>
+</div>
+<?php
 	}
-	echo "</div>";
-	include_once('footer.php'); 
+}
+
+echo "</div>";
+include_once('footer.php'); 
 ?>

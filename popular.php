@@ -18,7 +18,7 @@ $pageBreadCrumb = 'Popular photos';
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<?=$pageBreadCrumb?>
-	</td><td id="righthead"><?printSearchBreadcrumb();?></td></tr>
+	</td><td id="righthead"><? printSearchForm();?></td></tr>
 </table>
 <?
 
@@ -33,7 +33,7 @@ foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 		$extraText = '';
 	}
 	
-	echo '<div class="topbar"><h3>'.$popularImageText[$viewType]['text']."</h3>\n";
+	echo '<div class="topbar"><h2>'.$popularImageText[$viewType]['text']."</h2>\n";
 	echo "<p><a href=\"".$popularImageText[$viewType]['url']."\">View more...</a>$extraText</p></div>";
 	$galleryResults = getGalleryUploadsResults('popular', $viewType, '', 0, 3, 0);
 	drawImageGallery($galleryResults['galleryResult'], $viewType);

@@ -23,8 +23,8 @@ if(is_NewsArticle()) {
 <div id="sidebar">
 	<?php include("sidebar.php"); ?>
 </div>
+<div class="topbar"><h2><?php printNewsTitle(); ?></h2></div>
 <div id="news">
-  <h4><?php printNewsTitle(); ?></h4> 
   <div class="newsarticlecredit"><span class="newsarticlecredit-left"><?php printNewsDate();?> | <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> | </span> <?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?></div>
   <p><?php printNewsContent(); ?></p>
 <?php 
@@ -110,6 +110,7 @@ drawNewsFrontpageNextables();
 <div id="sidebar">
 	<?php include("sidebar.php"); ?>
 </div>
+<div class="topbar"><h2>News</h2></div>
 <div id="news">
 <?php
   while (next_news()): ;?> 

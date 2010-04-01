@@ -36,31 +36,25 @@ else
 	<a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a>
 	</td><td><?printSearchForm();?></td></tr>
 </table>
+<div class="topbar">
+  	<h2>All albums</h2>
+	<span>All <?=$albumNumber?> albums that are currently on the site.</span>
+</div>
 <?
 	$prevPageUrl = EVERY_ALBUM_PATH . '/page/' . (getCurrentPage() - 1) . '/';
 	$nextPageUrl = EVERY_ALBUM_PATH . '/page/' . (getCurrentPage() + 1) . '/';
 	
-	if(hasNextPage() || hasPrevPage())
-	{	?>
-  <table class="nextables"><tr><td>
-    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?=$prevPageUrl;?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-    <?php if (hasNextPage()) { ?> <a class="next" href="<?=$nextPageUrl;?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-  </td></tr></table>
-  <? }
-  
 	drawIndexAlbums('nodynamic');
 	
 	if(hasNextPage() || hasPrevPage())
 	{
 ?>
-<table class="nextables"><tr><td>
+<table class="nextables"><tr id="pagelinked"><td>
     <?php if (hasPrevPage()) { ?> <a class="prev" href="<?=$prevPageUrl;?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
+    </td><td><?php printPageList(); ?></td><td>
     <?php if (hasNextPage()) { ?> <a class="next" href="<?=$nextPageUrl;?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
 </td></tr></table>
-<div class="pages">
-<?php drawGalleryPageNumberLinks(); ?>
-</div>
-<? 
+<? 	
 	}
 }
 include_once('footer.php');

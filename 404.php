@@ -40,7 +40,7 @@ include_once('functions-search.php');
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found Error
-	</td><td id="righthead"><?printSearchBreadcrumb();?></td></tr>
+	</td><td id="righthead"><?printSearchForm();?></td></tr>
 </table>
 <?php
 

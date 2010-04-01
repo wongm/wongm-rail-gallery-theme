@@ -15,7 +15,7 @@ include_once('header.php');
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a></td>
-	<td id="righthead"><?printSearchBreadcrumb();?></td></tr>
+	<td id="righthead"><?printSearchForm();?></td></tr>
 </table>
 <?
 
@@ -100,7 +100,7 @@ if (isset($_POST['option']))
 		}
 		$votePromptText = "Vote again";
 ?>
-<div class="topbar"><h3>Results</h3></div>
+<div class="topbar"><h2>Results</h2></div>
 <table class="indexalbums"><tr class="album">
 <td class="albumthumb">
 	<a href="<?=$urlImagePage?>" target="new">
@@ -116,7 +116,7 @@ if (isset($_POST['option']))
 	} 	// end successful submit
 }		// end any submit
 ?>
-<div class="topbar"><h3><?=$votePromptText?></h3></div>
+<div class="topbar"><h2><?=$votePromptText?></h2></div>
 <?
 $imageOptions = array(getRandomImageForRatings(), getRandomImageForRatings());
 $titleOptions = array('A', 'B');

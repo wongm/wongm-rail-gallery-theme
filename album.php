@@ -14,11 +14,10 @@ include_once('header.php');
 </table>
 
 <div class="topbar">
-  	<h3>Album: <?=getAlbumTitle();?></h3>
+  	<h2>Album: <?=getAlbumTitle();?></h2>
   	<?php printAlbumDesc(true); ?>
 </div>
 <?
-	drawWongmAlbumNextables(false, getAlbumLinkURL().'page/');
  	drawWongmListSubalbums();
 	
  	/* Only print if we have images. */
@@ -28,10 +27,18 @@ include_once('header.php');
   		drawWongmGridImages();
 	}	
 	
-	drawWongmAlbumNextables(false, getAlbumLinkURL().'page/');
-
-	printPageList();
-	printTags('links', '<h4>Tags</h4>', '', '', false);
+	if (hasPrevPage() || hasNextPage())
+  	{
+?>
+<table class="nextables"><tr id="pagelinked"><td>
+	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getMyPageURL(getPrevPageURL());?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
+	</td><td><?php printPageList(); ?></td><td>
+	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getMyPageURL(getNextPageURL());?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
+</td></tr></table>
+<?php
+	} 
+	
+	printTags('links', '<h4>Tags</h4>');
 	
 	echo "<p>".formatHitCounter(incrementAndReturnHitCounter('album'), false)."</p>";
 	include_once('footer.php');

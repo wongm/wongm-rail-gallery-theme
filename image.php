@@ -12,17 +12,15 @@ include_once('header.php'); ?>
   </table>
   
   <div class="topbar">
-  	<h3>Image: <?=getImageTitle();?></h3>
+  	<h2>Image: <?=getImageTitle();?></h2>
   	<?php printImageDesc(true); ?>
   </div>
-  
-  <? drawWongmImageNextables(); ?>
       
   <table class="centeredTable">
 	  <tr><td class="imageDisplay">
         <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">
         <?php printDefaultSizedImage(getImageTitle()); ?></a><br/>
-        <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>"><? getSelectedSizedThingy(); ?></a><br/>
+        <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">View full size photo (<?=getFullWidth()?>px by <?=getFullHeight()?>px)</a><br/>
       </td></tr>
   </table>
 

@@ -10,7 +10,10 @@ include_once('header.php');
 	<a href="<?=RECENT_ALBUM_PATH?>" title="Recent albums">Recent albums</a>
 	</td><td><?printSearchForm();?></td></tr>
 </table>
-<p>Occasionally I will add new albums that contain older photos, here are the <?=MAXALBUMS_PERPAGE?> most recently added</p>
+<div class="topbar">
+  	<h2><?=$rssTitle?></h2>
+	<span>Occasionally I will add new albums that contain older photos, here are the <?=MAXALBUMS_PERPAGE?> most recently added.</span>
+</div>
 <?
 drawIndexAlbums('recent');	
 include_once('footer.php');
