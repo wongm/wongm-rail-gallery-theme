@@ -40,7 +40,7 @@ if ($rssType != "" AND $rssTitle != "")
 ?>
 </head>
 <body>
-<?php printMyAdminToolbox(); ?>
+<?php printAdminToolbox(); ?>
 <div id="container">
 <div id="header">
 <h1><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a></h1>
