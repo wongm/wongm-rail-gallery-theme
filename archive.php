@@ -7,6 +7,10 @@ if (isset($_GET['page']))
 	$showSingleMonth = true;
 else
 	$showSingleMonth = false;
+	
+$timeformatted = "Gallery archive";
+$rssType = 'Gallery';
+$rssTitle = 'Recent uploads';
 
 if ($showSingleMonth)
 {
@@ -20,16 +24,6 @@ if ($showSingleMonth)
 		$pageTitle .= " - $timeformatted";
 		$headbarextra = " &raquo; $timeformatted";
 	}
-	else
-	{
-		$month = '';
-	}
-}
-else
-{
-	$timeformatted = "Gallery archive";
-	$rssType = 'Gallery';
-	$rssTitle = 'Recent uploads';
 }
 include_once('header.php');
 ?>
@@ -69,5 +63,5 @@ else
 }
 
 echo "</div>";
-include_once('footer.php'); 
+include_once('footer.php');
 ?>
