@@ -101,12 +101,8 @@ function printEXIFData()
 	global $_zp_current_image;
 	$result = getImageMetaData();
 	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
-	$ratingsText = formatRatingCounter(array(
-		$_zp_current_image->get('ratings_win'), 
-		$_zp_current_image->get('ratings_view'),
-		$_zp_current_image->get('ratings_score')
-		));
-		
+	$ratingsText = getDeathmatchRatingsText();
+	
 	if ( zp_loggedin() )
 	{
 		$hitCounterText .= "<br>Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
@@ -204,6 +200,7 @@ function drawGalleryPageNumberLinks($url='')
 function getMyPageURL($defaultURL)
 {
 	$defaultURL = str_replace('/page/search/', '/gallery/search/', $defaultURL);
+	$defaultURL = str_replace('/page/page/', '/page/', $defaultURL);
 	return str_replace('/gallery/everything/', '/gallery/everything/page/', $defaultURL);
 }
 
@@ -266,108 +263,51 @@ function drawNewsFrontpageNextables()
   <?php } 
 }
 
-function drawWongmImageNextables()
+/*
+ * 
+ * drawRecentImagesNextables()
+ * 
+ * Back and forwards links for the recent images page
+ * 
+ */
+function drawRecentImagesNextables($showpagelist=false)
 {
-	if (hasPrevImage() OR hasNextImage())
+	if (hasPrevPhotostreamPage() OR hasNextPhotostreamPage())
 	{
 ?>
 <table class="nextables"><tr><td>
-    <?php if (hasPrevImage()) { ?> <a class="prev" href="<?=getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a> <?php } ?>
-    <?php if (hasNextImage()) { ?> <a class="next" href="<?=getNextImageURL();?>" title="Next Image">Next <span>&raquo;</span></a><?php } ?>
+<?
+	}
+	if (hasPrevPhotostreamPage())
+	{
+?>
+<a class="prev" href="<? echo getPrevPhotostreamPageURL() ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
+<?
+	}
+	if (hasNextPhotostreamPage())
+	{	?>
+<a class="next" href="<? echo getNextPhotostreamPageURL() ?>" title="Next Page">Next <span>&raquo;</span></a>
+<?
+	}
+	if (hasPrevPhotostreamPage() OR hasNextPhotostreamPage())
+	{
+?>
 </td></tr></table>
 <?
 	}
-}
 	
-function drawWongmAlbumNextables($showpagelist)
-{
-  	if (hasPrevPage() || hasNextPage())
-  	{
-?>
-<table class="nextables"><tr><td>
-	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getMyPageURL(getPrevPageURL());?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getMyPageURL(getNextPageURL());?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-</td></tr></table>
-<?php 
-		if ($showpagelist)
-		{ 
-?>
-<div class="pages">
-<?  drawGalleryPageNumberLinks();  ?>
-</div>
-<?		}
-	}  	
+	if ($showpagelist)
+		printPhotostreamPageList();
 }
 
-function printForumLink() {
-
-	if (zp_loggedin()) {
-		global $_zp_current_image;
-		$path = str_replace($_zp_current_image->filename, '', $_zp_current_image->webpath);
-		$path = str_replace('albums/', '', $path);
-		$textPlain = "\n[url=http://".$_SERVER['HTTP_HOST'].getImageLinkURL( )."]".
-		"\n[img]http://".$_SERVER['HTTP_HOST'].$path.'image/'.FORUM_IMAGE_SIZE.'/'.$_zp_current_image->filename."[/img][/url]";
-		$text = $_zp_current_image->getTitle().$textPlain;
-		$textFull = $_zp_current_image->getTitle()."\n[url=http://".$_SERVER['HTTP_HOST'].getImageLinkURL( )."?p=full]".
-		"\n[img]http://".$_SERVER['HTTP_HOST'].$path.'image/'.FORUM_IMAGE_SIZE.'/'.$_zp_current_image->filename."[/img][/url]"
-		
-?>		<script type="text/javascript">
-		function SelectAll(id)
-		{
-    		document.getElementById(id).focus();
-    		document.getElementById(id).select();
-		}
-		</script>
-<?		
-		echo '<p>Forum links: </p>';
-		echo '<textarea name="forumplain" id="forumplain" cols="100" rows="1" onClick="SelectAll(\'forumplain\')">'.$textPlain.'</textarea>';
-		echo '<textarea name="forum" id="forum" cols="100" rows="2" onClick="SelectAll(\'forum\')">'.$text.'</textarea>';
-		echo '<textarea name="forumfull" id="forumfull" cols="100" rows="2" onClick="SelectAll(\'forumfull\')">'.$textFull.'</textarea>';
-		return true;
-	}
-
-	return false;
-}
-
-// MW edit
-function getSelectedSizedThingy()
-{
-	if ($_REQUEST['p'] == 'full')
-	{
-	  	echo 'Click to fit photo to screen';
-	}
-	else
-	{
-		echo 'View full size photo ('.getFullWidth().'px by '.getFullHeight().'px)';
-	}
-}
-
-function drawWongmAlbumRow()
-{
-	global $_zp_current_album;
-?>
-<tr class="album">
-	<td class="albumthumb">
-		<a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
-	</td><td class="albumdesc">
-		<h4><a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
-		<p><small><?php printAlbumDate(""); printHitCounter($_zp_current_album); ?></small></p>
-		<p><?php printAlbumDesc(); ?></p>
-<? 	if (zp_loggedin())
-	{
-		echo "<p>";
-		echo printLink($zf . '/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumLinkURL()), gettext("Edit details"), NULL, NULL, NULL);
-		echo '</p>';
-	}		
-?>
-	</td>
-
-</tr>
-<?
-
-}	// end function					
-
-
+/*
+ * 
+ * drawWongmGridSubalbums()
+ * 
+ * Draw a grid of sub-albums for an album
+ * Used by Rail Geelong
+ * 
+ */
 function drawWongmGridSubalbums()
 {
 ?>
@@ -414,6 +354,14 @@ function drawWongmGridSubalbums()
 <?	
 }	/// end function
 
+/*
+ * 
+ * drawWongmGridImages()
+ * 
+ * Draw a grid of images for an album
+ * Used by album.php and search.php
+ * 
+ */
 function drawWongmGridImages()
 {
 	?>
@@ -467,427 +415,21 @@ function drawWongmGridImages()
   return $c;
 }	// end function
 
-//******************************************************************************
-//*** END MW EDITS *******************************************************
-//******************************************************************************
 
-
-
-/**
- * Prints the clickable drop down toolbox on any theme page with generic admin helpers
- * @param string $context index, album, image or search
- * @param string $id the html/css theming id
- * @since 1.1
+/*
+ * 
+ * drawIndexAlbums()
+ * 
+ * Draw a list of albums, 
+ * thumbnail image on the left, details on the right
+ * Used by recent-albums.php (recent albums) and everything.php (all albums)
+ * 
  */
-function printMyAdminToolbox($context=null, $id='admin') 
-{
-	global $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_loggedin, $_zp_gallery_page;
-	if (zp_loggedin()) {
-		$zf = WEBPATH."/".ZENFOLDER;
-		$dataid = $id . '_data';
-		$page = getCurrentPage();
-		$redirect = '';
-		?>
-		<script type="text/javascript">
-			function newAlbum(folder,albumtab) {
-				var album = prompt('<?php echo gettext('New album name?'); ?>', '<?php echo gettext('new album'); ?>');
-				if (album) {
-					window.location = '<?php echo $zf; ?>/admin-edit.php?action=newalbum&album='+encodeURIComponent(folder)+'&name='+encodeURIComponent(album)+'&albumtab='+albumtab;
-				}
-			}
-		</script>
-		<?php
-		echo '<div id="' .$id. '">'."\n".'<h3><a href="javascript: toggle('. "'" .$dataid."'".');">'.gettext('Admin Toolbox').'</a></h3>'."\n"."\n</div>";
-		echo '<div id="' .$dataid. '" style="display: none;">'."\n";
-		
-		// open the list--all links go between here and the close of the list below
-		echo "<ul style='list-style-type: none;'>";
-		
-		// generic link to Admin.php
-		echo "<li>";
-		printAdminLink(gettext('Admin'), '', "</li>\n");
-		// setup for return links
-		if (isset($_GET['p'])) {
-			$redirect = "&amp;p=" . $_GET['p'];
-		}
-		if ($page>1) {
-			$redirect .= "&amp;page=$page";
-		}
-		
-		if ($_zp_loggedin & (ADMIN_RIGHTS | OPTIONS_RIGHTS)) {
-		// options link for all admins with options rights
-			echo "<li>";
-			printLink($zf . '/admin-options.php?tab=general', gettext("Options"), NULL, NULL, NULL);
-			echo "</li>\n";
-		}
-		zp_apply_filter('admin_toolbox_global');
-		
-		$gal = getOption('custom_index_page');
-		if (empty($gal) || !file_exists(SERVERPATH.'/'.THEMEFOLDER.'/'.getOption('current_theme').'/'.internalToFilesystem($gal).'.php')) {
-			$gal = 'index.php';
-		} else {
-			$gal .= '.php';
-		}
-		if ($_zp_gallery_page === $gal) { 
-		// script is either index.php or the gallery index page
-			if ($_zp_loggedin & (ADMIN_RIGHTS | ALBUM_RIGHTS)) {
-				// admin has edit rights so he can sort the gallery (at least those albums he is assigned)
-				echo "<li>";
-				printLink($zf . '/admin-edit.php?page=edit', gettext("Sort Gallery"), NULL, NULL, NULL);
-				echo "</li>\n";
-			}
-			if ($_zp_loggedin & (ADMIN_RIGHTS | UPLOAD_RIGHTS)) {
-				// admin has upload rights, provide an upload link for a new album
-				?>
-				<li>
-					<a href="javascript:newAlbum('',true);" ><?php echo gettext("New Album"); ?></a>
-				</li>
-				<?php
-			}
-			zp_apply_filter('admin_toolbox_gallery');
-		} else if ($_zp_gallery_page === 'album.php') { 
-		// script is album.php
-			$albumname = $_zp_current_album->name;
-			if (isMyAlbum($albumname, ALBUM_RIGHTS)) {
-				// admin is empowered to edit this album--show an edit link
-				echo "<li>";
-				printSubalbumAdmin(gettext('Edit album'), '', "</li>\n");
-				echo "<li>";
-				printLink(WEBPATH.'/' . ZENFOLDER . '/admin-edit-small.php?page=edit&tab=imageinfo&album=' . urlencode($_zp_current_album->name), 'Edit images', NULL, NULL, NULL);
-				echo "<li>";
-				printLink(WEBPATH.'/' . ZENFOLDER . '/admin-edit.php?page=edit&tab=imageinfo&album=' . urlencode($_zp_current_album->name), 'Move images', NULL, NULL, NULL);
-				if (!$_zp_current_album->isDynamic()) {
-					if ($_zp_current_album->getAlbums()) {
-						?>
-						<li>
-						<?php echo printLink($zf . '/admin-edit.php?page=edit&album=' . urlencode($albumname).'&tab=subalbuminfo', gettext("Sort subalbums"), NULL, NULL, NULL); ?>
-						</li>
-						<?php
-					}
-					if ($_zp_current_album->getNumImages()>0) {
-						?>
-						<li>
-						<?php echo printLink($zf . '/admin-albumsort.php?page=edit&album=' . urlencode($albumname).'&tab=sort', gettext("Sort album images"), NULL, NULL, NULL); ?>
-						</li>
-						<?php
-					}
-				}
-				// and a delete link
-				echo "<li><a href=\"javascript: confirmDeleteAlbum('".$zf."/admin-edit.php?page=edit&amp;action=deletealbum&amp;album=" .
-					urlencode(urlencode($albumname)) .
-					"','".js_encode(gettext("Are you sure you want to delete this entire album?"))."','".js_encode(gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!")).
-					"');\" title=\"".gettext("Delete the album")."\">".gettext("Delete album")."</a></li>\n";
-			}
-			if (isMyAlbum($albumname, UPLOAD_RIGHTS) && !$_zp_current_album->isDynamic()) {
-				// provide an album upload link if the admin has upload rights for this album and it is not a dynamic album
-				?>
-				<li>
-					<?php echo printLink($zf . '/admin-upload.php?album=' . urlencode($albumname), gettext("Upload Here"), NULL, NULL, NULL); ?>
-				</li>
-				<li>
-					<a href="javascript:newAlbum('<?php echo pathurlencode($albumname); ?>',true);" ><?php echo gettext("New Album Here"); ?></a>
-				</li>
-				<?php
-			}
-			// set the return to this album/page
-			zp_apply_filter('admin_toolbox_album', $albumname);
-			$redirect = "&amp;album=".urlencode($albumname)."&amp;page=$page";
-			
-		} else if ($_zp_gallery_page === 'image.php') {
-			// script is image.php
-			if (!$_zp_current_album->isDynamic()) { // don't provide links when it is a dynamic album
-				$albumname = $_zp_current_album->name;
-				$imagename = $_zp_current_image->filename;
-				if (isMyAlbum($albumname, ALBUM_RIGHTS)) {
-					// if admin has edit rights on this album, provide a delete link for the image.
-					echo "<li><a href=\"javascript: confirmDeleteImage('".$zf."/admin-edit.php?page=edit&amp;action=deleteimage&amp;album=" .
-					urlencode(urlencode($albumname)) . "&amp;image=". urlencode($imagename) . "','". js_encode(gettext("Are you sure you want to delete the image? THIS CANNOT BE UNDONE!")) . "');\" title=\"".gettext("Delete the image")."\">".gettext("Delete image")."</a>";
-					echo "</li>\n";
-
-					echo '<li><a href="'.$zf.'/admin-edit.php?page=edit&amp;album='.urlencode($albumname).'&amp;image='.urlencode($imagename).'&amp;tab=imageinfo#IT" title="'.gettext('Edit this image').'">'.gettext('Edit image').'</a></li>'."\n";
-				}
-				// set return to this image page
-				zp_apply_filter('admin_toolbox_image', $albumname, $imagename);
-				$redirect = "&amp;album=".urlencode($albumname)."&amp;image=".urlencode($imagename);
-			}
-		} else if (($_zp_gallery_page === 'search.php') && !empty($_zp_current_search->words)) {
-			// script is search.php with a search string
-			if ($_zp_loggedin & (ADMIN_RIGHTS | UPLOAD_RIGHTS)) {
-				// if admin has edit rights allow him to create a dynamic album from the search
-				echo "<li><a href=\"".$zf."/admin-dynamic-album.php\" title=\"".gettext("Create an album from the search")."\">".gettext("Create Album")."</a></li>";
-			}
-			zp_apply_filter('admin_toolbox_search');
-			$redirect = "&amp;p=search" . $_zp_current_search->getSearchParams() . "&amp;page=$page";
-		}
-		
-		// zenpage script pages
-		if(function_exists('is_NewsArticle')) {
-				if (is_NewsArticle()) {
-					// page is a NewsArticle--provide zenpage edit, delete, and Add links
-					$titlelink = getNewsTitlelink();
-					$redirect .= '&amp;title='.urlencode($titlelink);
-				}
-				if (is_Pages()) {
-					// page is zenpage page--provide edit, delete, and add links
-					$titlelink = getPageTitlelink();
-					$redirect .= '&amp;title='.urlencode($titlelink);
-				}
-				if ($_zp_loggedin & (ADMIN_RIGHTS | ZENPAGE_RIGHTS)) {
-				// admin has zenpage rights, provide link to the zenpage admin tab
-				echo "<li><a href=\"".$zf.'/'.PLUGIN_FOLDER."/zenpage/admin-news-articles.php\">".gettext("News")."</a></li>";
-				if (is_NewsArticle()) {
-					// page is a NewsArticle--provide zenpage edit, delete, and Add links
-					echo "<li><a href=\"".$zf.'/'.PLUGIN_FOLDER."/zenpage/admin-edit.php?newsarticle&amp;edit&amp;titlelink=".urlencode($titlelink)."\">".gettext("Edit Article")."</a></li>";
-					?> 
-					<li><a href="javascript: confirmDeleteImage('<?php echo $zf.'/'.PLUGIN_FOLDER; ?>/zenpage/admin-news-articles.php?del=<?php echo getNewsID(); ?>','<?php echo js_encode(gettext("Are you sure you want to delete this article? THIS CANNOT BE UNDONE!")); ?>')" title="<?php echo gettext("Delete article"); ?>"><?php echo gettext("Delete Article"); ?></a></li>
-					<?php
-					echo "<li><a href=\"".$zf.'/'.PLUGIN_FOLDER."/zenpage/admin-edit.php?newsarticle&amp;add\">".gettext("Add Article")."</a></li>";
-					zp_apply_filter('admin_toolbox_news', $titlelink);
-				}
-				echo "<li><a href=\"".$zf.'/'.PLUGIN_FOLDER."/zenpage/admin-pages.php\">".gettext("Pages")."</a></li>";
-				if (is_Pages()) {
-					// page is zenpage page--provide edit, delete, and add links
-					echo "<li><a href=\"".$zf.'/'.PLUGIN_FOLDER."/zenpage/admin-edit.php?page&amp;edit&amp;titlelink=".urlencode($titlelink)."\">".gettext("Edit Page")."</a></li>";
-					?> 
-					<li><a href="javascript: confirmDeleteImage('<?php echo $zf.'/'.PLUGIN_FOLDER; ?>/zenpage/page-admin.php?del=<?php echo getPageID(); ?>','<?php echo js_encode(gettext("Are you sure you want to delete this page? THIS CANNOT BE UNDONE!")); ?>')" title="<?php echo gettext("Delete page"); ?>"><?php echo gettext("Delete Page"); ?></a></li>
-					<?php	
-					echo "<li><a href=\"".FULLWEBPATH."/".ZENFOLDER.'/'.PLUGIN_FOLDER."/zenpage/admin-edit.php?page&amp;add\">".gettext("Add Page")."</a></li>";
-					zp_apply_filter('admin_toolbox_page', $titlelink);
-				}
-			}
-		}	
-		
-		// logout link
-		if (getOption('server_protocol')=='https') $sec=1; else $sec=0;
-		echo "<li><a href=\"".$zf."/admin.php?logout={$sec}{$redirect}\">".gettext("Logout")."</a></li>\n";
-		
-		// close the list
-		echo "</ul>\n";
-		echo "</div>\n";
-	}
-}
-
-function formatRatingCounter($array, $splitLines=true)
-{
-	$votes = $array[0];
-	$views = $array[1];
-	$score = $array[2];
-	
-	if ($votes == 0 AND $views == 0)
-	{
-		return '';
-	}
-	else
-	{
-		if (zp_loggedin())
-		{
-			$extra = " for a score of $score";
-		}
-		
-		return '<br>'.pluralNumberWord($votes, 'vote').' from '.pluralNumberWord($views, 'view').$extra;
-	}
-}
-
-function formatHitCounter($array, $splitLines=true)
-{
-	$alltime = $array[0];
-	$month = $array[1];
-	$week = $array[2];
-	$galleryType = $array[3];
-	
-	// return just a single row, for the overall gallery listing pages
-	if ($galleryType == 'this-month') {
-		$toreturn = $month;
-		$extraText = " this month";
-	} else if ($galleryType == 'this-week') {
-		$toreturn = $week;
-		$extraText = " this week";
-	} else if ($galleryType == 'all-time') {
-		$toreturn = $alltime;
-	}
-	
-	if ($toreturn > 0) {
-		return "<br>Viewed ".pluralNumberWord($toreturn, 'time').$extraText;
-	}
-	
-	// otherwise build up a massive string
-	if ($alltime > 0) {
-		$toreturn = "<br>Viewed ".pluralNumberWord($alltime, 'time');
-	} else {
-		return "";
-	}
-	
-	if ($week > 0) {
-		$toreturn .= "<br>(".pluralNumberWord($week, 'time')." this week";
-		
-		if ($month > 0) {
-			$toreturn .= ", ".pluralNumberWord($month, 'time')." this month)";
-		} else {
-			$toreturn .= ")";
-		}
-	} else if ($month > 0) {
-		$toreturn .= "<br>(".pluralNumberWord($month, 'time')." this month)";
-	}
-	
-	// formattting fix for album page, when not in EXIF box
-	if (!$splitLines) {
-		$toreturn = str_replace('<br>',' ',$toreturn);
-	}
-	
-	return $toreturn;
-}
-
-function printHitCounter($obj)
-{
-	echo formatHitCounter(array($obj->get('hitcounter'), $obj->get('hitcounter_month'), $obj->get('hitcounter_week')));
-}
-
-function incrementAndReturnHitCounter($option='image', $viewonly=false, $id=NULL) {
-	global $_zp_current_image, $_zp_current_album;
-	
-	switch($option) {
-		case "image":
-			$obj = $_zp_current_image;
-			if (is_null($id)) {
-				$id = getImageID();
-			}
-			$dbtable = prefix('images');
-			$doUpdate = true;
-			break;
-		case "album":
-			$obj = $_zp_current_album;
-			if (is_null($id)) {
-				$id = getAlbumID();
-			}
-			$dbtable = prefix('albums');
-			$doUpdate = getCurrentPage() == 1; // only count initial page for a hit on an album
-			break;
-	}
-	
-	// get currrent counters and dates
-	if ($obj != null) {	
-		$hitCounterAllTime = $obj->get('hitcounter');
-		$hitCounterMonth = $obj->get('hitcounter_month');
-		$hitCounterWeek = $obj->get('hitcounter_week');
-	} else {
-		$doUpdate = false;
-	}
-	
-	// check to see if changing from small to full size, or vice versa, then don't update counter
-	if (substr_count($_SERVER['HTTP_REFERER'], str_replace('?p=full','', $_SERVER['REQUEST_URI'])) > 0) {
-		$doUpdate = false;
-	}
-	
-	// update counters if required
-	if ( $doUpdate ) {
-		
-		$hitCounterMonthLastReset = $obj->get('hitcounter_month_reset');
-		$hitCounterWeekLastReset = $obj->get('hitcounter_week_reset');
-		
-		$updatedHitCounter = updateHitCounter($hitCounterAllTime, $hitCounterMonth, $hitCounterWeek, $hitCounterMonthLastReset, $hitCounterWeekLastReset);
-		
-		// update all counters if a public user
-		if ( !zp_loggedin() ) 
-		{
-			query("UPDATE $dbtable SET ".$updatedHitCounter['public']." WHERE `id` = $id");
-		} 
-		// only reset the monthly and weekly totals if and admin, and counter are past the date
-		else if ($updatedHitCounter['admin'] != '') 
-		{
-			query("UPDATE $dbtable SET ".$updatedHitCounter['admin']." WHERE `id` = $id");
-		}
-		
-		$hitCounterAllTime = $updatedHitCounter['hitCounterAllTime'];
-		$hitCounterMonth = $updatedHitCounter['hitCounterMonth'];
-		$hitCounterWeek = $updatedHitCounter['hitCounterWeek'];
-	}
-	return array($hitCounterAllTime, $hitCounterMonth, $hitCounterWeek);
-}
-
-function updateHitCounter($hitCounterAllTime, $hitCounterMonth, $hitCounterWeek, $hitCounterMonthLastReset, $hitCounterWeekLastReset)
-{
-	$time = time();
-	$dateCurrent = date("Y-m-d");
-	$dateLastWeek = date("Y-m-d", $time - (60*60*24*6));
-	$dateLastMonth = date("Y-m-d", $time - (60*60*24*28));
-	
-	// alter the various counts
-	if ( !zp_loggedin() )
-	{
-		$hitCounterWeek++;
-		$hitCounterMonth++;
-		//$hitCounterAllTime++;
-		$restartCount = 1;
-	}
-	else
-	{
-		$restartCount = 0;
-	}
-	
-	// check last reset dates, fix if not set
-	if ($hitCounterMonthLastReset == '0000-00-00' OR $hitCounterWeekLastReset == '0000-00-00') 
-	{
-		$adminSqlToUpdate = $publicSqlToUpdate = 
-			", hitcounter_week_reset = '$dateCurrent', hitcounter_month_reset = '$dateCurrent', hitcounter_week = $restartCount, hitcounter_month = $restartCount";
-		$hitCounterWeek = $restartCount;
-		$hitCounterMonth = $restartCount;
-	}
-	else
-	{
-		
-		// update week hit counters and last reset times if required
-		if ($hitCounterWeekLastReset < $dateLastWeek) 
-		{
-			$sql = ", hitcounter_week_reset = '$dateCurrent', hitcounter_week = $restartCount ";
-			$publicSqlToUpdate .= $sql;
-			$adminSqlToUpdate .= $sql;
-			$hitCounterWeek = $restartCount;
-		}
-		else 
-		{
-			$publicSqlToUpdate .= ", hitcounter_week = $hitCounterWeek ";
-		}
-		
-		// update month hit counters and last reset times if required
-		if ($hitCounterMonthLastReset < $dateLastMonth) 
-		{
-			$sql = ", hitcounter_month_reset = '$dateCurrent', hitcounter_month = $restartCount ";
-			$publicSqlToUpdate .= $sql;
-			$adminSqlToUpdate .= $sql;
-			$hitCounterMonth = $restartCount;
-		} 
-		else 
-		{
-			$publicSqlToUpdate .= ", hitcounter_month = $hitCounterMonth ";
-		}
-	}
-		
-	// remove leading comma if required
-	if (substr($adminSqlToUpdate, 0, 1) == ',') 
-	{
-		$adminSqlToUpdate = substr($adminSqlToUpdate, 1, strlen($adminSqlToUpdate));
-	}
-	
-	if (substr($publicSqlToUpdate, 0, 1) == ',') 
-	{
-		$publicSqlToUpdate = substr($publicSqlToUpdate, 1, strlen($publicSqlToUpdate));
-	}
-	
-	//$toreturn['public'] = "`hitCounter`= $hitCounterAllTime $publicSqlToUpdate";
-	$toreturn['public'] = $publicSqlToUpdate;
-	$toreturn['admin'] = $adminSqlToUpdate;
-	$toreturn['hitCounterWeek'] = $hitCounterWeek;
-	$toreturn['hitCounterMonth'] = $hitCounterMonth;
-	$toreturn['hitCounterAllTime'] = $hitCounterAllTime;
-	
-	return $toreturn;
-}
-
 function drawIndexAlbums($type=null, $site=null)
 {
 	global $_zp_current_album;
 	
-	echo "<table class=\"indexalbums\">\n";
+	echo "<table id=\"centeredAlbums\" class=\"indexalbums\">\n";
 	
 	if ($type == 'dynamiconly' OR $type == 'frontpage')
 	{
@@ -928,5 +470,36 @@ function drawIndexAlbums($type=null, $site=null)
 <?
 }
 
-	
+/*
+ * 
+ * drawWongmAlbumRow()
+ * 
+ * Draw an album row
+ * thumbnail image on the left, details on the right
+ * Used by drawIndexAlbums() in this file
+ * 
+ */
+function drawWongmAlbumRow()
+{
+	global $_zp_current_album;
+?>
+<tr class="album">
+	<td class="albumthumb">
+		<a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
+	</td><td class="albumdesc">
+		<h4><a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
+		<p><small><?php printAlbumDate(""); printHitCounter($_zp_current_album); ?></small></p>
+		<p><?php printAlbumDesc(); ?></p>
+<? 	if (zp_loggedin())
+	{
+		echo "<p>";
+		echo printLink($zf . '/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumLinkURL()), gettext("Edit details"), NULL, NULL, NULL);
+		echo '</p>';
+	}		
+?>
+	</td>
+</tr>
+<?
+
+}	// end function	
 ?>
