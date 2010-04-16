@@ -2,7 +2,7 @@
 
 // don't display errors
 $server = $_SERVER['HTTP_HOST'];
-if ($server == 'y' OR $server == 'localhost' OR $server == 'wongm')
+if ($server == 'y' OR $server == 'localhost' OR $server == 'wongm' OR isset($_GET['wongm']))
 {
 	$editablelinkforadmin = true;
 	//error_reporting(E_ALL);

@@ -15,7 +15,7 @@ if (zp_loggedin())
 
 echo "$photosNumber images in $albumNumber albums.<br/>";
 ?>
-Copyright 2005 - <?=date('Y')?> &copy; Marcus Wong except where otherwise noted.<br/><br/>
+Copyright 2005 - <?=date('Y')?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.<br/><br/>
 </div>
 </div>
 <script type="text/javascript">
