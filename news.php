@@ -134,7 +134,7 @@ if(is_GalleryNewsType()) {
   drawNewsFrontpageNextables();
 } 
 ?>
-</div></div>
+</div>
 <?
 include_once('footer.php'); 
 ?>

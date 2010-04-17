@@ -40,18 +40,19 @@ include_once('header.php');
 if ($showSingleMonth and $month != '')
 {
 	printAllDays($month);
+	echo '</div>';
 }
 else
 {
 	printAllMonths();
-?>
-</div>
-<?php
+	echo '</div>';
 		
 	if ($zenpage = getOption('zp_plugin_zenpage')) 
 	{ 
 		if(function_exists("printNewsArchive")) { ?>
-<div id="archive_news"><h2><?php echo('News archive') ?></h2><?php printNewsArchive("archive");	?></div>
+<div id="archive_news"><h2><?php echo('News archive') ?></h2>
+	<?php printNewsArchive("archive");	?>
+</div>
 <?php 	}
 ?>
 <div id="tag_cloud">
