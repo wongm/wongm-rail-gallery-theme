@@ -26,6 +26,10 @@ $photosNumber = array_shift($photosArray);
 <head>
 <title><?php printGalleryTitle(); echo($pageTitle); ?></title>
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" \>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" \>
+<link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml"  href="/provider.xml">
+
 <script type="text/javascript" src="<?= $_zp_themeroot ?>/lightbox.js"></script>
 <?php zenJavascript(); ?>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
