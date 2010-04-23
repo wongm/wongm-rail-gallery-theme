@@ -39,10 +39,10 @@ function getNumberCurrentDispayedRecords($maxRecordsPerPage,$numberOfRecords,$se
 	return $extraBit;
 }
 
-function getFullImageLinkURL() { 
+function getFullImageLinkURL() {
 	if(!in_context(ZP_IMAGE)) return false;
   	global $_zp_current_image;
-  		
+
 	if ($_REQUEST['p'] == 'full')
 	{
     	return rewrite_path('/' . pathurlencode($_zp_current_image->album->name) . '/' . urlencode($_zp_current_image->filename) . im_suffix(),
@@ -60,18 +60,18 @@ function getFullImageLinkURL() {
 function getMostRecentImageDate()
 {
 	global $mostRecentImageDate;
-	
+
 	// only get if not cached
 	if ($mostRecentImageDate == '')
 	{
-		$recentSQL = "SELECT " . prefix('images') . ".date FROM " . prefix('images') . " 
+		$recentSQL = "SELECT " . prefix('images') . ".date FROM " . prefix('images') . "
 			ORDER BY " . prefix('images') . ".date DESC LIMIT 0 , 1";
 		$lastImage = query_full_array($recentSQL);
 		$mostRecentImageDate = strftime(TIME_FORMAT, strtotime($lastImage[0]['date']));
 	}
-	
+
 	return $mostRecentImageDate;
-}	
+}
 
 /**
  * Returns the url of the previous image.
@@ -96,18 +96,18 @@ function getNextImageTitle() {
  * Prints the exif data of the current image.
  *
  */
-function printEXIFData() 
+function printEXIFData()
 {
 	global $_zp_current_image;
 	$result = getImageMetaData();
 	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
 	$ratingsText = getDeathmatchRatingsText();
-	
+
 	if ( zp_loggedin() )
 	{
 		$hitCounterText .= "<br>Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
 	}
-	
+
 	if (sizeof($result) > 1 AND $result[EXIFDateTimeOriginal] != '')
 	{
 		$date = split(':', $result[EXIFDateTimeOriginal]);
@@ -115,8 +115,9 @@ function printEXIFData()
 		$udate = mktime($splitdate[1], $date[3],$date[4],$date[1],$splitdate[0],$date[0]);
 		$fdate = strftime('%B %d, %Y', $udate);
 		$ftime = strftime('%H:%M %p', $udate);
-			
-		if (DATE_SEARCH)
+
+		//check if seach by date exists, should be in set up in plugins\archive_days.php
+		if (function_exists('printAllDays'))
 		{
 			$dateLink = "<a href=\"".SEARCH_URL_PATH."/archive/$date[0]-$date[1]-$splitdate[0]\" alt=\"See other photos from this date\" title=\"See other photos from this date\">$fdate</a> $ftime";
 		}
@@ -133,15 +134,15 @@ Aperture Value: <?=$result[EXIFFNumber] ?><br/>
 Focal Length: <?=$result[EXIFFocalLength] ?>
 <?=$hitCounterText.$ratingsText?>
 </p>
-<?	
+<?
 	}
 	else
 	{
 ?>
 <p class="exif">
 <?=str_replace('<br>','',$hitCounterText.$ratingsText) ?>
-</p>	
-<?	
+</p>
+<?
 	}	// end if
 }		// end function
 
@@ -155,25 +156,25 @@ function drawGalleryPageNumberLinks($url='')
 {
 	$total = getTotalPages();
 	$current = getCurrentPage();
-	
+
 	echo '<p>';
-  
+
   	if ($total > 0)
   	{
 		echo 'Page: ';
 	}
-	
+
 	if ($current > 3 AND $total > 7)
 	{
-		echo "\n <a href=\"".$url.getMyPageURL(getPageURL(1))."\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
-		
+		echo "\n <a href=\"".$url.getMyPageURL(getPageURL(1))."\" alt=\"First page\" title=\"First page\">1</a>&nbsp;";
+
 		if ($current > 4)
 		{
 			echo "...&nbsp;";
 		}
 	}
-	
-	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
+
+	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++)
 	{
 		if ($i == $current)
 		{
@@ -185,14 +186,14 @@ function drawGalleryPageNumberLinks($url='')
 		}
 		echo "&nbsp;";
 	}
-	if ($i <= $total) 
+	if ($i <= $total)
 	{
 		if ($current < $total-5)
 		{
 			echo "...&nbsp;";
 		}
-		
-		echo "<a href=\"".$url.getMyPageURL(getPageURL($total))."\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
+
+		echo "<a href=\"".$url.getMyPageURL(getPageURL($total))."\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>";
 	}
 	echo '</p>';
 }
@@ -212,7 +213,7 @@ function getMyPageURL($defaultURL)
  */
 function printTruncatedImageTitle($editable=false) {
 	global $_zp_current_image;
-	
+
 	if ($editable && zp_loggedin())
 	{
 		// Increment a variable to make sure all elements will have a distinct HTML id
@@ -222,14 +223,14 @@ function printTruncatedImageTitle($editable=false) {
 		echo "<span id=\"editable_image_$id\">" . getImageTitle() . "</span>\n";
 		echo "<script type=\"text/javascript\">editInPlace('editable_image_$id', 'image', 'title');</script>";
 	}
-	else 
+	else
 	{
 		$imageTitle = getImageTitle();
-		
-		if (strlen($imageTitle) > IMAGETITLE_TRUNCATE_LENGTH)
+
+		if (strlen($imageTitle) > getOption('wongm_imagetitle_truncate_length'))
 		{
-			//$imageTitle = "<abbr title=\"$imageTitle\">" . substr($imageTitle, 0, IMAGETITLE_TRUNCATE_LENGTH) . "</abbr>...";
-			$imageTitle = substr($imageTitle, 0, IMAGETITLE_TRUNCATE_LENGTH) . "...";
+			//$imageTitle = "<abbr title=\"$imageTitle\">" . substr($imageTitle, 0, getOption('wongm_imagetitle_truncate_length')) . "</abbr>...";
+			$imageTitle = substr($imageTitle, 0, getOption('wongm_imagetitle_truncate_length')) . "...";
 		}
 		echo "<span id=\"imageTitle\" style=\"display: inline;\">" . $imageTitle . "</span>\n";
 	}
@@ -239,36 +240,36 @@ function drawNewsNextables()
 {
 	$next = getNextNewsURL();
 	$prev = getPrevNewsURL();
-		
-	if($next OR $prev) {	
-	?>  
+
+	if($next OR $prev) {
+	?>
 <table class="nextables"><tr><td>
   <?php if($prev) { ?><a class="prev" href="<?=$prev['link'];?>" title="<?=$prev['title']?>"><span>&laquo;</span> <?=$prev['title']?></a> <? } ?>
   <?php if($next) { ?><a class="next" href="<?=$next['link'];?>" title="<?=$next['title']?>"><?=$next['title']?> <span>&raquo;</span></a> <? } ?>
 </td></tr></table>
-  <?php } 
+  <?php }
 }
 
 function drawNewsFrontpageNextables()
 {
 	$next = getNextNewsPageURL();
 	$prev = getPrevNewsPageURL();
-		
-	if($next OR $prev) {	
-	?>  
+
+	if($next OR $prev) {
+	?>
 <table class="nextables"><tr><td>
   <?php if($prev) { ?><a class="prev" href="<?="http://".$_SERVER['HTTP_HOST'].$prev;?>" title="Previous page"><span>&laquo;</span> Previous page</a> <? } ?>
   <?php if($next) { ?><a class="next" href="<?="http://".$_SERVER['HTTP_HOST'].$next;?>" title="Next page">Next page <span>&raquo;</span></a> <? } ?>
 </td></tr></table>
-  <?php } 
+  <?php }
 }
 
 /*
- * 
+ *
  * drawRecentImagesNextables()
- * 
+ *
  * Back and forwards links for the recent images page
- * 
+ *
  */
 function drawRecentImagesNextables($showpagelist=false)
 {
@@ -295,25 +296,25 @@ function drawRecentImagesNextables($showpagelist=false)
 </td></tr></table>
 <?
 	}
-	
+
 	if ($showpagelist)
 		printPhotostreamPageList();
 }
 
 /*
- * 
+ *
  * drawWongmGridSubalbums()
- * 
+ *
  * Draw a grid of sub-albums for an album
  * Used by Rail Geelong
- * 
+ *
  */
 function drawWongmGridSubalbums()
 {
 ?>
 <!-- Sub-Albums -->
 <table class="centeredTable">
-<?php 
+<?php
 	// neater for when only 4 items
 	if (getNumAlbums() == 4)
 	{
@@ -327,7 +328,7 @@ function drawWongmGridSubalbums()
 	if ($i == 0)
 	{
 		echo '<tr>';
-	} 
+	}
 	global $_zp_current_album;
 ?>
 <td class="album" valign="top">
@@ -337,7 +338,7 @@ function drawWongmGridSubalbums()
 	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); printHitCounter($_zp_current_album); ?></small></div>
 	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
 </td>
-<?php 
+<?php
 
 	if ($i == 2)
 	{
@@ -346,28 +347,28 @@ function drawWongmGridSubalbums()
 	}
 	else
 	{
-		$i++; 
+		$i++;
 	}
-	endwhile; 
+	endwhile;
 ?>
 </table>
-<?	
+<?
 }	/// end function
 
 /*
- * 
+ *
  * drawWongmGridImages()
- * 
+ *
  * Draw a grid of images for an album
  * Used by album.php and search.php
- * 
+ *
  */
 function drawWongmGridImages()
 {
 	?>
 <!-- Images -->
 <table class="centeredTable">
-<?php 
+<?php
   // neater for when only 4 items
   if ($num == 4)
   {
@@ -378,18 +379,18 @@ function drawWongmGridImages()
 	  $i = 0;
 	  $style = 'width="33%" ';
   }
-  
+
   while (next_image()): $c++;
   if ($i == 0)
   {
 	  echo '<tr>';
-  } 
-  
+  }
+
   if (in_context(ZP_SEARCH))
   {
 	  $albumlink = getImageAlbumLink();
   }
-  
+
   global $_zp_current_image;
 ?>
 <td class="image" <?=$style?>valign="top">
@@ -398,7 +399,7 @@ function drawWongmGridImages()
 	<div class="imagetitle"><h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
 	<?php printImageTitle(); ?></a></h4><small><?php printImageDate(); printHitCounter($_zp_current_image); ?></small><?= $albumlink?></div>
 </td>
-<?php 
+<?php
 
   if ($i == 2)
   {
@@ -407,7 +408,7 @@ function drawWongmGridImages()
   }
   else
   {
-	  $i++; 
+	  $i++;
   }
   endwhile; ?>
 </table>
@@ -417,20 +418,20 @@ function drawWongmGridImages()
 
 
 /*
- * 
+ *
  * drawIndexAlbums()
- * 
- * Draw a list of albums, 
+ *
+ * Draw a list of albums,
  * thumbnail image on the left, details on the right
  * Used by recent-albums.php (recent albums) and everything.php (all albums)
- * 
+ *
  */
 function drawIndexAlbums($type=null, $site=null)
 {
 	global $_zp_current_album;
-	
+
 	echo "<table id=\"centeredAlbums\" class=\"indexalbums\">\n";
-	
+
 	if ($type == 'dynamiconly' OR $type == 'frontpage')
 	{
 		while (next_album(true))
@@ -441,7 +442,7 @@ function drawIndexAlbums($type=null, $site=null)
 			}
 		}
 	}
-	elseif($type=='nodynamic')	
+	elseif($type=='nodynamic')
 	{
 		while (next_non_dynamic_album())
 		{
@@ -451,7 +452,7 @@ function drawIndexAlbums($type=null, $site=null)
 			}
 		}
 	}
-	elseif($type=='recent')	
+	elseif($type=='recent')
 	{
 		while (next_non_dynamic_album(false, 'ID', 'DESC'))
 		{
@@ -471,13 +472,13 @@ function drawIndexAlbums($type=null, $site=null)
 }
 
 /*
- * 
+ *
  * drawWongmAlbumRow()
- * 
+ *
  * Draw an album row
  * thumbnail image on the left, details on the right
  * Used by drawIndexAlbums() in this file
- * 
+ *
  */
 function drawWongmAlbumRow()
 {
@@ -495,11 +496,11 @@ function drawWongmAlbumRow()
 		echo "<p>";
 		echo printLink($zf . '/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumLinkURL()), gettext("Edit details"), NULL, NULL, NULL);
 		echo '</p>';
-	}		
+	}
 ?>
 	</td>
 </tr>
 <?
 
-}	// end function	
+}	// end function
 ?>

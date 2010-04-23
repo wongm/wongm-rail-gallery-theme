@@ -158,7 +158,7 @@ foreach ($imageOptions as $random)
 	{
 		echo "<br><br><input id=\"multiplyscore\" name=\"multiplyscore\" type=\"textbox\" size=\"2\" />\n";
 		echo '<label for="multiplyscore">Multiply score</label>';
-		echo "<br><input id=\"nopenalty\" name=\"nopenalty\" type=\"checkbox\" />\n";
+		echo "<br><input id=\"nopenalty\" name=\"nopenalty\" type=\"checkbox\" checked />\n";
 		echo '<label for="nopenalty">No penalty for loser</label>';
 	}
 	echo "</form>\n";
@@ -241,8 +241,8 @@ function getRandomImageForRatings()
 	$random = getRandomImages();
 	$_zp_current_image = $random;
 	$id = $random->get('id');
-	
-	$toExclude = array('wagons','buses','track-machines','etm-devices','platform-faces', '-bits');
+		
+	$toExclude = split(',' , getOption('wongm_ratings_folder_exclude'));
 	$randomFolderName = $random->getAlbum()->getFolder();
 	
 	//old code

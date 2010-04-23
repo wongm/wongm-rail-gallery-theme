@@ -142,7 +142,7 @@ function getRandomImagesSet($toReturn = 5) {
 	global $_zp_gallery;
 	global $_randomImageAttempts;
 	
-	$SQLwhere = prefix('images') . ".show=1 AND (" . prefix('images') . ".hitCounter > " . HITCOUNTER_THRESHOLD . " AND " . prefix('images') . ".ratings_score > " . RATINGS_THRESHOLD . ")";
+	$SQLwhere = prefix('images') . ".show=1 AND (" . prefix('images') . ".hitCounter > " . getOption('random_threshold_hitcounter') . " AND " . prefix('images') . ".ratings_score > " . getOption('random_threshold_ratings') . ")";
 	
 	$offset_result = mysql_query( " SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM " . prefix('images') . " WHERE " . $SQLwhere);
 	$offset_row = mysql_fetch_object( $offset_result );

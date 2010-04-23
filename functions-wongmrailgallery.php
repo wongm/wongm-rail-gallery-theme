@@ -9,20 +9,12 @@
 //
 //******************************************************************************
 
-// for searching by date links in the EXIF info box
-DEFINE ('DATE_SEARCH', true);
-define ('IMAGETITLE_TRUNCATE_LENGTH', 40);
-define ('FORUM_IMAGE_SIZE', 500);
-
 // dynamic from the DB
 define ('MAXIMAGES_PERPAGE', $_zp_options['images_per_page']);
 define ('MAXIMAGES_PERRANDOM', 12);
 define ('MAXALBUMS_PERPAGE', $_zp_options['albums_per_page']);
 define ('THUMBNAIL_IMAGE_SIZE', $_zp_options['thumb_size']);
 define ('TIME_FORMAT', $_zp_options['date_format']);
-
-define ('HITCOUNTER_THRESHOLD', 30);
-define ('RATINGS_THRESHOLD', 2);
 
 DEFINE ('ARCHIVE_URL_PATH', "/gallery/archive");
 DEFINE ('SEARCH_URL_PATH', "/gallery/search");
@@ -79,7 +71,7 @@ function drawWongmListSubalbums()
 ?>
 <!-- Sub-Albums -->
 <table class="indexalbums">
-<?php 
+<?php
 	// neater for when only 4 items
 	if (getNumAlbums() == 4)
 	{
@@ -93,7 +85,7 @@ function drawWongmListSubalbums()
 	if ($i == 0)
 	{
 		echo '<tr>';
-	} 
+	}
 	drawWongmAlbumRow();
 	if ($i == 2)
 	{
@@ -102,12 +94,12 @@ function drawWongmListSubalbums()
 	}
 	else
 	{
-		$i++; 
+		$i++;
 	}
-	endwhile; 
+	endwhile;
 ?>
 </table>
-<?	
+<?
 }	/// end function
 
 function imagetext()
@@ -115,20 +107,20 @@ function imagetext()
 	$tableindex = 1;
 ?>
 <table id="images" align="center">
-<?			
+<?
 	while (next_image(false, $firstPageImages))
 	{
 		if ($tableindex == 1)
 		{
 			echo "<tr>\n";
-		} 
+		}
 ?>
 	<td class="image">
 		<div class="imagethumb"><a href="<?php echo htmlspecialchars(getImageLinkURL());?>" title="<?php echo strip_tags(getImageTitle());?>"><?php printImageThumb(getImageTitle()); ?></a></div>
 		<div class="imagetitle"><p><? /*<a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"> */ ?>
 		<?php printImageTitle(); ?></a><br/><?php printImageDate(); ?></p></div>
 	</td>
-<?php 
+<?php
 		if ($tableindex == 3)
 		{
 			echo "</tr>\n";
@@ -136,7 +128,7 @@ function imagetext()
 		}
 		else
 		{
-			$tableindex++; 
+			$tableindex++;
 		}
 	}
 ?>
@@ -144,7 +136,7 @@ function imagetext()
 <?
 	return $tableindex-1;
 }
-			
+
 
 
 
@@ -165,11 +157,11 @@ function getFullSearchDate($format='F Y') {
 		$date = $_zp_current_search->getSearchDate();
 		if (empty($date)) { return ""; }
 		if ($date == '0000-00') { return gettext("no date"); };
-		
+
 		if (sizeof(split('-', $date)) == 3) {
 			$format='F d, Y';
 		}
-					
+
 		$dt = strtotime($date."-01");
 		return date($format, $dt);
 	}
@@ -195,7 +187,7 @@ function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
 	if (checkforPassword()) { return false; }
 	if (is_null($_zp_albums)) {
 		$_zp_albums = $_zp_gallery->getAlbums($all ? 0 : $_zp_page, $sorttype, $direction);
-		
+
 		if (empty($_zp_albums)) { return false; }
 		$_zp_current_album_restore = $_zp_current_album;
 		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));

@@ -1,4 +1,4 @@
-<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
 $pageTitle = ' - Random photos';
 include_once('header.php');
@@ -18,10 +18,10 @@ echo "<table class=\"centeredTable\">";
 $i=0;
 $j=0;
 
-while ($i < MAXIMAGES_PERRANDOM)
+while ($i < getOption('wongm_randompage_count'))
 {
 	echo "<tr>";
-	
+
 	while ($j < 3)
 	{
 		$randomImage = getRandomImages();
@@ -29,11 +29,11 @@ while ($i < MAXIMAGES_PERRANDOM)
 		$photoTitle = $randomImage->getTitle();
 		$photoDate = strftime(TIME_FORMAT, strtotime($randomImage->getDateTime()));
 		$imageCode = "<img src='".$randomImage->getThumb()."' alt='".$photoTitle."'>";
-		
+
 		$albumForPhoto = $randomImage->getAlbum();
 		$photoAlbumTitle = $albumForPhoto->getTitle();
 		$photoPath = $albumForPhoto->getAlbumLink();
-				
+
 		if ($photoDesc == '')
 		{
 			$photoDesc = $photoTitle;
@@ -55,7 +55,7 @@ while ($i < MAXIMAGES_PERRANDOM)
 	$j=0;
 	echo "</tr>";
 }	//end while for rows
-	
+
 echo "</table>";
-include_once('footer.php'); 
+include_once('footer.php');
 ?>
