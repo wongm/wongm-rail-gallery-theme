@@ -216,13 +216,11 @@ function printTruncatedImageTitle($editable=false) {
 
 	if ($editable && zp_loggedin())
 	{
+		$text = getImageTitle();
+		
 		if (empty($text)) 
 		{
 			$text = gettext('(...)');
-		} 
-		else 
-		{
-			$text = getImageTitle();
 		}
 		
 		$class= 'class="' . trim("zp_editable zp_editable_image_title") . '"';
