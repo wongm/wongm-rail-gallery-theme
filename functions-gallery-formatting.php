@@ -216,12 +216,18 @@ function printTruncatedImageTitle($editable=false) {
 
 	if ($editable && zp_loggedin())
 	{
-		// Increment a variable to make sure all elements will have a distinct HTML id
-		static $id = 1;
-		$id++;
+		if (empty($text)) 
+		{
+			$text = gettext('(...)');
+		} 
+		else 
+		{
+			$text = getImageTitle();
+		}
+		
 		$class= 'class="' . trim("zp_editable zp_editable_image_title") . '"';
-		echo "<span id=\"editable_image_$id\">" . getImageTitle() . "</span>\n";
-		echo "<script type=\"text/javascript\">editInPlace('editable_image_$id', 'image', 'title');</script>";
+		echo "<span id=\"editable_image_truncate\" $class>" . $text . "</span>\n";
+		echo "<script type=\"text/javascript\">editInPlace('editable_image_truncate', 'image', 'title');</script>";
 	}
 	else
 	{
