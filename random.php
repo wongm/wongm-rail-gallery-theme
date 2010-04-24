@@ -45,7 +45,7 @@ while ($i < getOption('wongm_randompage_count'))
 ?>
 <td class="i" width="33%"><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$imageCode?></a>
 	<h4><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$photoTitle; ?></a></h4>
-	<small><?=$photoDate?><? printHitCounter($randomImage); ?></small><br/>
+	<small><?=$photoDate?><br/><? printHitCounter($randomImage); ?></small><br/>
 	In Album: <a href="http://<?=$_SERVER['HTTP_HOST'].$photoPath; ?>"><?=$photoAlbumTitle; ?></a>
 </td>
 <?
