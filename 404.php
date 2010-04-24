@@ -34,17 +34,18 @@ header("HTTP/1.0 404 Not Found");
 header("Status: 404 Not Found");
  
 $startTime = array_sum(explode(" ",microtime())); 
-$pageTitle = ' - 404 Page Not Found Error';
+$pageTitle = ' - 404 Page Not Found';
 include_once('header.php');
 include_once('functions-search.php');
 ?>
 <table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found Error
+	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found
 	</td><td id="righthead"><?printSearchForm();?></td></tr>
 </table>
+<div class="topbar">
+  	<h2>404 Page Not Found</h2>
+</div>
 <?php
-
-echo gettext("<h2>404 Page Not Found Error</h2>");
 echo gettext("<h4>The gallery object you are requesting cannot be found.</h4>");
 
 if (isset($image) AND $image != '') 

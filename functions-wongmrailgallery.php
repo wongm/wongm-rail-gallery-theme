@@ -51,21 +51,6 @@ $popularImageText['ratings']['url'] = RATINGS_URL_PATH;
 $popularImageText['ratings']['title'] = 'Popular photos - Highest rated';
 $popularImageText['ratings']['text'] = 'Highest rated';
 
-/**
- * Returns the raw title of the current image.
- *
- * @return string
- */
-function getImageAlbumLink() {
-	if(!in_context(ZP_IMAGE)) return false;
-	global $_zp_current_image;
-	$title = $_zp_current_image->getAlbum()->getTitle();
-	$folder = $_zp_current_image->getAlbum()->getFolder();
-	return "<br/>In album: <a href=\"/$folder\">$title</a>";
-}
-
-
-
 function drawWongmListSubalbums()
 {
 ?>

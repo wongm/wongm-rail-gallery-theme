@@ -146,7 +146,7 @@ function drawImageGallery($galleryResult, $type='')
 ?>
 <td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>
 	<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>
-	<small><?=$photoDate?><?=$photoStatsText?></small><br/>
+	<small><?=$photoDate?><br/><?=$photoStatsText?></small><br/>
 	In Album: <a href="<?=$albumPageLink; ?>"><?=$photoAlbumTitle; ?></a>
 </td>
 <?
@@ -288,7 +288,7 @@ function imageOrAlbumSearch($term, $type, $page)
 	}
 	elseif ($type == 'Album')
 	{
-		drawAlbums($galleryResult, ($page == 'error'));
+		drawAlbums($galleryResult, ($page == 'error'), true);
 	}
 	else
 	{
@@ -305,7 +305,7 @@ function imageOrAlbumSearch($term, $type, $page)
  * used by album search
  * and by the frontpage recently updated search
  */
-function drawAlbums($galleryResult, $error = false)
+function drawAlbums($galleryResult, $error = false, $search = false)
 {	
 	$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
 	
@@ -326,26 +326,39 @@ function drawAlbums($galleryResult, $error = false)
 			echo "<tr>\n";
 			while ($j < 3 AND $i<$numberOfRows)
 			{
-				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
+			$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
 				$albumId = MYSQL_RESULT($galleryResult,$i,"zen_albums.id");
-				$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"zen_albums.date")));
 				
-				// get an image to display with it
-				$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
-				$imageResult = MYSQL_QUERY($imageSql);
-				$numberOfImages = MYSQL_NUM_ROWS($imageResult);
-				if ($numberOfImages > 0)
+				//old shit
+				if ($search)
 				{
-					$photoUrl = MYSQL_RESULT($imageResult,0,"filename");
-					$photoId = MYSQL_RESULT($imageResult,0,"id");
-					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
+					
+					// get an image to display with it
+					$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
+					$imageResult = MYSQL_QUERY($imageSql);
+					$numberOfImages = MYSQL_NUM_ROWS($imageResult);
+					if ($numberOfImages > 0)
+					{
+						$photoUrl = MYSQL_RESULT($imageResult,0,"filename");
+						$photoId = MYSQL_RESULT($imageResult,0,"id");
+						$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					}
+					else
+					{
+						$photoUrl = GALLERY_PATH."/foldericon.gif";
+					}
 				}
+				// new frontpage stuff
 				else
 				{
-					$photoUrl = GALLERY_PATH."/foldericon.gif";
+					$photoUrl = MYSQL_RESULT($galleryResult,$i,"i.filename");
+					$photoId = MYSQL_RESULT($galleryResult,$i,"i.id");
+					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					$albumDate = strftime(TIME_FORMAT, MYSQL_RESULT($galleryResult,$i,"date"));
 				}
-					
+
 				if ($photoDesc == '')
 				{
 					$photoDesc = $photoTitle;
@@ -370,57 +383,6 @@ function drawAlbums($galleryResult, $error = false)
 	}	// end if for non zero
 }		// end function
 
-
-/*
- * prints a pretty dodad that lists the total number of pages in a set
- * give it the index you are up to,
- * the total number of items,
- * the number  to go per page,
- * and the URL to link to
- */
-function drawPageNumberLinks($index, $totalimg, $max, $url)
-{
-	$total = floor(($totalimg)/$max)+1;
-	$current = $index/$max;
-	$url = fixNavigationUrl($url);
-	
-	echo "<div class=\"pagelist\"\n>";
-	
-	if ($current > 3 AND $total > 7)
-	{
-		$url1 = $url."1";
-		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
-		
-		if ($current > 4)
-		{
-			echo "...&nbsp;";
-		}
-	}
-	
-	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
-	{
-		if ($i == $current+1)
-		{
-			echo $i;
-		}
-		else
-		{
-			echo '<a href="'.$url.$i.'" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
-		}
-		echo "&nbsp;";
-	}
-	if ($i <= $total) 
-	{
-		if ($current < $total-5)
-		{
-			echo "...&nbsp;";
-		}
-		
-		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
-	}
-	
-	echo "</div>";
-}	// end function
 
 function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start, $count, $currentImageResultIndex)
 {

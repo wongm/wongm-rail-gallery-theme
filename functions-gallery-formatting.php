@@ -28,6 +28,59 @@ function pluralNumberWord($number, $text)
 	}
 }
 
+
+/*
+ * prints a pretty dodad that lists the total number of pages in a set
+ * give it the index you are up to,
+ * the total number of items,
+ * the number  to go per page,
+ * and the URL to link to
+ */
+function drawPageNumberLinks($index, $totalimg, $max, $url)
+{
+	$total = floor(($totalimg)/$max)+1;
+	$current = $index/$max;
+	$url = fixNavigationUrl($url);
+	
+	echo "<div class=\"pagelist\"\n>";
+	
+	if ($current > 3 AND $total > 7)
+	{
+		$url1 = $url."1";
+		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
+		
+		if ($current > 4)
+		{
+			echo "...&nbsp;";
+		}
+	}
+	
+	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
+	{
+		if ($i == $current+1)
+		{
+			echo $i;
+		}
+		else
+		{
+			echo '<a href="'.$url.$i.'" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
+		}
+		echo "&nbsp;";
+	}
+	if ($i <= $total) 
+	{
+		if ($current < $total-5)
+		{
+			echo "...&nbsp;";
+		}
+		
+		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
+	}
+	
+	echo "</div>";
+}	// end function
+
+
 function getNumberCurrentDispayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber)
 {
 	if ($numberOfRecords != $totalNumberOfRecords)
@@ -101,7 +154,11 @@ function printEXIFData()
 	global $_zp_current_image;
 	$result = getImageMetaData();
 	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
-	$ratingsText = getDeathmatchRatingsText();
+	
+	if (function_exists('getDeathmatchRatingsText'))
+	{
+		$ratingsText = getDeathmatchRatingsText();
+	}
 
 	if ( zp_loggedin() )
 	{
@@ -131,7 +188,7 @@ Taken with a <?=$result[EXIFModel] ?><br/>
 Date: <?=$dateLink;?><br/>
 Exposure Time: <?=$result[EXIFExposureTime] ?><br/>
 Aperture Value: <?=$result[EXIFFNumber] ?><br/>
-Focal Length: <?=$result[EXIFFocalLength] ?>
+Focal Length: <?=$result[EXIFFocalLength] ?><br/>
 <?=$hitCounterText.$ratingsText?>
 </p>
 <?
@@ -140,7 +197,7 @@ Focal Length: <?=$result[EXIFFocalLength] ?>
 	{
 ?>
 <p class="exif">
-<?=str_replace('<br>','',$hitCounterText.$ratingsText) ?>
+<?=$hitCounterText.$ratingsText; ?>
 </p>
 <?
 	}	// end if
@@ -339,7 +396,7 @@ function drawWongmGridSubalbums()
 	<div class="albumthumb"><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
 	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
 	<div class="albumtitle"><h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
-	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); printHitCounter($_zp_current_album); ?></small></div>
+	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><br/><?php printHitCounter($_zp_current_album); ?></small></div>
 	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
 </td>
 <?php
@@ -358,6 +415,23 @@ function drawWongmGridSubalbums()
 </table>
 <?
 }	/// end function
+
+
+
+/**
+ * Returns the raw title of the current image.
+ *
+ * @return string
+ */
+function getImageAlbumLink() {
+	if(!in_context(ZP_IMAGE)) return false;
+	global $_zp_current_image;
+	$title = $_zp_current_image->getAlbum()->getTitle();
+	$folder = $_zp_current_image->getAlbum()->getFolder();
+	return "<br/>In album: <a href=\"/$folder\">$title</a>";
+}
+
+
 
 /*
  *
@@ -394,6 +468,8 @@ function drawWongmGridImages()
   {
 	  $albumlink = getImageAlbumLink();
   }
+  
+  
 
   global $_zp_current_image;
 ?>
@@ -401,7 +477,7 @@ function drawWongmGridImages()
 	<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
 	<?php printImageThumb(getImageTitle()); ?></a></div>
 	<div class="imagetitle"><h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-	<?php printImageTitle(); ?></a></h4><small><?php printImageDate(); printHitCounter($_zp_current_image); ?></small><?= $albumlink?></div>
+	<?php printImageTitle(); ?></a></h4><small><?php printImageDate(); ?><br/><?php printHitCounter($_zp_current_image); ?></small><?= $albumlink?></div>
 </td>
 <?php
 
@@ -493,7 +569,7 @@ function drawWongmAlbumRow()
 		<a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
 	</td><td class="albumdesc">
 		<h4><a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
-		<p><small><?php printAlbumDate(""); printHitCounter($_zp_current_album); ?></small></p>
+		<p><small><?php printAlbumDate(""); ?><br/><?php printHitCounter($_zp_current_album); ?></small></p>
 		<p><?php printAlbumDesc(); ?></p>
 <? 	if (zp_loggedin())
 	{

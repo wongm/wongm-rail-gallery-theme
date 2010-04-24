@@ -131,27 +131,39 @@ a:hover {
 	font-size: .8em;
 	line-height: 1em;
 }
-/* gallery specific stuff
+/* Gallery specific stuff
 ------------------------------ */
 .centeredTable td {
 	padding: 5px 10px;
 	text-align: center;
 }
-.nextables { 
-  margin-top: 10px;
-  padding: 5px 10px;
-  border: 1px 0 solid white;
-  background: #FAFAFA;
-  width: 100%;
+.i {
+	background-color: #FAFAFA;
+	padding: 10px !important;
+	vertical-align: top;
+}
+.i h4 {
+	padding: 5px 0;
+	margin: 0;
+}
+.i h4:hover {
+	text-decoration: underline;
+}
+/* Search and archive
+------------------------------ */
+#tag_cloud .tags a {
+	line-height: 1.5em;
+}
+#edit-editable_image_truncate, #edit-editable_album_2 {
+	width:600px;
+}
+#search_form a {
+	display: none;
 }
 #search {
 	float: right;
 	padding: 5px;
 	text-align: center;
-}
-
-#tag_cloud .tags a {
-	line-height: 1.5em;
 }
 /* Front page stuff 
 ------------------------------ */
@@ -159,7 +171,6 @@ h2.index {
 	text-align: center;
 	padding: 10px 0 5px;
 	font-size:20px;
-	
 }
 .indexalbums {
 	width: 100%;
@@ -173,9 +184,6 @@ h2.index {
 .indexalbums .albumdesc {
 	text-align: left;
 	vertical-align: top;
-}
-#thumbnav td {
-	width: 25%;
 }
 .album, .image {
 	background-color: #F5F6F5;
@@ -303,24 +311,6 @@ img {
 .topbar {
 	margin-top: 10px;
 }
-
-/* gallery stuff
------------------------------- */
-.i {
-	background-color: #FAFAFA;
-	padding: 10px !important;
-	vertical-align: top;
-}
-.i h4 {
-	padding: 5px 0;
-	margin: 0;
-}
-.i h4:hover {
-	text-decoration: underline;
-}
-#search_form a {
-	display: none;
-}
 /* Lighbox
 ------------------------------ */
 #overlay { background-image: url(/zp-core/images/overlay.png); }
@@ -424,6 +414,13 @@ img {
 
 /* Page Navigation
 ------------------------------ */
+.nextables { 
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px 0 solid white;
+  background: #FAFAFA;
+  width: 100%;
+}
 ul.pagelist {
 	font-size: 1em;
 	clear: both;
@@ -478,9 +475,15 @@ ul.pagelist li.next {
 .nextables A:hover, .nextables A:active { 
 	text-decoration: none; 
 }
+#thumbnav td {
+	width: 25%;
+}
 h4.main_formhead {
 	display: none;
 }
-#edit-editable_image_truncate, #edit-editable_album_2 {
-	width:600px;
+
+
+.imagetitle small img {
+	vertical-align: middle;
+	margin-bottom:5px;
 }
