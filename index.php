@@ -31,7 +31,7 @@ $filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
 <tr class="album">
  	<? if ($i == 1) { ?>
-	<td class="albumthumb" rowspan="2" valign="top"></td>
+	<td class="albumthumb" rowspan="<?=getOption('wongm_news_count')?>" valign="top"></td>
 	<? } ?>
  	<td class="albumdesc">
     	<h4><?php printNewsTitleLink(); ?></h4>
