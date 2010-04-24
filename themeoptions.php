@@ -15,13 +15,15 @@ class ThemeOptions {
 		setThemeOptionDefault('random_threshold_ratings', 2); 
 		setThemeOptionDefault('random_threshold_hitcounter', 40); 
 		setThemeOptionDefault('wongm_randompage_count', 12); 
+		setThemeOptionDefault('wongm_news_count', 2); 
 	}
 	
 	function getOptionsSupported() {
 		return array(	gettext('Image rating: exclude albums') => array('key' => 'wongm_ratings_folder_exclude', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('CSV string with the folder titles to be excluded')),
 						gettext('Image title: truncate length') => array('key' => 'wongm_imagetitle_truncate_length', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Image title in breadcrumb: truncate to this length')),
-						gettext('Random images: rating threshold') => array('key' => 'random_threshold_ratings', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for the frontpage random images')),
-						gettext('Random images: hitcounter threshold') => array('key' => 'random_threshold_hitcounter', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for the frontpage random images')),
+						gettext('Frontpage random images: rating threshold') => array('key' => 'random_threshold_ratings', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for the frontpage random images')),
+						gettext('Frontpage random images: hitcounter threshold') => array('key' => 'random_threshold_hitcounter', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for the frontpage random images')),
+						gettext('Frontpage: news article count') => array('key' => 'wongm_news_count', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Number of news articles on the front page')),
 						gettext('Random images: how many per page') => array('key' => 'wongm_randompage_count', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('How many images should be shown on the "Random images" page'))
 					);
 	}

@@ -28,7 +28,7 @@ $filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 	</td>
 </tr>
 <?					
-while (next_news() AND $i++ < 2): ;?>
+while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
 <tr class="album">
  	<? if ($i == 1) { ?>
 	<td class="albumthumb" rowspan="2" valign="top"></td>
