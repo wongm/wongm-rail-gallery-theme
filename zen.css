@@ -481,3 +481,6 @@ ul.pagelist li.next {
 h4.main_formhead {
 	display: none;
 }
+#edit-editable_image_truncate, #edit-editable_album_2 {
+	width:600px;
+}
