@@ -149,42 +149,6 @@ a:hover {
 .i h4:hover {
 	text-decoration: underline;
 }
-/* Search and archive
------------------------------- */
-#tag_cloud .tags a {
-	line-height: 1.5em;
-}
-#edit-editable_image_truncate, #edit-editable_album_2 {
-	width:600px;
-}
-#search_form a {
-	display: none;
-}
-#search {
-	float: right;
-	padding: 5px;
-	text-align: center;
-}
-/* Front page stuff 
------------------------------- */
-h2.index {
-	text-align: center;
-	padding: 10px 0 5px;
-	font-size:20px;
-}
-.indexalbums {
-	width: 100%;
-	padding: 5px;
-}
-.indexalbums .albumthumb {
-	width: 280px;
-	text-align: center;
-	padding: 10px;
-}
-.indexalbums .albumdesc {
-	text-align: left;
-	vertical-align: top;
-}
 .album, .image {
 	background-color: #F5F6F5;
 	padding: 10px !important;
@@ -210,6 +174,45 @@ h2.index {
 	background-color: #F5F6F5;
 	font-size: 0.9em !important;
 	width: 50%;
+}
+/* Search and archive
+------------------------------ */
+#tag_cloud .tags a {
+	line-height: 1.5em;
+}
+#edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
+	width:600px;
+}
+#search_form a {
+	display: none;
+}
+#search {
+	float: right;
+	padding: 5px;
+	text-align: center;
+}
+/* Front page stuff 
+------------------------------ */
+h2.index {
+	text-align: center;
+	padding: 10px 0 5px;
+	font-size:20px;
+}
+p.recent {
+	color: red;
+}
+.indexalbums {
+	width: 100%;
+	padding: 5px;
+}
+.indexalbums .albumthumb {
+	width: 280px;
+	text-align: center;
+	padding: 10px;
+}
+.indexalbums .albumdesc {
+	text-align: left;
+	vertical-align: top;
 }
 /* General page layout stuff 
 ------------------------------ */
@@ -268,6 +271,9 @@ p {
 .error a {
 	text-decoration:underline;
 	color: white;
+}
+p.date {
+	font-size: 0.8em;
 }
 
 /* Image formatting
@@ -482,7 +488,7 @@ h4.main_formhead {
 	display: none;
 }
 
-
+/* recent items icon */
 .imagetitle small img {
 	vertical-align: middle;
 	margin-bottom:5px;

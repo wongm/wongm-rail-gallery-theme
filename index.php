@@ -23,7 +23,7 @@ $filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 		<a href="<?=UPDATES_URL_PATH?>" title="Recent uploads"><img src="<?=$filepath?>" alt="Recent uploads" /></a>
 	 </td><td class="albumdesc">
 		<h4><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h4>
-		<p><small><?=getMostRecentImageDate() ?></small></p>
+		<? getMostRecentImageDate(); ?>
 		<p>All <?=$photosNumber?> photos sorted by when they were uploaded</p>
 	</td>
 </tr>
@@ -35,7 +35,7 @@ while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
 	<? } ?>
  	<td class="albumdesc">
     	<h4><?php printNewsTitleLink(); ?></h4>
-    	<p><small><?php printNewsDate();?></small></p>
+    	<p class="date"><?php printNewsDate();?></p>
     	<p><?php printNewsContent(); ?></p>
     	<p><?php printNewsReadMoreLink(); ?></p>
     	<?php printCodeblock(1); ?>
@@ -93,8 +93,7 @@ $randomFilepath6 = getThumbnailURLFromRandomImagesSet($_randomImages[4]);
 		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath6?>" alt="All albums" /></a>
 	 </td><td class="albumdesc">
 		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
-	 	<p><small><?=getMostRecentImageDate();?></small></p>
-		<p>Every album - <?=$albumNumber?> of them</p>
+		<p>Every album - all <?=$albumNumber?> of them</p>
 	</td>
 </tr>
 <?php
@@ -169,5 +168,65 @@ function getRandomImagesSet($toReturn = 5) {
 function getThumbnailURLFromRandomImagesSet($array)
 {
 	return '/'.$array['folder']."/image/thumb/".$array['filename'];
+}
+
+function getMostRecentImageDate()
+{
+	// options
+	$alertThreshold = getOption('wongm_frontpage_alert_threshold');
+	$noticeThreshold = getOption('wongm_frontpage_notice_threshold');
+	
+	// get most recent image date
+	$recentSQL = "SELECT " . prefix('images') . ".date FROM " . prefix('images') . "
+					ORDER BY " . prefix('images') . ".date DESC LIMIT 0 , 1";
+	$lastImage = query_full_array($recentSQL);
+	$mostRecentImageDate = $lastImage[0]['date'];
+
+	// get date difference	
+	$dateDiff = time() - strtotime($mostRecentImageDate);
+	$daysSinceUpdate = floor($dateDiff/(60*60*24));
+	$formattedUpdatedDate = strftime(TIME_FORMAT, strtotime($mostRecentImageDate));
+	$plural = "s";
+	
+	// format text based on date difference
+	if ($daysSinceUpdate < $alertThreshold)
+	{
+		$class = "recent";
+		
+		if (trim($daysSinceUpdate) == '1')
+		{
+			$plural = "";
+		}
+	}
+	
+	echo "<p class=\"$class\">Last updated $formattedUpdatedDate ($daysSinceUpdate day$plural ago)</p>\n";
+	
+	// get number of recent images
+	$recentSQL = "SELECT count(date) AS date FROM " . prefix('images') . " WHERE date > DATE_ADD(CURDATE() , INTERVAL -$alertThreshold DAY)
+					UNION
+					SELECT count(date) AS date FROM " . prefix('images') . " WHERE date > DATE_ADD(CURDATE() , INTERVAL -$noticeThreshold DAY)";
+	$lastImage = query_full_array($recentSQL);
+	$periodAlertCount = $lastImage[0]['date'];
+	$periodNoticeCount = $lastImage[1]['date'];
+	
+	if ($periodAlertCount > 0)
+	{
+		$toPrint .= "$periodAlertCount photos added in the past $alertThreshold days";
+	}
+	
+	if ($toPrint != '')
+	{
+		$toPrint .= ", ";
+	}
+	
+	if ($periodAlertCount > 0)
+	{
+		$toPrint .= "$periodNoticeCount photos added in the past $noticeThreshold days";
+	}
+	
+	if ($toPrint != '')
+	{
+		echo "<p class=\"$class\">$toPrint</p>\n";
+	}
 }
 ?>

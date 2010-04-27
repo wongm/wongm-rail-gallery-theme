@@ -107,24 +107,8 @@ function getFullImageLinkURL() {
 	    	'/index.php?album=' . urlencode($_zp_current_album->name) . '&image=' . urlencode($_zp_current_image->name));
     }
 }
-
-
-
-function getMostRecentImageDate()
-{
-	global $mostRecentImageDate;
-
-	// only get if not cached
-	if ($mostRecentImageDate == '')
-	{
-		$recentSQL = "SELECT " . prefix('images') . ".date FROM " . prefix('images') . "
-			ORDER BY " . prefix('images') . ".date DESC LIMIT 0 , 1";
-		$lastImage = query_full_array($recentSQL);
-		$mostRecentImageDate = strftime(TIME_FORMAT, strtotime($lastImage[0]['date']));
-	}
-
-	return $mostRecentImageDate;
-}
+	
+	
 
 /**
  * Returns the url of the previous image.
