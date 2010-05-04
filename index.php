@@ -24,7 +24,6 @@ $filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 	 </td><td class="albumdesc">
 		<h4><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h4>
 		<? getMostRecentImageDate(); ?>
-		<p>All <?=$photosNumber?> photos sorted by when they were uploaded</p>
 	</td>
 </tr>
 <?					
@@ -172,6 +171,8 @@ function getThumbnailURLFromRandomImagesSet($array)
 
 function getMostRecentImageDate()
 {
+	global $photosNumber;
+	
 	// options
 	$alertThreshold = getOption('wongm_frontpage_alert_threshold');
 	$noticeThreshold = getOption('wongm_frontpage_notice_threshold');
@@ -186,20 +187,32 @@ function getMostRecentImageDate()
 	$dateDiff = time() - strtotime($mostRecentImageDate);
 	$daysSinceUpdate = floor($dateDiff/(60*60*24));
 	$formattedUpdatedDate = strftime(TIME_FORMAT, strtotime($mostRecentImageDate));
+	
 	$plural = "s";
+	
 	
 	// format text based on date difference
 	if ($daysSinceUpdate < $alertThreshold)
 	{
 		$class = "recent";
 		
-		if (trim($daysSinceUpdate) == '1')
+		if ($daysSinceUpdate == 1)
 		{
 			$plural = "";
 		}
 	}
 	
-	echo "<p class=\"$class\">Last updated $formattedUpdatedDate ($daysSinceUpdate day$plural ago)</p>\n";
+	// is it today, or a number of days?
+	if ($daysSinceUpdate == 0)
+	{
+		$daysSinceUpdateText = "(<b>today</b>)";
+	}
+	else
+	{
+		$daysSinceUpdateText = "($daysSinceUpdate day$plural ago)";
+	}
+	
+	echo "<p class=\"$class\">Last updated $formattedUpdatedDate $daysSinceUpdateText</p>\n";
 	
 	// get number of recent images
 	$recentSQL = "SELECT count(date) AS date FROM " . prefix('images') . " WHERE date > DATE_ADD(CURDATE() , INTERVAL -$alertThreshold DAY)
@@ -226,7 +239,14 @@ function getMostRecentImageDate()
 	
 	if ($toPrint != '')
 	{
-		echo "<p class=\"$class\">$toPrint</p>\n";
+		$toPrint .= ", ";
+	}
+	
+	$toPrint .= "a total of $photosNumber photos sorted by when they were uploaded.";
+	
+	if ($toPrint != '')
+	{
+		echo "<p>$toPrint</p>\n";
 	}
 }
 ?>
