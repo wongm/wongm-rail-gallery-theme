@@ -7,7 +7,6 @@ include_once('header.php'); ?>
 	<a href="<?=SEARCH_URL_PATH?>" title="Gallery Search">Search</a>
 	</td><td id="righthead"><? printSearchForm();?></td></tr>
 </table>
-<div id="searchpage">
 <?php
 
 $totalAlbums = getNumAlbums();
@@ -28,9 +27,23 @@ if ($total > 0)
 	{ 
 		$searchwords = getSearchWords(); 
 	}
- 	echo '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $total)." $albumsText</p>";
 }
 
+if (strlen($searchwords) == 0)
+{
+	$leadingIntroText = "<h2>Search</h2>";
+}
+else
+{
+	$leadingIntroText = "<h2>Search results</h2>\n";
+	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $total)." $albumsText</p>";
+}
+?>
+<div class="topbar">
+	<?php echo $leadingIntroText; ?>
+</div>
+<div id="searchpage">
+<?
 if ($totalAlbums > 0)
 {
 	echo "<table class=\"indexalbums\">\n";
@@ -68,9 +81,9 @@ if (hasNextPage() OR hasPrevPage())
 {
 ?>
 <table class="nextables"><tr id="pagelinked"><td>
-	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getMyPageURL(getPrevPageURL());?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
+	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
 	</td><td><?php printPageList(); ?></td><td>
-	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getMyPageURL(getNextPageURL());?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
+	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
 </td></tr></table>
 <?
 }
