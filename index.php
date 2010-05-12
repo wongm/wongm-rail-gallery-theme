@@ -35,7 +35,7 @@ while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
  	<td class="albumdesc">
     	<h4><?php printNewsTitleLink(); ?></h4>
     	<p class="date"><?php printNewsDate();?></p>
-    	<p><?php printNewsContent(); ?></p>
+    	<?php printNewsContent(); ?>
     	<p><?php printNewsReadMoreLink(); ?></p>
     	<?php printCodeblock(1); ?>
     </td>
@@ -242,7 +242,16 @@ function getMostRecentImageDate()
 		$toPrint .= ", ";
 	}
 	
-	$toPrint .= "a total of $photosNumber photos sorted by when they were uploaded.";
+	if ($toPrint == '')
+	{
+		$toPrint .= "$photosNumber photos sorted by when they were uploaded.";
+	}
+	else
+	{
+		$toPrint .= "a total of $photosNumber photos sorted by when they were uploaded.";
+	}
+	
+	
 	
 	if ($toPrint != '')
 	{

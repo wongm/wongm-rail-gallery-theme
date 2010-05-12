@@ -1,5 +1,11 @@
 <?php
 
+// accepts:
+// $contentdiv
+// $pageTitle
+// $rssType
+// $rssTitle
+
 // don't display errors
 $server = $_SERVER['HTTP_HOST'];
 if ($server == 'y' OR $server == 'localhost' OR $server == 'wongm' OR isset($_GET['wongm']))
@@ -12,6 +18,12 @@ else
 	$editablelinkforadmin = false;
 	error_reporting(0);
 }
+
+//override the name of the content div if required
+if (empty($contentdiv))
+{
+	$contentdiv = "content";
+}	
 
 require_once("functions-wongmrailgallery.php");
 include_once('functions-gallery-formatting.php');
@@ -51,7 +63,6 @@ if ($rssType != "" AND $rssTitle != "")
 <table class="buttonbar"><tr class="sitemenu">
 <td class="menu"><a href="/news" alt="News" title="News">News</a></td>
 <td class="menu"><a href="<?=EVERY_ALBUM_PATH?>" alt="Show all albums" title="Show all albums">All albums</a></td>
-<!--<td class="menu"><a href="/gallery" alt="Show all theme based albums" title="Show all theme based albums">Albums by theme</a></td>-->
 <td class="menu"><a href="<?=RECENT_ALBUM_PATH?>" alt="Recently uploaded albums" title="Recently added albums">Recent albums</a></td>
 <td class="menu"><a href="<?=UPDATES_URL_PATH?>" alt="Recently uploaded photos" title="Recently uploaded photos">Recent uploads</a></td>
 <td class="menu"><a href="<?=POPULAR_URL_PATH?>" alt="Most popular images" title="Most popular images">Popular</a></td>
@@ -60,4 +71,4 @@ if ($rssType != "" AND $rssTitle != "")
 <td class="menu"><a href="<?=CONTACT_URL_PATH?>" alt="Want to drop me a line?" title="Want to drop me a line?">Contact me</a></td>
 </td></tr></table>
 </div>
-<div id="content">
+<div id="content" class="<?=$contentdiv?>">

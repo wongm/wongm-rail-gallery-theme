@@ -175,16 +175,22 @@ a:hover {
 	font-size: 0.9em !important;
 	width: 50%;
 }
-/* Search and archive
+#edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
+	width:600px;
+}
+/* Archive
 ------------------------------ */
 #tag_cloud .tags a {
 	line-height: 1.5em;
 }
-#edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
-	width:600px;
-}
+/* Search 
+------------------------------ */
 #search_form a {
 	display: none;
+}
+#search_form {
+	padding: 0px;
+	margin: 0px;
 }
 #search {
 	float: right;
@@ -231,8 +237,10 @@ p.recent {
 #header h1 {
 	line-height: 0.8em;
 }
+.content p {
+	width: 98%;	
+}
 p {
-	width: 98%;
 	margin: 0.7em auto;
 	line-height: 1.3em;
 }
@@ -309,6 +317,7 @@ img {
 	display: block;
 	margin: 0 auto;
 	width: 98%;
+	list-style: none;
 }
 .topbar h2 {
 	text-align: left;
@@ -358,6 +367,7 @@ img {
 #sidebar ul {
 	list-style-type: none; 
 	padding-left: 10px;
+	margin-left: 0px;
 }
 #sidebar li {
 	line-height: 1.8em;
@@ -368,15 +378,13 @@ img {
 .newsarticlecredit ul, .newsarticlecredit li {
 	display: inline;
 	padding: 0px;
+	margin: 0px;
 }
 .newsarticlecredit {
 	font-size: smaller;
 }
-#news p {
-	width: 100%;
-}
-#news {
-	padding-left: 5px;
+.newsarticle, #news #hitcounter {
+	padding-left: 1%;
 }
 
 /* Comments
@@ -390,6 +398,7 @@ img {
 	width: 800px;
 	margin-top: 10px;
 	padding: 0;
+	padding-left: 1%;
 }
 #comments h2 {
 	font-size: 1.2em;
@@ -422,10 +431,13 @@ img {
 ------------------------------ */
 .nextables { 
   margin-top: 10px;
-  padding: 5px 10px;
   border: 1px 0 solid white;
   background: #FAFAFA;
   width: 100%;
+}
+.nextables td {
+	
+  padding: 5px 10px;
 }
 ul.pagelist {
 	font-size: 1em;

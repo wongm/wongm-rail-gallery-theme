@@ -1,6 +1,7 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - News - '.getBareNewsTitle();
+$contentdiv = "newscontent";
 $len = strlen($pageTitle);
 
 if (substr($pageTitle, $len-2, 1) == '-')
@@ -25,14 +26,16 @@ if(is_NewsArticle()) {
 </div>
 <div class="topbar"><h2><?php printNewsTitle(); ?></h2></div>
 <div id="news">
-  <div class="newsarticlecredit"><span class="newsarticlecredit-left"><?php printNewsDate();?> | <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> | </span> <?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?></div>
-  <p><?php printNewsContent(); ?></p>
+	<div class="newsarticle"> 
+		<div class="newsarticlecredit"><span class="newsarticlecredit-left"><?php printNewsDate();?> | <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> | </span> <?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?></div>
+		<p><?php printNewsContent(); ?></p>
+	</div>
 <?php 
 // COMMENTS TEST
 
 
 	drawNewsNextables();
-	echo "<p>Viewed ".getHitcounter()." times.</p>";
+	echo "<p id=\"hitcounter\">Viewed ".getHitcounter()." times.</p>";
 	
 if (getOption('comment_form_articles')) { ?>
 				<div id="comments">
@@ -96,9 +99,9 @@ if (getOption('comment_form_articles')) { ?>
 						</table>
 				</form>
 			</div>
+		</div>
 
 				<?php } else { echo gettext('Comments are closed.'); } ?> 
-
 
 </div><?php } // comments allowed - end
 
@@ -125,9 +128,9 @@ if(is_GalleryNewsType()) {
 }
 ?>
 		</div>
-    	<p><?php printNewsContent(); ?>
+    	<?php printNewsContent(); ?>
     	<p><?php printNewsReadMoreLink(); ?></p>
-    	<?php printCodeblock(1); ?></p>
+    	<?php printCodeblock(1); ?>
  	</div>	
 <?php
   endwhile; 
