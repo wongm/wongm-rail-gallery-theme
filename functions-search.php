@@ -64,7 +64,10 @@ function drawImageGallery($galleryResult, $type='')
 
 	if ($numberOfRows>0) 
 	{
-		echo "<p>$text</p>\n";
+		if ($text != "")
+		{
+			echo "<p>$text</p>\n";
+		}
 		echo '<table class="centeredTable">';
 
 		$i=0;
@@ -331,15 +334,15 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 			echo "<tr>\n";
 			while ($j < 3 AND $i<$numberOfRows)
 			{
-				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
-				
+			$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
 				$albumId = MYSQL_RESULT($galleryResult,$i,"zen_albums.id");
-				$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
 				
 				//old shit
 				if ($search)
-				{					
+				{
+					$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
+					
 					// get an image to display with it
 					$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
 					$imageResult = MYSQL_QUERY($imageSql);
@@ -355,12 +358,13 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 						$photoUrl = GALLERY_PATH."/foldericon.gif";
 					}
 				}
-				// new railgeelong frontpage stuff
+				// new frontpage stuff
 				else
 				{
 					$photoUrl = MYSQL_RESULT($galleryResult,$i,"i.filename");
 					$photoId = MYSQL_RESULT($galleryResult,$i,"i.id");
 					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					$albumDate = strftime(TIME_FORMAT, MYSQL_RESULT($galleryResult,$i,"date"));
 				}
 
 				if ($photoDesc == '')
@@ -430,6 +434,7 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 		$captionLimitSql = "zen_images.title REGEXP '_[0-9]{4}' OR zen_images.title REGEXP 'DSCF[0-9]{4}'";
 		$captiona = $captionb = '';
 		$order = " ORDER BY zen_images.date DESC ";
+		$where = " AND zen_albums.folder not like 'wagons%'";
 		
 		//show all images with bad captions
 		if ($pageTypeModifier == 'images')
@@ -466,6 +471,11 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 			{
 				$order = " ORDER BY zen_images.ratings_score DESC, zen_images.hitcounter DESC";
 				$where = " AND zen_images.ratings_view > 0 ";
+			}
+			else if ($pageTypeModifier == 'wagons')
+			{
+				$order = " ORDER BY zen_images.mtime DESC";
+				$where = " AND zen_albums.folder like 'wagons%'";
 			}
 			
 			$nextURL .= "/";

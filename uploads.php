@@ -30,7 +30,7 @@ if (isset($_REQUEST['caption']))
 	$pageTypeModifier = $_REQUEST['caption'];
 }
 
-// used when drawing out the galllery item later on
+// used when drawing out the gallery item later on
 $galleryType = $pageTypeModifier;
 
 // draw gallery of hitcounter or rating based ranked pages
@@ -50,19 +50,40 @@ if ($pageType == 'popular')
 // get date based ranked pages
 else if ($pageType == '')
 {
-	$nextURL = UPDATES_URL_PATH;
-	$leadingIntroText = $pageTitle = 'Recent uploads';
+	if ($pageTypeModifier == 'wagons')
+	{
+		$nextURL = WAGON_UPDATES_URL_PATH;
+		$pageTitle = 'Recent uploads - Wagons and containers';
+		$subheading = "Recent wagons and containers";
+		$leadingIntroText = "Wagons and containers, sorted by upload date to the site (not when they were taken)";
+		$pageBreadCrumb = "<a href=\"".UPDATES_URL_PATH."\" title=\"Recent uploads\">Recent uploads</a>
+			&raquo; <a href=\"$nextURL\" title=\"Wagons and containers\">Wagons and containers</a>";
+	}
+	else
+	{
+		$nextURL = UPDATES_URL_PATH;
+		$leadingIntroText = $pageTitle = 'Recent uploads';
+		$pageBreadCrumb = "<a href=\"$nextURL\" title=\"$leadingIntroText\">$leadingIntroText</a>";
+
+		$trailingIntroText = ". For just recent wagon photos go to the <a href=\"".WAGON_UPDATES_URL_PATH."\" title=\"wagons and containers page\">wagons and containers page</a>";
+
+		if ( zp_loggedin() ) {
+			$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br>
+				<a href="'.$nextURL.'/?caption=albums">Albums with uncaptioned images</a><br>
+				<a href="'.$nextURL.'/?double=">Duplicate images</a></p>';
+		}
+	}
+
 	$rssType = 'Gallery';
 	$rssTitle = 'Recent uploads';
-	
-	$pageBreadCrumb = "<a href=\"$nextURL\" title=\"Recent uploads\">Recent uploads</a>";
-	
-	if ( zp_loggedin() ) {
-		$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br>
-			<a href="'.$nextURL.'/?caption=albums">Albums with uncaptioned images</a><br>
-			<a href="'.$nextURL.'/?double=">Duplicate images</a></p>';
-	}
 }
+
+if ($subheading == "")
+{
+	$subheading = $leadingIntroText;
+}
+
+$trailingIntroText .= '.';
 
 $pageTitle = " - $pageTitle";
 include_once('header.php'); 
@@ -74,7 +95,7 @@ require_once("functions-search.php");
 	</td><td id="righthead"><?printSearchForm();?></td></tr>
 </table>
 <div class="topbar">
-	<h2><?=$leadingIntroText?></h2>
+	<h2><?=$subheading?></h2>
 </div>
 <?
 if (!is_numeric($recentPageNumber) OR $recentPageNumber < 1)

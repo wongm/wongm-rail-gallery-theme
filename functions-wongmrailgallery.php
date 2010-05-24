@@ -18,10 +18,12 @@ define ('TIME_FORMAT', $_zp_options['date_format']);
 
 DEFINE ('ARCHIVE_URL_PATH', "/gallery/archive");
 DEFINE ('SEARCH_URL_PATH', "/gallery/search");
-DEFINE ('UPDATES_URL_PATH', "/gallery/recent");
 DEFINE ('EVERY_ALBUM_PATH', "/gallery/everything");
 DEFINE ('CONTACT_URL_PATH', "/contact.php");
 DEFINE ('RANDOM_ALBUM_PATH', "/gallery/random");
+
+DEFINE ('UPDATES_URL_PATH', "/gallery/recent");
+DEFINE ('WAGON_UPDATES_URL_PATH', "/gallery/recent/wagons");
 
 DEFINE ('RECENT_ALBUM_PATH', "/gallery/recent/albums");
 
@@ -33,7 +35,7 @@ DEFINE ('POPULAR_URL_PATH', "/gallery/popular");
 DEFINE ('DO_RATINGS_URL_PATH', '/gallery/rate-my-photos');
 DEFINE ('GALLERY_PATH', '');
 
-DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . '">here</a>.');
+DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . '">here</a>');
 
 $popularImageText['all-time']['url'] = ALL_TIME_URL_PATH;
 $popularImageText['all-time']['title'] = 'Popular photos - Most viewed of all time';
