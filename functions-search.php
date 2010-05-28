@@ -434,7 +434,6 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 		$captionLimitSql = "zen_images.title REGEXP '_[0-9]{4}' OR zen_images.title REGEXP 'DSCF[0-9]{4}'";
 		$captiona = $captionb = '';
 		$order = " ORDER BY zen_images.date DESC ";
-		$where = " AND zen_albums.folder not like 'wagons%'";
 		
 		//show all images with bad captions
 		if ($pageTypeModifier == 'images')
@@ -476,6 +475,11 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 			{
 				$order = " ORDER BY zen_images.mtime DESC";
 				$where = " AND zen_albums.folder like 'wagons%'";
+			}
+			// standard recent uploads page
+			else
+			{
+				$where = " AND zen_albums.folder not like 'wagons%'";
 			}
 			
 			$nextURL .= "/";

@@ -65,7 +65,7 @@ else if ($pageType == '')
 		$leadingIntroText = $pageTitle = 'Recent uploads';
 		$pageBreadCrumb = "<a href=\"$nextURL\" title=\"$leadingIntroText\">$leadingIntroText</a>";
 
-		$trailingIntroText = ". For just recent wagon photos go to the <a href=\"".WAGON_UPDATES_URL_PATH."\" title=\"wagons and containers page\">wagons and containers page</a>";
+		$trailingIntroText = ". For recent wagon photos go to the <a href=\"".WAGON_UPDATES_URL_PATH."\" title=\"wagons and containers page\">wagons and containers page</a>";
 
 		if ( zp_loggedin() ) {
 			$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br>
