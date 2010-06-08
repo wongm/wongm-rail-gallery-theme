@@ -473,7 +473,7 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 			}
 			else if ($pageTypeModifier == 'wagons')
 			{
-				$order = " ORDER BY zen_images.mtime DESC";
+				$order = " ORDER BY zen_images.id DESC";
 				$where = " AND zen_albums.folder like 'wagons%'";
 			}
 			// standard recent uploads page
