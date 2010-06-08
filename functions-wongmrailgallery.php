@@ -171,7 +171,6 @@ function getFullSearchDate($format='F Y') {
  */
 function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
 	global $_zp_albums, $_zp_gallery, $_zp_current_album, $_zp_page, $_zp_current_album_restore, $_zp_current_search;
-	if (checkforPassword()) { return false; }
 	if (is_null($_zp_albums)) {
 		$_zp_albums = $_zp_gallery->getAlbums($all ? 0 : $_zp_page, $sorttype, $direction);
 
