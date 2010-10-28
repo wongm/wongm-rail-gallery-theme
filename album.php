@@ -24,7 +24,7 @@ include_once('header.php');
  	$num = getNumImages(); 
   	if ($num > 0)
   	{
-  		drawWongmGridImages();
+  		drawWongmGridImages($num);
 	}	
 	
 	if (hasPrevPage() || hasNextPage())

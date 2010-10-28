@@ -11,13 +11,13 @@ include_once('header.php'); ?>
 
 $totalAlbums = getNumAlbums();
 $totalImages = getNumImages();
-$total = $totalAlbums + $totalImages;
+$totalItems = $totalAlbums + $totalImages;
 
 if ($totalAlbums > 0)
 {
 	$albumsText = " - $totalAlbums albums and $totalImages images.";
 }
-if ($total > 0) 
+if ($totalItems > 0) 
 {
 	if (isset($_REQUEST['date']))
 	{
@@ -36,7 +36,7 @@ if (strlen($searchwords) == 0)
 else
 {
 	$leadingIntroText = "<h2>Search results</h2>\n";
-	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $total)." $albumsText</p>";
+	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)." $albumsText</p>";
 }
 ?>
 <div class="topbar">
@@ -64,7 +64,7 @@ if ($totalAlbums > 0)
 }
 ?>
 <div id="images">
-<?php drawWongmGridImages(); ?>
+<?php drawWongmGridImages($totalImages); ?>
 </div>
 <?php
 if (function_exists('printSlideShowLink')) {

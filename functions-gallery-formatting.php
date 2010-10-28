@@ -430,25 +430,25 @@ function getImageAlbumLink() {
  * Used by album.php and search.php
  *
  */
-function drawWongmGridImages()
+function drawWongmGridImages($numberOfItems)
 {
 	?>
 <!-- Images -->
 <table class="centeredTable">
 <?php
   // neater for when only 4 items
-  if ($num == 4)
+  if ($numberOfItems == 4)
   {
-	  $i = 1;
+	  $row = 1;
   }
   else
   {
-	  $i = 0;
+	  $row = 0;
 	  $style = 'width="33%" ';
   }
 
-  while (next_image()): $c++;
-  if ($i == 0)
+  while (next_image()): $column++;
+  if ($row == 0)
   {
 	  echo '<tr>';
   }
@@ -458,8 +458,6 @@ function drawWongmGridImages()
 	  $albumlink = getImageAlbumLink();
   }
   
-  
-
   global $_zp_current_image;
 ?>
 <td class="image" <?=$style?>valign="top">
@@ -470,19 +468,18 @@ function drawWongmGridImages()
 </td>
 <?php
 
-  if ($i == 2)
+  if ($row == 2)
   {
 	  echo "</tr>\n";
-	  $i = 0;
+	  $row = 0;
   }
   else
   {
-	  $i++;
+	  $row++;
   }
   endwhile; ?>
 </table>
 <?
-  return $c;
 }	// end function
 
 
