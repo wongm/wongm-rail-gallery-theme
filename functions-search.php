@@ -91,6 +91,12 @@ function drawImageGallery($galleryResult, $type='')
 				$photoTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.title"));
 				$photoUrl = MYSQL_RESULT($galleryResult,$i,"zen_images.filename");
 				$photoDesc = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.desc"));
+				
+				if (strpos($photoDesc, 'href=') > 0)
+				{
+					$photoDesc = "";
+				}
+				
 				$photoId = MYSQL_RESULT($galleryResult,$i,"zen_images.id");
 				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
@@ -473,7 +479,7 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 			}
 			else if ($pageTypeModifier == 'wagons')
 			{
-				$order = " ORDER BY zen_images.id DESC";
+				$order = " ORDER BY zen_images.mtime DESC";
 				$where = " AND zen_albums.folder like 'wagons%'";
 			}
 			// standard recent uploads page
