@@ -1,15 +1,15 @@
 <?php
 /*
  * draw all dynamic albums in the gallery
- * 
+ *
  */
 if(isset($_REQUEST['by-theme']))
 {
 	$pageTitle = ' - Albums by theme';
 	$rssType = 'Gallery';
 	$rssTitle = 'Recent uploads';
-	
-	include_once('header.php'); 
+
+	include_once('header.php');
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
@@ -21,15 +21,15 @@ if(isset($_REQUEST['by-theme']))
 }
 /*
  * draw all albums in the gallery
- * 
+ *
  */
 else
 {
 	$pageTitle = ' - All albums';
 	$rssType = 'Gallery';
 	$rssTitle = 'Recent uploads';
-	
-	include_once('header.php'); 
+
+	include_once('header.php');
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
@@ -43,18 +43,18 @@ else
 <?
 	$prevPageUrl = EVERY_ALBUM_PATH . '/page/' . (getCurrentPage() - 1) . '/';
 	$nextPageUrl = EVERY_ALBUM_PATH . '/page/' . (getCurrentPage() + 1) . '/';
-	
+
 	drawIndexAlbums('nodynamic');
-	
+
 	if(hasNextPage() || hasPrevPage())
 	{
 ?>
 <table class="nextables"><tr id="pagelinked"><td>
     <?php if (hasPrevPage()) { ?> <a class="prev" href="<?=$prevPageUrl;?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-    </td><td><?php printPageList(); ?></td><td>
+    </td><td><?php printPageListWithNav(null, null, false, false, 'pagelist', null, true, 9); ?></td><td>
     <?php if (hasNextPage()) { ?> <a class="next" href="<?=$nextPageUrl;?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
 </td></tr></table>
-<? 	
+<?
 	}
 }
 include_once('footer.php');

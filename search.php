@@ -1,4 +1,4 @@
-<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
 $pageTitle = ' - Search';
 include_once('header.php'); ?>
@@ -17,15 +17,15 @@ if ($totalAlbums > 0)
 {
 	$albumsText = " - $totalAlbums albums and $totalImages images.";
 }
-if ($totalItems > 0) 
+if ($totalItems > 0)
 {
 	if (isset($_REQUEST['date']))
 	{
 		$searchwords = getFullSearchDate();
-	} 
-	else 
-	{ 
-		$searchwords = getSearchWords(); 
+	}
+	else
+	{
+		$searchwords = getSearchWords();
 	}
 }
 
@@ -49,12 +49,12 @@ if ($totalAlbums > 0)
 	echo "<table class=\"indexalbums\">\n";
 	while (next_album())
 	{
-		if (is_null($firstAlbum)) 
+		if (is_null($firstAlbum))
 		{
 			$lastAlbum = albumNumber();
 			$firstAlbum = $lastAlbum;
-		} 
-		else 
+		}
+		else
 		{
 			$lastAlbum++;
 		}
@@ -72,7 +72,7 @@ if (function_exists('printSlideShowLink')) {
 	printSlideShowLink(gettext('View Slideshow'));
 	echo "</p>";
 }
-if ($totalImages == 0 AND $totalAlbums == 0) 
+if ($totalImages == 0 AND $totalAlbums == 0)
 {
 	echo "<p>".gettext("Sorry, no image matches. Try refining your search.")."</p>";
 }
@@ -82,7 +82,7 @@ if (hasNextPage() OR hasPrevPage())
 ?>
 <table class="nextables"><tr id="pagelinked"><td>
 	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-	</td><td><?php printPageList(); ?></td><td>
+	</td><td><?php printPageListWithNav(null, null, false, false, 'pagelist', null, true, 9); ?></td><td>
 	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
 </td></tr></table>
 <?
