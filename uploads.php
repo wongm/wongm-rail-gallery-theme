@@ -36,6 +36,20 @@ $galleryType = $pageTypeModifier;
 // draw gallery of hitcounter or rating based ranked pages
 if ($pageType == 'popular')
 {
+	// reset hitcounters
+	if ( zp_loggedin() ) {
+		$time = time();
+		$dateCurrent = date("Y-m-d");
+		$dateLastWeek = date("Y-m-d", $time - (60*60*24*6));
+		$dateLastMonth = date("Y-m-d", $time - (60*60*24*28));
+		
+		$sqlToReset = "UPDATE " . prefix('images') . " SET hitcounter_month_reset = '$dateCurrent', hitcounter_month = 0 WHERE hitcounter_month_reset < '$dateLastMonth'";
+		MYSQL_QUERY($sqlToReset);
+		
+		$sqlToReset = "UPDATE " . prefix('images') . " SET hitcounter_week_reset = '$dateCurrent', hitcounter_week = 0 WHERE hitcounter_week_reset < '$dateLastWeek'";
+		MYSQL_QUERY($sqlToReset);
+	}
+	
 	$pageTitle = $popularImageText[$pageTypeModifier]['title'];
 	$leadingIntroText = $popularImageText[$pageTypeModifier]['text'];
 	$nextURL = $popularImageText[$pageTypeModifier]['url'];
