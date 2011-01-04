@@ -461,12 +461,12 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 			if ($pageTypeModifier == 'this-month')
 			{
 				$order = " ORDER BY zen_images.hitcounter_month DESC";
-				$where = " AND zen_images.hitcounter_month > 0 ";
+				$where = " AND zen_images.hitcounter_month > " . HITCOUNTER_SHOW_THRESHOLD . " ";
 			}
 			else if ($pageTypeModifier == 'this-week')
 			{
 				$order = " ORDER BY zen_images.hitcounter_week DESC";
-				$where = " AND zen_images.hitcounter_week > 0 ";
+				$where = " AND zen_images.hitcounter_week > " . HITCOUNTER_SHOW_THRESHOLD . " ";
 			}
 			else if ($pageTypeModifier == 'all-time')
 			{

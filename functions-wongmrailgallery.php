@@ -35,6 +35,8 @@ DEFINE ('POPULAR_URL_PATH', "/gallery/popular");
 DEFINE ('DO_RATINGS_URL_PATH', '/gallery/rate-my-photos');
 DEFINE ('GALLERY_PATH', '');
 
+DEFINE ('HITCOUNTER_SHOW_THRESHOLD', 3);
+
 DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . '">here</a>');
 
 $popularImageText['all-time']['url'] = ALL_TIME_URL_PATH;
