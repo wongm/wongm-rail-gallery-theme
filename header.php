@@ -38,16 +38,14 @@ $photosNumber = array_shift($photosArray);
 <head>
 <title><?php printGalleryTitle(); echo($pageTitle); ?></title>
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
-<link rel="icon" href="/favicon.ico" type="image/x-icon" \>
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" \>
-<link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml"  href="/provider.xml">
-
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml" href="/provider.xml" />
 <script type="text/javascript" src="<?= $_zp_themeroot ?>/lightbox.js"></script>
 <?php zenJavascript(); ?>
-<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
 <meta name="author" content="Marcus Wong" />
-<meta name="description" content="Wongm's Rail Gallery" />
-<meta name="keywords" content="railways trains geelong victoria" />
+<meta name="description" content="Wongm's Rail Gallery: train photos from around Victoria" />
+<meta name="keywords" content="railways trains geelong victoria photos" />
 <?php
 if ($rssType != "" AND $rssTitle != "")
 {
@@ -69,6 +67,6 @@ if ($rssType != "" AND $rssTitle != "")
 <td class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" alt="A selection of random photos" title="A selection of random photos">Random</a></td>
 <td class="menu"><a href="<?=ARCHIVE_URL_PATH?>" alt="View photos in the order they were taken" title="View photos in the order they were taken">Archives</a></td>
 <td class="menu"><a href="<?=CONTACT_URL_PATH?>" alt="Want to drop me a line?" title="Want to drop me a line?">Contact me</a></td>
-</td></tr></table>
+</tr></table>
 </div>
 <div id="content" class="<?=$contentdiv?>">
