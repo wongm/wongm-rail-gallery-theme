@@ -60,6 +60,7 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 		<p>The most popular photos - by week, month, all time, or your ratings!</p>
 	</td>
 </tr>
+<? /*
 <tr class="album">
 	<td class="albumthumb">
 		<a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos"><img src="<?=$randomFilepath5?>" alt="Rate my photos" /></a>
@@ -75,7 +76,7 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 		<h4><a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos">Random photos</a></h4>
 		<p>A selection of random photos each time you refresh the page</p>
 	</td>
-</tr>
+</tr> */ ?>
 </table>
 <?php
 

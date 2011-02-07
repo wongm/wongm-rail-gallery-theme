@@ -1,6 +1,6 @@
 <?php
 // Zenphoto theme definition file
-$theme_description['name'] = 'Wongm';
+$theme_description['name'] = 'Wongm minus CPU strain';
 $theme_description['author'] = gettext('<a href="http://wongm.com" target="_blank">Marcus Wong</a>');
 $theme_description['version'] = '2.5.0';
 $theme_description['date'] = 'April 10, 2010';

@@ -22,7 +22,8 @@ $pageBreadCrumb = 'Popular photos';
 </table>
 <?
 
-foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
+//foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
+foreach (array('this-week', 'this-month', 'all-time') AS $viewType)
 {
 	if ($viewType == 'ratings')
 	{
