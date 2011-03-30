@@ -156,7 +156,9 @@ function drawImageGallery($galleryResult, $type='')
 				
 				$imagePageLink = GALLERY_PATH."/$photoPath/$photoUrl.html";
 				$albumPageLink = GALLERY_PATH."/$photoPath/";
-				$imageUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+				
+				$thumbUrl = str_replace( ".jpg", "_" . getOption('thumb_size') . "_thumb.jpg", $photoUrl);
+				$imageUrl = GALLERY_PATH."/cache/$photoPath/$thumbUrl";
 ?>
 <td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>
 	<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>

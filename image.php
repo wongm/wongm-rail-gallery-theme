@@ -19,7 +19,8 @@ include_once('header.php'); ?>
   <table class="centeredTable">
 	  <tr><td class="imageDisplay">
         <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">
-        <?php printDefaultSizedImage(getImageTitle()); ?></a><br/>
+        	<img src="<? echo getDefaultSizedImage() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+		</a><br/>
         <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">View full size photo (<?=getFullWidth()?>px by <?=getFullHeight()?>px)</a><br/>
       </td></tr>
   </table>

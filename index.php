@@ -167,7 +167,8 @@ function getRandomImagesSet($toReturn = 5) {
 
 function getThumbnailURLFromRandomImagesSet($array)
 {
-	return '/'.$array['folder']."/image/thumb/".$array['filename'];
+	$thumbUrl = str_replace( ".jpg", "_" . getOption('thumb_size') . "_thumb.jpg", $array['filename']);
+	return "/cache/".$array['folder']."/$thumbUrl";
 }
 
 function getMostRecentImageDate()

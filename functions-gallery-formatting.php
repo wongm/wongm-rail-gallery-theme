@@ -38,7 +38,7 @@ function pluralNumberWord($number, $text)
  */
 function drawPageNumberLinks($index, $totalimg, $max, $url)
 {
-	$total = floor(($totalimg)/$max)+1;
+	$total = floor(($totalimg-1)/$max)+1;
 	$current = $index/$max;
 	$url = fixNavigationUrl($url);
 	
@@ -462,9 +462,12 @@ function drawWongmGridImages($numberOfItems)
 ?>
 <td class="image" <?=$style?>valign="top">
 	<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-	<?php printImageThumb(getImageTitle()); ?></a></div>
-	<div class="imagetitle"><h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-	<?php printImageTitle(); ?></a></h4><small><?php printImageDate(); ?><?php printHitCounter($_zp_current_image, true); ?></small><?= $albumlink?></div>
+		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+	</a></div>
+	<div class="imagetitle">
+		<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<small><?php printImageDate(); ?><?php printHitCounter($_zp_current_image, true); ?></small><?= $albumlink?>
+	</div>
 </td>
 <?php
 
