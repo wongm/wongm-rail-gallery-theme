@@ -235,7 +235,17 @@ p.recent {
 	line-height: 1.4em;
 }
 #header h1 {
-	line-height: 0.8em;
+	line-height: 0.1em;
+	*line-height: 1.4em; /* IE7 and below */
+}
+#header #sitename {
+	float: left;
+	height: 4em;
+}
+#header #sitedesc {
+	float: right;
+	margin-top: 2em;
+	font-style: italic;
 }
 .content p {
 	width: 98%;	

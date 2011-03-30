@@ -57,7 +57,11 @@ if ($rssType != "" AND $rssTitle != "")
 <?php printAdminToolbox(); ?>
 <div id="container">
 <div id="header">
-<h1><a href="/" title="Gallery Index"><?=getGalleryTitle();?></a></h1>
+<div id="sitename">
+	<h1><a href="/" title="Gallery Index"><?=getGalleryTitle();?></a></h1>
+</div>
+<div id="sitedesc"><?=getGalleryDesc();?></div>
+<div style="clear:both;"></div>
 <table class="buttonbar"><tr class="sitemenu">
 <td class="menu"><a href="/news" alt="News" title="News">News</a></td>
 <td class="menu"><a href="<?=EVERY_ALBUM_PATH?>" alt="Show all albums" title="Show all albums">All albums</a></td>
