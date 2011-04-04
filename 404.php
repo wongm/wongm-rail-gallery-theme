@@ -15,7 +15,7 @@ if (substr($album, 0, 5) == 'cache')
 	$imageparams = explode("_", $image);
 	
 	// check for URL format: E104_3247_180_thumb.jpg
-	if ($imageparams[3] == "thumb.jpg")
+	if ((strtolower($imageparams[3]) == "thumb.jpg") OR (strtolower($imageparams[3]) == "thumb.gif"))
 	{
 		$imagesize = $imageparams[2];
 	}
@@ -24,7 +24,7 @@ if (substr($album, 0, 5) == 'cache')
 	{
 		$imageparams = explode(".", $imageparams[2]);
 			
-		if ($imageparams[1] == "jpg")
+		if ((strtolower($imageparams[1]) == "jpg") OR (strtolower($imageparams[1]) == "gif"))
 		{
 			$imagesize = $imageparams[0];
 		}

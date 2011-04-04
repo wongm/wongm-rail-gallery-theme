@@ -140,14 +140,7 @@ function drawImageGallery($galleryResult, $type='')
 					}
 				}
 				
-				if ($photoDesc == '')
-				{
-					$photoDesc = $photoTitle;
-				}
-				else
-				{
-					$photoDesc = 'Description: '.$photoDesc;
-				}
+				$photoDesc = $photoTitle;
 				
 				// for when URL rewrite is on
 				/* <a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>*/
@@ -158,6 +151,9 @@ function drawImageGallery($galleryResult, $type='')
 				$albumPageLink = GALLERY_PATH."/$photoPath/";
 				
 				$thumbUrl = str_replace( ".jpg", "_" . getOption('thumb_size') . "_thumb.jpg", $photoUrl);
+				$thumbUrl = str_replace( ".JPG", "_" . getOption('thumb_size') . "_thumb.jpg", $thumbUrl);
+				$thumbUrl = str_replace( ".gif", "_" . getOption('thumb_size') . "_thumb.gif", $thumbUrl);
+				$thumbUrl = str_replace( ".GIF", "_" . getOption('thumb_size') . "_thumb.gif", $thumbUrl);
 				$imageUrl = GALLERY_PATH."/cache/$photoPath/$thumbUrl";
 ?>
 <td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>

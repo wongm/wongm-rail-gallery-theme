@@ -104,7 +104,8 @@ $dynamicAlbumResults = query_full_array( $sql );
 
 foreach ($dynamicAlbumResults as $album)
 {
-	$imgURL = str_replace('.jpg', '_250_thumb.jpg', '/cache'.$album['thumb']);
+	$imgURL = str_replace('.jpg', '_250_thumb.jpg', '/cache' . $album['thumb']);
+	$imgURL = str_replace('.JPG', '_250_thumb.jpg', $imgURL);
 	
 ?>
 <tr class="album">
@@ -168,6 +169,7 @@ function getRandomImagesSet($toReturn = 5) {
 function getThumbnailURLFromRandomImagesSet($array)
 {
 	$thumbUrl = str_replace( ".jpg", "_" . getOption('thumb_size') . "_thumb.jpg", $array['filename']);
+	$thumbUrl = str_replace( ".JPG", "_" . getOption('thumb_size') . "_thumb.jpg", $thumbUrl);
 	return "/cache/".$array['folder']."/$thumbUrl";
 }
 
