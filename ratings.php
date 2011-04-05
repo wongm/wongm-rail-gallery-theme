@@ -85,10 +85,10 @@ if (isset($_POST['option']))
 		}
 		
 		// display winner
-		$urlThumbnailImage = "/".$resultWinner['folder'].'/image/thumb/'.$resultWinner['filename'];
-		$urlImagePage = "/".$resultWinner['folder'].'/'.$resultWinner['filename'].'.html';//?p=full';
+		$urlThumbnailImage = "/cache/" . $resultWinner['folder'] . '/' . replace_filename_with_cache_thumbnail_version($resultWinner['filename']);
+		$urlImagePage = "/".$resultWinner['folder'].'/'.$resultWinner['filename'].'.html';
 		$alt = $resultWinner['albumtitle'].' - '.$resultWinner['title'];
-		$resultText = "So far it has ".pluralNumberWord($winnerRatings_win, 'vote')." out of ".pluralNumberWord($winnerRatings_view, 'view');
+		$resultText = "So far it has " . pluralNumberWord($winnerRatings_win, 'vote') . " out of " . pluralNumberWord($winnerRatings_view, 'view');
 		
 		if (zp_loggedin())
 		{

@@ -150,10 +150,7 @@ function drawImageGallery($galleryResult, $type='')
 				$imagePageLink = GALLERY_PATH."/$photoPath/$photoUrl.html";
 				$albumPageLink = GALLERY_PATH."/$photoPath/";
 				
-				$thumbUrl = str_replace( ".jpg", "_" . getOption('thumb_size') . "_thumb.jpg", $photoUrl);
-				$thumbUrl = str_replace( ".JPG", "_" . getOption('thumb_size') . "_thumb.jpg", $thumbUrl);
-				$thumbUrl = str_replace( ".gif", "_" . getOption('thumb_size') . "_thumb.gif", $thumbUrl);
-				$thumbUrl = str_replace( ".GIF", "_" . getOption('thumb_size') . "_thumb.gif", $thumbUrl);
+				$thumbUrl = replace_filename_with_cache_thumbnail_version($photoUrl);
 				$imageUrl = GALLERY_PATH."/cache/$photoPath/$thumbUrl";
 ?>
 <td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>

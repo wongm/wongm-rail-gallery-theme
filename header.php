@@ -68,7 +68,7 @@ if ($rssType != "" AND $rssTitle != "")
 <td class="menu"><a href="<?=RECENT_ALBUM_PATH?>" alt="Recently uploaded albums" title="Recently added albums">Recent albums</a></td>
 <td class="menu"><a href="<?=UPDATES_URL_PATH?>" alt="Recently uploaded photos" title="Recently uploaded photos">Recent uploads</a></td>
 <td class="menu"><a href="<?=POPULAR_URL_PATH?>" alt="Most popular images" title="Most popular images">Popular</a></td>
-<? /*<td class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" alt="A selection of random photos" title="A selection of random photos">Random</a></td> */ ?>
+<?/*<td class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" alt="A selection of random photos" title="A selection of random photos">Random</a></td>*/?>
 <td class="menu"><a href="<?=ARCHIVE_URL_PATH?>" alt="View photos in the order they were taken" title="View photos in the order they were taken">Archives</a></td>
 <td class="menu"><a href="<?=CONTACT_URL_PATH?>" alt="Want to drop me a line?" title="Want to drop me a line?">Contact me</a></td>
 </tr></table>

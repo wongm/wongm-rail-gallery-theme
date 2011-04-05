@@ -60,7 +60,6 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 		<p>The most popular photos - by week, month, all time, or your ratings!</p>
 	</td>
 </tr>
-<? /*
 <tr class="album">
 	<td class="albumthumb">
 		<a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos"><img src="<?=$randomFilepath5?>" alt="Rate my photos" /></a>
@@ -69,6 +68,7 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 		<p>Photo death match - I show you two random photos, you choose which one you like better.</p>
 	</td>
 </tr>
+<? /*
 <tr class="album">
 	<td class="albumthumb">
 		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath2?>" alt="Random photos" /></a>
@@ -104,14 +104,11 @@ $dynamicAlbumResults = query_full_array( $sql );
 
 foreach ($dynamicAlbumResults as $album)
 {
-	$imgURL = str_replace('.jpg', '_250_thumb.jpg', '/cache' . $album['thumb']);
-	$imgURL = str_replace('.JPG', '_250_thumb.jpg', $imgURL);
-	
 ?>
 <tr class="album">
 	<td class="albumthumb">
 		<a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags($album['title']);?>">
-		<img src="<?=$imgURL; ?>" alt="<?php echo $album['title']; ?>" title="<?php echo $album['title']; ?>" /></a>
+		<img src="/cache<?=replace_filename_with_cache_thumbnail_version($album['thumb']); ?>" alt="<?php echo $album['title']; ?>" title="<?php echo $album['title']; ?>" /></a>
 	</td><td class="albumdesc">
 		<h4><a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo $album['title']; ?>"><?php echo $album['title']; ?></a></h4>
 		<p><?php echo $album['desc']; ?></p>
@@ -168,9 +165,7 @@ function getRandomImagesSet($toReturn = 5) {
 
 function getThumbnailURLFromRandomImagesSet($array)
 {
-	$thumbUrl = str_replace( ".jpg", "_" . getOption('thumb_size') . "_thumb.jpg", $array['filename']);
-	$thumbUrl = str_replace( ".JPG", "_" . getOption('thumb_size') . "_thumb.jpg", $thumbUrl);
-	return "/cache/".$array['folder']."/$thumbUrl";
+	return "/cache/" . $array['folder'] . "/" . replace_filename_with_cache_thumbnail_version($array['filename']);
 }
 
 function getMostRecentImageDate()
