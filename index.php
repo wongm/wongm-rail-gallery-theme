@@ -68,7 +68,7 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 		<p>Photo death match - I show you two random photos, you choose which one you like better.</p>
 	</td>
 </tr>
-<? /*
+<?/*
 <tr class="album">
 	<td class="albumthumb">
 		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath2?>" alt="Random photos" /></a>
@@ -177,15 +177,15 @@ function getMostRecentImageDate()
 	$noticeThreshold = getOption('wongm_frontpage_notice_threshold');
 	
 	// get most recent image date
-	$recentSQL = "SELECT " . prefix('images') . ".date FROM " . prefix('images') . "
+	$recentSQL = "SELECT " . prefix('images') . ".mtime AS date FROM " . prefix('images') . "
 					ORDER BY " . prefix('images') . ".date DESC LIMIT 0 , 1";
 	$lastImage = query_full_array($recentSQL);
 	$mostRecentImageDate = $lastImage[0]['date'];
-
+	
 	// get date difference	
-	$dateDiff = time() - strtotime($mostRecentImageDate);
+	$dateDiff = time() - $mostRecentImageDate;
 	$daysSinceUpdate = floor($dateDiff/(60*60*24));
-	$formattedUpdatedDate = strftime(TIME_FORMAT, strtotime($mostRecentImageDate));
+	$formattedUpdatedDate = strftime('%A %B %e, %Y', $mostRecentImageDate);
 	
 	$plural = "s";
 	
@@ -231,14 +231,14 @@ function getMostRecentImageDate()
 		$toPrint .= ", ";
 	}
 	
-	if ($periodAlertCount > 0)
+	if ($periodNoticeCount > 0)
 	{
-		$toPrint .= "$periodNoticeCount photos added in the past $noticeThreshold days";
+		$toPrintMiddle = "$periodNoticeCount photos added in the past $noticeThreshold days";
 	}
 	
-	if ($toPrint != '')
+	if ($toPrintMiddle != '')
 	{
-		$toPrint .= ", ";
+		$toPrint .= ", $toPrintMiddle";
 	}
 	
 	if ($toPrint == '')
