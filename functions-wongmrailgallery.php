@@ -91,48 +91,6 @@ function drawWongmListSubalbums()
 <?
 }	/// end function
 
-function imagetext()
-{
-	$tableindex = 1;
-?>
-<table id="images" align="center">
-<?
-	while (next_image(false, $firstPageImages))
-	{
-		if ($tableindex == 1)
-		{
-			echo "<tr>\n";
-		}
-?>
-	<td class="image">
-		<div class="imagethumb"><a href="<?php echo htmlspecialchars(getImageLinkURL());?>" title="<?php echo strip_tags(getImageTitle());?>"><?php printImageThumb(getImageTitle()); ?></a></div>
-		<div class="imagetitle"><p><? /*<a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"> */ ?>
-		<?php printImageTitle(); ?></a><br/><?php printImageDate(); ?></p></div>
-	</td>
-<?php
-		if ($tableindex == 3)
-		{
-			echo "</tr>\n";
-			$tableindex = 1;
-		}
-		else
-		{
-			$tableindex++;
-		}
-	}
-?>
-</table>
-<?
-	return $tableindex-1;
-}
-
-
-
-
-
-
-
-
 /**
  * Returns the date of the search
  *
@@ -191,18 +149,5 @@ function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
 		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));
 		return true;
 	}
-}
-
-function replace_filename_with_cache_thumbnail_version($filename)
-{
-	$imgURL = str_replace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $filename);
-	$imgURL = str_replace('.JPG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPG', $imgURL);
-	$imgURL = str_replace('.gif', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.gif', $imgURL);
-	$imgURL = str_replace('.GIF', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.GIF', $imgURL);
-	$imgURL = str_replace('.png', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.png', $imgURL);
-	$imgURL = str_replace('.PNG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.PNG', $imgURL);
-	$imgURL = str_replace('.jpeg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpeg', $imgURL);
-	$imgURL = str_replace('.JPEG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPEG', $imgURL);
-	return $imgURL;	
 }
 ?>
