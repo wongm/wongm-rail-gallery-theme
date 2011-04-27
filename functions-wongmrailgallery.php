@@ -57,38 +57,19 @@ $popularImageText['ratings']['text'] = 'Highest rated';
 
 function drawWongmListSubalbums()
 {
+	if (getNumAlbums() > 0)
+	{
 ?>
 <!-- Sub-Albums -->
 <table class="indexalbums">
 <?php
-	// neater for when only 4 items
-	if (getNumAlbums() == 4)
-	{
-		$i = 1;
-	}
-	else
-	{
-		$i = 0;
-	}
 	while (next_album()):
-	if ($i == 0)
-	{
-		echo '<tr>';
-	}
-	drawWongmAlbumRow();
-	if ($i == 2)
-	{
-		echo "</tr>\n";
-		$i = 0;
-	}
-	else
-	{
-		$i++;
-	}
+		drawWongmAlbumRow();	
 	endwhile;
 ?>
 </table>
 <?
+	}
 }	/// end function
 
 /**

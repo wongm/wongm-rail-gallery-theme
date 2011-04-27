@@ -38,7 +38,7 @@ include_once('header.php');
 <?php
 	}
 
-	printTags('links', '<h4>Tags</h4>');
+	printTags('links', 'Tags');
 
 	echo "<p>".formatHitCounter(incrementAndReturnHitCounter('album'), false)."</p>";
 	include_once('footer.php');

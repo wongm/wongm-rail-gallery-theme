@@ -82,8 +82,8 @@ else if ($pageType == '')
 		$trailingIntroText = ". For recent wagon photos go to the <a href=\"".WAGON_UPDATES_URL_PATH."\" title=\"wagons and containers page\">wagons and containers page</a>";
 
 		if ( zp_loggedin() ) {
-			$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br>
-				<a href="'.$nextURL.'/?caption=albums">Albums with uncaptioned images</a><br>
+			$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br/>
+				<a href="'.$nextURL.'/?caption=albums">Albums with uncaptioned images</a><br/>
 				<a href="'.$nextURL.'/?double=">Duplicate images</a></p>';
 		}
 	}

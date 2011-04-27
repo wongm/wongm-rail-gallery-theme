@@ -42,7 +42,7 @@ function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 ?>
 	</td><td>
 <?php
-	drawPageNumberLinks($index, $maxImagesCount, MAXIMAGES_PERPAGE, $url);
+	drawGallerySearchPageNumberLinks($index, $maxImagesCount, MAXIMAGES_PERPAGE, $url);
 ?>
 	</td><td>
 <?php
@@ -136,7 +136,7 @@ function drawImageGallery($galleryResult, $type='')
 					
 					if (strlen($photoStatsText) > 0)
 					{
-						$photoStatsText = "<br>$photoStatsText";
+						$photoStatsText = "<br/>$photoStatsText";
 					}
 				}
 				
@@ -165,7 +165,7 @@ function drawImageGallery($galleryResult, $type='')
 			}	//end while for cols
 			$j=0;
 			
-			echo "<tr>\n";
+			echo "</tr>\n";
 		}	//end while for rows
 		
 		echo "</table>\n";
@@ -291,7 +291,7 @@ function imageOrAlbumSearch($term, $type, $page)
 			
 			if ($numberOfRows == $maxImagesPerPage OR $index > 0)
 			{
-				drawPageNumberLinks($index, $numberImagesFound, $maxImagesPerPage, '/gallery/search/?search='.$term.'&page=');
+				drawGallerySearchPageNumberLinks($index, $numberImagesFound, $maxImagesPerPage, '/gallery/search/?search='.$term.'&page=');
 			}
 		}
 	}

@@ -183,6 +183,14 @@ a:hover {
 #tag_cloud .tags a {
 	line-height: 1.5em;
 }
+
+.tags_title {
+	color:#336633;
+	font-size:15px;
+	padding: 5px 0;
+	margin: 1.2em 0 0.5em;
+	font-weight: bold;
+}
 /* Search 
 ------------------------------ */
 #search_form a {

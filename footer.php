@@ -10,7 +10,7 @@ echo "Page Generation: $generation seconds.<br/>";
 if (zp_loggedin())
 {
 	global $_zp_query_count;
-	echo "$_zp_query_count DB hits<br>";
+	echo "$_zp_query_count DB hits<br/>";
 }
 
 echo "$photosNumber images in $albumNumber albums.<br/>";

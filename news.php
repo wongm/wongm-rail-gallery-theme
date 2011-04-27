@@ -27,8 +27,11 @@ if(is_NewsArticle()) {
 <div class="topbar"><h2><?php printNewsTitle(); ?></h2></div>
 <div id="news">
 	<div class="newsarticle"> 
-		<div class="newsarticlecredit"><span class="newsarticlecredit-left"><?php printNewsDate();?> | <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> | </span> <?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?></div>
-		<p><?php printNewsContent(); ?></p>
+		<div class="newsarticlecredit">
+			<span class="newsarticlecredit-left"><?php printNewsDate();?> | <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> | </span>
+			<?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?>
+		</div>
+		<?php printNewsContent(); ?>
 	</div>
 <?php 
 // COMMENTS TEST
@@ -120,13 +123,14 @@ drawNewsFrontpageNextables();
 	<div class="newsarticle"> 
     	<h4><?php printNewsTitleLink(); ?></h4>
         <div class="newsarticlecredit">
-        <span class="newsarticlecredit-left">
-        <p><small><?php printNewsDate();?></small></p>
+        	<span class="newsarticlecredit-left">
+        	<small><?php printNewsDate();?></small>
 <?php
 if(is_GalleryNewsType()) {
 	echo gettext("Album:")."<a href='".getNewsAlbumURL()."' title='".getBareNewsAlbumTitle()."'> ".getNewsAlbumTitle()."</a>";
 }
 ?>
+			</span>
 		</div>
     	<?php printNewsContent(); ?>
     	<p><?php printNewsReadMoreLink(); ?></p>
