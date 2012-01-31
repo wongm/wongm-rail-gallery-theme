@@ -45,19 +45,17 @@ $term  = str_replace('.JPG', '', $term);
 
 if ($image)
 {
-	$numberofresults = imageOrAlbumSearch($term, 'Image', 'error');
+	$numberofresults = imageOrAlbumSearch($term, 'image');
 }
 else
 {
 	$numberofresults = 0;
-}	
+}
 
 // no images results, so check for albums
-$term = str_replace('-', ' ', $term);
-
 if ($numberofresults == 0)
 {
-	$numberofresults = imageOrAlbumSearch($term, 'Album', 'error');
+	$numberofresults = imageOrAlbumSearch($term, 'album');
 }
 
 // fix for wording below
@@ -76,22 +74,4 @@ else
 ?>
 <p><?=$wording?>can use <a href="<?=SEARCH_URL_PATH?>/<?=$term?>">Search</a> to find what you are looking for. </p> 
 <p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="<?=CONTACT_URL_PATH?>">Contact Me</a>.</p>
-<?php include_once('footer.php');
-
-function status_header( $header ) {
-	if ( 200 == $header )
-		$text = 'OK';
-	elseif ( 301 == $header )
-		$text = 'Moved Permanently';
-	elseif ( 302 == $header )
-		$text = 'Moved Temporarily';
-	elseif ( 304 == $header )
-		$text = 'Not Modified';
-	elseif ( 404 == $header )
-		$text = 'Not Found';
-	elseif ( 410 == $header )
-		$text = 'Gone';
-
-	@header("HTTP/1.1 $header $text");
-	@header("Status: $header $text");
-} ?>
+<?php include_once('footer.php');?>

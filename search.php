@@ -79,13 +79,7 @@ if ($totalImages == 0 AND $totalAlbums == 0)
 
 if (hasNextPage() OR hasPrevPage())
 {
-?>
-<table class="nextables"><tr id="pagelinked"><td>
-	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-	</td><td><?php printPageListWithNav(null, null, false, false, 'pagelist', null, true, 9); ?></td><td>
-	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-</td></tr></table>
-<?
+	printPageListWithNav("&laquo; ".gettext("Prev"), gettext("Next")." &raquo;");
 }
 ?>
 </div>

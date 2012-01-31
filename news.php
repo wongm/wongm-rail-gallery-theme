@@ -132,9 +132,7 @@ if(is_GalleryNewsType()) {
 ?>
 			</span>
 		</div>
-    	<?php printNewsContent(); ?>
-    	<p><?php printNewsReadMoreLink(); ?></p>
-    	<?php printCodeblock(1); ?>
+    	<?php printNewsContent(false); ?>
  	</div>	
 <?php
   endwhile; 

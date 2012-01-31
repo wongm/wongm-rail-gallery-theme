@@ -12,7 +12,7 @@ include_once('header.php'); ?>
   </table>
   
   <div class="topbar">
-  	<h2>Image: <?=getImageTitle();?></h2>
+  	<h2><?=getImageTitle();?></h2>
   	<?php printImageDesc(true); ?>
   </div>
       
@@ -27,7 +27,7 @@ include_once('header.php'); ?>
 
   <?php printEXIFData() ; ?>
 <?php if (hasPrevImage() or hasNextImage()) { ?>    
-  <table class="nextables"><tr id="thumbnav"><td>
+  <table class="pagelist"><tr><td>
     <?php if (hasPrevImage()) { ?>
     <a class="prev" href="<?=getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a>
     </td><td>

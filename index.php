@@ -35,9 +35,7 @@ while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
  	<td class="albumdesc">
     	<h4><?php printNewsTitleLink(); ?></h4>
     	<p class="date"><?php printNewsDate();?></p>
-    	<?php printNewsContent(); ?>
-    	<p><?php printNewsReadMoreLink(); ?></p>
-    	<?php printCodeblock(1); ?>
+    	<?php echo getNewsContent(true); ?>
     </td>
 </tr>    
 <?php
@@ -68,7 +66,6 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 		<p>Photo death match - I show you two random photos, you choose which one you like better.</p>
 	</td>
 </tr>
-<?/*
 <tr class="album">
 	<td class="albumthumb">
 		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath2?>" alt="Random photos" /></a>
@@ -76,7 +73,7 @@ $randomFilepath5 = getThumbnailURLFromRandomImagesSet($_randomImages[3]);
 		<h4><a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos">Random photos</a></h4>
 		<p>A selection of random photos each time you refresh the page</p>
 	</td>
-</tr> */ ?>
+</tr>
 </table>
 <?php
 
@@ -99,7 +96,7 @@ $randomFilepath6 = getThumbnailURLFromRandomImagesSet($_randomImages[4]);
 <?php
 
 $sql = " SELECT `title`, `desc`, `folder`, thumb FROM " . prefix('albums') . "
-		WHERE folder LIKE '%.album' ORDER BY title";
+		WHERE folder LIKE '%.alb' ORDER BY title";
 $dynamicAlbumResults = query_full_array( $sql );
 
 foreach ($dynamicAlbumResults as $album)
@@ -189,7 +186,6 @@ function getMostRecentImageDate()
 	
 	$plural = "s";
 	
-	
 	// format text based on date difference
 	if ($daysSinceUpdate < $alertThreshold)
 	{
@@ -215,7 +211,7 @@ function getMostRecentImageDate()
 	
 	// get number of recent images
 	$recentSQL = "SELECT count(date) AS date FROM " . prefix('images') . " WHERE date > DATE_ADD(CURDATE() , INTERVAL -$alertThreshold DAY)
-					UNION
+					UNION ALL
 					SELECT count(date) AS date FROM " . prefix('images') . " WHERE date > DATE_ADD(CURDATE() , INTERVAL -$noticeThreshold DAY)";
 	$lastImage = query_full_array($recentSQL);
 	$periodAlertCount = $lastImage[0]['date'];
@@ -226,11 +222,6 @@ function getMostRecentImageDate()
 		$toPrint .= "$periodAlertCount photos added in the past $alertThreshold days";
 	}
 	
-	if ($toPrint != '')
-	{
-		$toPrint .= ", ";
-	}
-	
 	if ($periodNoticeCount > 0)
 	{
 		$toPrintMiddle = "$periodNoticeCount photos added in the past $noticeThreshold days";
@@ -238,7 +229,12 @@ function getMostRecentImageDate()
 	
 	if ($toPrintMiddle != '')
 	{
-		$toPrint .= ", $toPrintMiddle";
+		if ($toPrint != '')
+		{
+			$toPrint .= ", ";
+		}
+	
+		$toPrint .= $toPrintMiddle;
 	}
 	
 	if ($toPrint == '')
@@ -247,7 +243,7 @@ function getMostRecentImageDate()
 	}
 	else
 	{
-		$toPrint .= "a total of $photosNumber photos sorted by when they were uploaded.";
+		$toPrint .= ", a total of $photosNumber photos sorted by when they were uploaded.";
 	}
 	
 	

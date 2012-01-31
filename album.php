@@ -14,7 +14,7 @@ include_once('header.php');
 </table>
 
 <div class="topbar">
-  	<h2>Album: <?=getAlbumTitle();?></h2>
+  	<h2><?=getAlbumTitle();?></h2>
   	<?php printAlbumDesc(true); ?>
 </div>
 <?
@@ -29,13 +29,7 @@ include_once('header.php');
 
 	if (hasPrevPage() || hasNextPage())
   	{
-?>
-<table class="nextables"><tr id="pagelinked"><td>
-	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getMyPageURL(getPrevPageURL());?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-	</td><td><?php printPageListWithNav(null, null, false, false, 'pagelist', null, true, 9); ?></td><td>
-	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getMyPageURL(getNextPageURL());?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-</td></tr></table>
-<?php
+		printPageListWithNav("&laquo; ".gettext("Prev"), gettext("Next")." &raquo;");
 	}
 
 	printTags('links', 'Tags');

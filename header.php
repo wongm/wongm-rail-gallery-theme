@@ -25,7 +25,7 @@ if (empty($contentdiv))
 	$contentdiv = "content";
 }	
 
-require_once("functions-wongmrailgallery.php");
+require_once("functions.php");
 include_once('functions-gallery-formatting.php');
 
 $albumNumber = array_shift(query_single_row("SELECT count(*) FROM ".prefix('albums')));//getNumAlbums();
@@ -42,7 +42,7 @@ $photosNumber = array_shift($photosArray);
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml" href="/provider.xml" />
 <script type="text/javascript" src="<?= $_zp_themeroot ?>/lightbox.js"></script>
-<?php zenJavascript(); ?>
+<?php zp_apply_filter("theme_head"); ?>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Photographs of trains and railway infrastructure from around Victoria, Australia" />
@@ -69,7 +69,7 @@ if ($rssType != "" AND $rssTitle != "")
 <td class="menu"><a href="<?=RECENT_ALBUM_PATH?>" title="Recently added albums">Recent albums</a></td>
 <td class="menu"><a href="<?=UPDATES_URL_PATH?>" title="Recently uploaded photos">Recent uploads</a></td>
 <td class="menu"><a href="<?=POPULAR_URL_PATH?>" title="Most popular images">Popular</a></td>
-<?/*<td class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" title="A selection of random photos">Random</a></td>*/?>
+<td class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" title="A selection of random photos">Random</a></td>
 <td class="menu"><a href="<?=ARCHIVE_URL_PATH?>" title="View photos in the order they were taken">Archives</a></td>
 <td class="menu"><a href="<?=CONTACT_URL_PATH?>" title="Want to drop me a line?">Contact me</a></td>
 </tr></table>

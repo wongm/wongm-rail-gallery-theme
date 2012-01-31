@@ -25,7 +25,7 @@ while ($i < getOption('wongm_randompage_count'))
 	while ($j < 3)
 	{
 		$randomImage = getRandomImages();
-		$randomImageURL = getURL($randomImage);
+		$randomImageURL = $randomImage->getImageLink();
 		$photoTitle = $randomImage->getTitle();
 		$photoDate = strftime(TIME_FORMAT, strtotime($randomImage->getDateTime()));
 		$imageCode = "<img src='".$randomImage->getThumb()."' alt='".$photoTitle."'>";

@@ -12,7 +12,6 @@ $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die()
 $pageTitle = ' - Popular photos';
 include_once('header.php');
 require_once("functions-search.php");
-//$pageBreadCrumb = "<a href=\"".POPULAR_URL_PATH."\" title=\"Popular photos\">Popular photos</a>";
 $pageBreadCrumb = 'Popular photos';
 ?>
 <table class="headbar">
@@ -23,6 +22,7 @@ $pageBreadCrumb = 'Popular photos';
 <?
 
 foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
+//foreach (array('this-week', 'this-month', 'all-time') AS $viewType)
 {
 	if ($viewType == 'ratings')
 	{
@@ -35,8 +35,29 @@ foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 	
 	echo '<div class="topbar"><h2>'.$popularImageText[$viewType]['text']."</h2>\n";
 	echo "<p><a href=\"".$popularImageText[$viewType]['url']."\">View more...</a>$extraText</p></div>";
-	$galleryResults = getGalleryUploadsResults('popular', $viewType, '', 0, 3, 0);
-	drawImageGallery($galleryResults['galleryResult'], $viewType);
+			
+	setCustomPhotostream($popularImageText[$viewType]['where'], "", $popularImageText[$viewType]['order']);
+?>
+<table class="centeredTable">
+	<tr class="trio">
+<?php
+	$count = 0;
+
+	// draw top 3 items
+	while (next_photostream_image() && (++$count <= 3))
+	{
+		drawWongmImageCell($viewType);
+	}
+	
+	while (++$count <= 3)
+	{
+		echo "<td class=\"image\"></td>";
+	}
+?>
+	</tr>
+</table>
+<?
+
 }
 
 include_once('footer.php'); 

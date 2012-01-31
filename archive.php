@@ -39,7 +39,7 @@ include_once('header.php');
 <?	
 if ($showSingleMonth and $month != '')
 {
-	printAllDays($month);
+	printSingleMonthArchive();
 	echo '</div>';
 }
 else
