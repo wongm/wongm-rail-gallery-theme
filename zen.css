@@ -308,6 +308,9 @@ p {
 p.date {
 	font-size: 0.8em;
 }
+.imagetitle p {
+	margin: 0 auto 0.8em;
+}
 
 /* Image formatting
 ------------------------------ */
