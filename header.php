@@ -48,9 +48,15 @@ $photosNumber = array_shift($photosArray);
 <meta name="description" content="Photographs of trains and railway infrastructure from around Victoria, Australia" />
 <meta name="keywords" content="railways train geelong Victoria Australia photos photographs images" />
 <?php
+//special RSS stuff
 if ($rssType != "" AND $rssTitle != "")
 {
 	printRSSHeaderLink($rssType, $rssTitle);
+}
+//facebook headers for image.php
+if (getImageThumb())
+{
+	printFacebookTag();
 }
 ?>
 </head>

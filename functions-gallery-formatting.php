@@ -9,6 +9,22 @@
 //
 //******************************************************************************
 
+function printFacebookTag()
+{
+	$protocol = SERVER_PROTOCOL;
+	if ($protocol == 'https_admin') {
+		$protocol = 'https';
+	}
+	$path = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . getImageThumb();		
+	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";	
+	if (strlen(getImageDesc()) > 0)	{
+		$description = getImageDesc() + ". $description";
+	}	
+	echo "<meta property=\"og:image\" content=\"$path\" />\n";
+	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
+	echo "<meta property=\"og:description\" content=\"$description\" />\n";
+}
+
 function pluralNumberWord($number, $text)
 {
 	if (is_numeric($number))
