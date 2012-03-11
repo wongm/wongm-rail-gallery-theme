@@ -30,18 +30,22 @@ $filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
 <tr class="album">
  	<? if ($i == 1) { ?>
-	<td class="albumthumb" rowspan="<?=getOption('wongm_news_count')?>" valign="top"></td>
+	<td class="albumthumb" rowspan="<?=getOption('wongm_news_count') + 1?>" valign="top"></td>
 	<? } ?>
  	<td class="albumdesc">
     	<h4><?php printNewsTitleLink(); ?></h4>
     	<p class="date"><?php printNewsDate();?></p>
     	<?php echo getNewsContent(true); ?>
     </td>
-</tr>    
-<?php
-	
+</tr>
+<?php	
 endwhile; 
-echo "</table>\n";
+?>
+<tr class="album">
+ 	<td class="albumdesc"><p><a title="See more news items" href="/news">See more news items...</a></p></td>
+</tr>
+</table>
+<?php
 
 echo "<h2 class=\"index\">Sliced and diced</h2>\n";
 
