@@ -24,12 +24,7 @@ include_once('header.php'); ?>
 	</div>
 	<p>
 		<a id="showImage" href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">View full sized (<?=getFullWidth()?>px by <?=getFullHeight()?>px)</a>
-	</p>
-	
-	<a href="<?=getPrevImageThumb();?>" rel="lightbox-a" title="<?=getImageTitle();?>">1</a>
-	<a href="<?=getFullImageURL();?>" rel="lightbox-a" title="<?=getImageTitle();?>">2</a>
-	<a href="<?=getNextImageThumb();?>" rel="lightbox-a" title="<?=getImageTitle();?>">3</a>
-	
+	</p>	
 <?php 
 	printEXIFData() ; 
   
