@@ -37,11 +37,12 @@ $photosNumber = array_shift($photosArray);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title><?php printGalleryTitle(); echo($pageTitle); ?></title>
-<link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/zen.css" type="text/css" />
+<link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/slimbox2.css" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml" href="/provider.xml" />
-<script type="text/javascript" src="<?= $_zp_themeroot ?>/lightbox.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?= $_zp_themeroot ?>/js/slimbox2.js"></script>
 <?php zp_apply_filter("theme_head"); ?>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <meta name="author" content="Marcus Wong" />

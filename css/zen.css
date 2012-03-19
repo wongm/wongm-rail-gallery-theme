@@ -169,9 +169,20 @@ td.image {
 .pages {
 	margin: 10px 0;
 }
-.imageDisplay {
-	background-color: white;
-	padding: 10px !important;
+#viewImage {
+}
+#mainImage {
+	left: 50%;
+    position: absolute;
+    z-index: 100;
+}
+#lbPrevLink, #lbNextLink {
+    position: relative;
+	z-index: 1000;
+}
+#viewImage p {
+	text-align: center;
+	margin: 10px auto;
 }
 .exif {
 	text-align: center;
@@ -184,6 +195,22 @@ td.image {
 #edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
 	width:600px;
 }
+.jcarousel-container {
+	width: 100% !important;
+}
+.jcarousel-clip {
+	height: 250px !important;
+	width: 80% !important;
+}
+.jcarousel-list {
+	height: 250px !important;
+}
+.jcarousel-list li {
+	height: 250px !important;
+	width: 250px !important;
+}
+	
+	
 /* Archive
 ------------------------------ */
 #tag_cloud .tags a {
@@ -485,13 +512,13 @@ ul.pagelist li.current a {
 	text-decoration: none;
 	cursor: default;
 }
-.pagelist .prev {
+.pagelist .prev, .pagelist .nextIcon {
 	padding-left: 10px;
 	float: left; 
 	text-align: right; 
 	height: 100%;
 }
-.pagelist .next {
+.pagelist .next, .pagelist .prevIcon {
 	padding-right: 10px;
 	float: right;
 	text-align: left; 
