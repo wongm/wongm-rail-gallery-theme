@@ -75,8 +75,13 @@ function printEXIFData()
 	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
 	
 	if (function_exists('getDeathmatchRatingsText'))
-	{
+	{		
 		$ratingsText = getDeathmatchRatingsText();
+		
+		if (strlen($hitCounterText) > 0 && strlen($ratingsText) > 0)
+		{
+			$hitCounterText .= "<br/>";
+		}
 	}
 
 	if ( zp_loggedin() )
