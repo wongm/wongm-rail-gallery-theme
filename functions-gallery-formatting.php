@@ -18,7 +18,7 @@ function printFacebookTag()
 	$path = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . getImageThumb();		
 	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";	
 	if (strlen(getImageDesc()) > 0)	{
-		$description = getImageDesc() + ". $description";
+		$description = strip_tags(getImageDesc());
 	}	
 	echo "<meta property=\"og:image\" content=\"$path\" />\n";
 	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
