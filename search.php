@@ -79,7 +79,7 @@ if ($totalImages == 0 AND $totalAlbums == 0)
 
 if (hasNextPage() OR hasPrevPage())
 {
-	printPageListWithNav("&laquo; ".gettext("Prev"), gettext("Next")." &raquo;");
+	printPageListWithNav("« ".gettext("Prev"), gettext("Next")." »");
 }
 ?>
 </div>

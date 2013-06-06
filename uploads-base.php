@@ -84,10 +84,7 @@ if ($popularImageText[$pageType]['subtext'])
   endwhile; ?>
 </table>
 </div>
-
-<?php printPhotostreamPageListWithNav("&laquo; ".gettext("Prev"), gettext("Next")." &raquo;"); ?>
-
-
+<?php printPhotostreamPageListWithNav("« ".gettext("Prev"), gettext("Next")." »"); ?>
 <?php
 include_once('footer.php'); 
 ?>

@@ -261,7 +261,15 @@ function drawWongmGridSubalbums()
 function getImageAlbumLink() {
 	if(!in_context(ZP_IMAGE)) return false;
 	global $_zp_current_image;
-	$title = $_zp_current_image->getAlbum()->getTitle();
+	
+	if (strlen(getAlbumTitleForPhotostreamImage()) > 0)
+	{
+		$title = getAlbumTitleForPhotostreamImage();
+	}
+	else
+	{
+		$title = $_zp_current_image->getAlbum()->getTitle();
+	}
 	$folder = getAlbumLinkURL($_zp_current_image->getAlbum());
 	return "<br/>In album: <a href=\"$folder\">$title</a>";
 }

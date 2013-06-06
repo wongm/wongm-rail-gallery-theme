@@ -8,7 +8,7 @@ include_once('header.php');
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-      	<?php printParentBreadcrumb('', ' &raquo; ', ' &raquo; '); ?>
+      	<?php printParentBreadcrumb('', ' » ', ' » '); ?>
       	<?php printAlbumTitle(true);?>
 	</td><td><?printSearchForm();?></td></tr>
 </table>
@@ -29,7 +29,7 @@ include_once('header.php');
 
 	if (hasPrevPage() || hasNextPage())
   	{
-		printPageListWithNav("&laquo; ".gettext("Prev"), gettext("Next")." &raquo;");
+		printPageListWithNav("« " . gettext("Prev"), gettext("Next") . " »");
 	}
 
 	printTags('links', 'Tags');

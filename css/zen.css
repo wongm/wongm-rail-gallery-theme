@@ -169,16 +169,15 @@ td.image {
 .pages {
 	margin: 10px 0;
 }
-#viewImage {
+#imageContainer {
+	background-color: white;
+}
+#imageContainer {
+	padding: 10px;	
 }
 #mainImage {
-	left: 50%;
+    left: 25%;
     position: absolute;
-    z-index: 100;
-}
-#lbPrevLink, #lbNextLink {
-    position: relative;
-	z-index: 1000;
 }
 #viewImage p {
 	text-align: center;
@@ -195,6 +194,7 @@ td.image {
 #edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
 	width:600px;
 }
+
 .jcarousel-container {
 	width: 100% !important;
 }
@@ -257,6 +257,7 @@ p.recent {
 	width: 280px;
 	text-align: center;
 	padding: 10px;
+	vertical-align: top;
 }
 .indexalbums .albumdesc {
 	text-align: left;

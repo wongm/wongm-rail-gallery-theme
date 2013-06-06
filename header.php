@@ -23,7 +23,13 @@ else
 if (empty($contentdiv))
 {
 	$contentdiv = "content";
-}	
+}
+
+// get rid of leading ' - '
+if (substr($pageTitle, 0, 3) == ' - ')
+{
+	$pageTitle = substr($pageTitle, 3);
+}
 
 require_once("functions.php");
 include_once('functions-gallery-formatting.php');
@@ -36,7 +42,7 @@ $photosNumber = array_shift($photosArray);
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title><?php printGalleryTitle(); echo($pageTitle); ?></title>
+<title><?php echo($pageTitle); ?> - <?php printGalleryTitle(); ?></title>
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/zen.css" type="text/css" />
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/slimbox2.css" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />

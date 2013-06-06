@@ -5,7 +5,7 @@ $rssTitle = 'Recent uploads';
 include_once('header.php'); ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
-		<?php printParentBreadcrumb('', ' &raquo; ', ' &raquo; '); ?>
+		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
 		<a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a> &raquo; 
 	  	<?php printTruncatedImageTitle(true); ?>
 	</td><td><?printSearchForm();?></td></tr>
