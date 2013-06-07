@@ -6,8 +6,9 @@
  */
 if (!defined('WEBPATH')) die();
 
-if (function_exists(redirectOn404))
+if (function_exists('redirectOn404')) {
 	redirectOn404();
+}
 
 // otherwise show the user possible results
 header("HTTP/1.0 404 Not Found");

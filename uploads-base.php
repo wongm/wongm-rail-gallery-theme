@@ -2,14 +2,30 @@
 
 // force UTF-8 Ø
 
-$pageType = $popularImageText['key'];
-$pageClass = $popularImageText[$pageType]['type'];
-$pageTitle = " - " . $popularImageText[$pageType]['title'];
+$pageType = '';
+$pageClass = '';
+$pageTitle = '';
+$subheading = '';
+
+if(isset($popularImageText['key'])) {
+	$pageType = $popularImageText['key'];
+	
+	if(isset($popularImageText[$pageType]['type'])) {
+		$pageClass = $popularImageText[$pageType]['type'];
+	}
+	
+	if(isset($popularImageText[$pageType]['title'])) {
+		$pageTitle = " - " . $popularImageText[$pageType]['title'];
+	}
+	
+	if(isset($popularImageText[$pageType]['text'])) {
+		$subheading = $popularImageText[$pageType]['text'];
+	}
+}
 
 include_once('header.php'); 
 require_once("functions-search.php");
 
-$subheading = $popularImageText[$pageType]['text'];
 $totalImages = getNumPhotostreamImages();
 
 switch ($pageClass)
