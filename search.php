@@ -1,7 +1,15 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
 $pageTitle = ' - Search';
-include_once('header.php'); ?>
+include_once('header.php');
+
+if ($_REQUEST['words']) { ?>
+<script type="text/javascript">$(document).ready(function() {
+	document.getElementById('search_input').value = '<? echo getSearchWords(); ?>';
+});</script>
+<? 
+}
+ ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<a href="<?=SEARCH_URL_PATH?>" title="Gallery Search">Search</a>
@@ -15,7 +23,7 @@ $totalItems = $totalAlbums + $totalImages;
 
 if ($totalAlbums > 0)
 {
-	$albumsText = " - $totalAlbums albums and $totalImages images.";
+	$albumsText = " - $totalAlbums albums and $totalImages images";
 }
 if ($totalItems > 0)
 {
@@ -36,7 +44,7 @@ if (strlen($searchwords) == 0)
 else
 {
 	$leadingIntroText = "<h2>Search results</h2>\n";
-	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)." $albumsText</p>";
+	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)." $albumsText, ordered by date.</p>";
 }
 ?>
 <div class="topbar">
