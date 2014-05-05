@@ -9,12 +9,12 @@ include_once('header.php');
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
       	<?php printParentBreadcrumb('', ' » ', ' » '); ?>
-      	<?php printAlbumTitle(true);?>
-	</td><td><?printSearchForm();?></td></tr>
+      	<?php echo getAlbumTitle();?>
+	</td><td><?php printSearchForm();?></td></tr>
 </table>
 
 <div class="topbar">
-  	<h2><?=getAlbumTitle();?></h2>
+  	<h2><?php printAlbumTitle(true);?></h2>
   	<?php printAlbumDesc(true); ?>
 </div>
 <?

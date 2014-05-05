@@ -6,13 +6,12 @@ include_once('header.php'); ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
 		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
-		<a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a> &raquo; 
-	  	<?php printTruncatedImageTitle(true); ?>
-	</td><td><?printSearchForm();?></td></tr>
+		<a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
+	</td><td><?php printSearchForm();?></td></tr>
 </table>
 
 <div class="topbar">
-	<h2><?=getImageTitle();?></h2>
+	<h2><?php printImageTitle(true);?></h2>
 	<?php printImageDesc(true); ?>
 </div>
 
