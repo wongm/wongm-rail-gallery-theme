@@ -303,8 +303,25 @@ function drawWongmGridImages($numberOfItems)
 	  $row = 0;
 	  $style = ' class="trio"';
   }
+  
+  // ensure only the 'archive' page displays images in descending date order
+  // let everything else use the defaults
+  if (isset($_REQUEST['date']) || isset($_REQUEST['words']))
+  {
+	  $a = false;
+	  $b = null;
+	  $c = 'date';
+	  $d = 'desc';
+  }
+  else
+  {
+	  $a = null;
+	  $b = null;
+	  $c = null;
+	  $d = null;
+  }
 
-  while (next_image()): $column++;
+  while (next_image($a, $b, $c, $d)): $column++;
 	  if ($row == 0)
 	  {
 		echo "<tr$style>\n";
