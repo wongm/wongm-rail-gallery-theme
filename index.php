@@ -142,9 +142,8 @@ function getRandomImagesSet($toReturn = 5) {
 	
 	$SQLwhere = prefix('images') . ".show=1 AND (" . prefix('images') . ".hitCounter > " . getOption('random_threshold_hitcounter') . " AND " . prefix('images') . ".ratings_score > " . getOption('random_threshold_ratings') . ")";
 	
-	$offset_result = mysql_query( " SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM " . prefix('images') . " WHERE " . $SQLwhere);
-	$offset_row = mysql_fetch_object( $offset_result );
-	$offset = $offset_row->offset;
+	$offsetResult = query_full_array( " SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM " . prefix('images') . " WHERE " . $SQLwhere);
+	$offset = $offsetResult[0]['offset'];
 	
 	$sql = " SELECT " . prefix('images') . ".title, " . prefix('images') . ".filename, " . prefix('albums') . ".folder
 		FROM " . prefix('images') . "

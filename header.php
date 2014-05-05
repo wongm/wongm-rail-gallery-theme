@@ -42,7 +42,7 @@ $photosNumber = array_shift($photosArray);
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title><?php echo($pageTitle); ?> - <?php printGalleryTitle(); ?></title>
+<title><?php echo $pageTitle; ?> - <?php printGalleryTitle(); ?></title>
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/zen.css" type="text/css" />
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/slimbox2.css" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -56,7 +56,7 @@ $photosNumber = array_shift($photosArray);
 <meta name="keywords" content="railways train geelong Victoria Australia photos photographs images" />
 <?php
 //special RSS stuff
-if ($rssType != "" AND $rssTitle != "")
+if (strlen($rssType) > 0 AND strlen($rssTitle) > 0)
 {
 	printRSSHeaderLink($rssType, $rssTitle);
 }
@@ -68,7 +68,7 @@ if (getImageThumb())
 ?>
 </head>
 <body>
-<?php printAdminToolbox(); ?>
+<?php zp_apply_filter("theme_body_close"); ?>
 <div id="container">
 <div id="header">
 <div id="sitename">
@@ -84,7 +84,7 @@ if (getImageThumb())
 <td class="menu"><a href="<?=POPULAR_URL_PATH?>" title="Most popular images">Popular</a></td>
 <td class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" title="A selection of random photos">Random</a></td>
 <td class="menu"><a href="<?=ARCHIVE_URL_PATH?>" title="View photos in the order they were taken">Archives</a></td>
-<td class="menu"><a href="<?=CONTACT_URL_PATH?>" title="Want to drop me a line?">Contact me</a></td>
+<td class="menu"><a href="<?=CONTACT_URL_PATH?>" title="Want to drop me a line?">About me</a></td>
 </tr></table>
 </div>
 <div id="content" class="<?=$contentdiv?>">
