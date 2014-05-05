@@ -48,7 +48,7 @@ else
 
 	if(hasNextPage() || hasPrevPage())
 	{
-		printPageListWithNav("&laquo; ".gettext("Prev"), gettext("Next")." &raquo;");
+		printPageListWithNav("« ".gettext("Prev"), gettext("Next")." »");
 	}
 }
 include_once('footer.php');
