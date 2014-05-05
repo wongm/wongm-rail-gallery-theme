@@ -20,21 +20,21 @@ define ('TIME_FORMAT', $_zp_options['date_format']);
 
 DEFINE ('ARCHIVE_URL_PATH', "/page/archive");
 DEFINE ('SEARCH_URL_PATH', "/page/search");
-DEFINE ('EVERY_ALBUM_PATH', "/gallery/everything");
+DEFINE ('EVERY_ALBUM_PATH', "/page/everything");
 DEFINE ('CONTACT_URL_PATH', "/contact.php");
-DEFINE ('RANDOM_ALBUM_PATH', "/gallery/random");
+DEFINE ('RANDOM_ALBUM_PATH', "/page/random");
 
-DEFINE ('UPDATES_URL_PATH', "/gallery/recent");
-DEFINE ('WAGON_UPDATES_URL_PATH', "/gallery/recent/wagons");
+DEFINE ('UPDATES_URL_PATH', "/page/recent-uploads");
+DEFINE ('WAGON_UPDATES_URL_PATH', "/page/recent-wagons");
 
-DEFINE ('RECENT_ALBUM_PATH', "/gallery/recent/albums");
+DEFINE ('RECENT_ALBUM_PATH', "/page/recent-albums");
 
-DEFINE ('ALL_TIME_URL_PATH', "/gallery/popular/all-time");
-DEFINE ('THIS_MONTH_URL_PATH', "/gallery/popular/this-month");
-DEFINE ('THIS_WEEK_URL_PATH', "/gallery/popular/this-week");
-DEFINE ('RATINGS_URL_PATH', '/gallery/popular/highest-rated');
-DEFINE ('POPULAR_URL_PATH', "/gallery/popular");
-DEFINE ('DO_RATINGS_URL_PATH', '/gallery/rate-my-photos');
+DEFINE ('ALL_TIME_URL_PATH', "/page/popular-all-time");
+DEFINE ('THIS_MONTH_URL_PATH', "/page/popular-this-month");
+DEFINE ('THIS_WEEK_URL_PATH', "/page/popular-this-week");
+DEFINE ('RATINGS_URL_PATH', '/page/popular-by-ratings');
+DEFINE ('POPULAR_URL_PATH', "/page/popular");
+DEFINE ('DO_RATINGS_URL_PATH', '/page/rate-my-photos');
 DEFINE ('GALLERY_PATH', '');
 
 DEFINE ('HITCOUNTER_SHOW_THRESHOLD', 3);
