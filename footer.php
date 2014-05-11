@@ -7,13 +7,7 @@ $time2 = round(microtime(), 3);
 $generation = str_replace('-', '', $time2 - $time);
 echo "Page Generation: $generation seconds.<br/>";
 
-if (zp_loggedin())
-{
-	global $_zp_query_count;
-	echo "$_zp_query_count DB hits<br/>";
-}
-
-echo "$photosNumber images in $albumNumber albums.<br/>";
+echo number_format($photosNumber, 0, '.', ',') . " images in " . number_format($albumNumber, 0, '.', ',') . " albums.<br/>";
 ?>
 Copyright 2005 - <?=date('Y')?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.<br/><br/>
 </div>
