@@ -224,8 +224,8 @@ function getMostRecentImageDate()
 					UNION ALL
 					SELECT count(date) AS date FROM " . prefix('images') . " WHERE date > DATE_ADD(CURDATE() , INTERVAL -$noticeThreshold DAY)";
 	$lastImage = query_full_array($recentSQL);
-	$periodAlertCount = $lastImage[0]['date'];
-	$periodNoticeCount = $lastImage[1]['date'];
+	$periodAlertCount = number_format($albumNumber, $lastImage[0]['date'], 0, '.', ',');
+	$periodNoticeCount = number_format($lastImage[1]['date'], 0, '.', ',');
 	
 	if ($periodAlertCount > 0)
 	{

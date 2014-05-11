@@ -34,9 +34,11 @@ if (substr($pageTitle, 0, 3) == ' - ')
 require_once("functions.php");
 include_once('functions-gallery-formatting.php');
 
-$albumNumber = array_shift(query_single_row("SELECT count(*) FROM ".prefix('albums')));//getNumAlbums();
+$albumsArray = query_single_row("SELECT count(*) FROM ".prefix('albums'));
+$albumNumber = number_format(array_shift($albumsArray), 0, '.', ',');
+
 $photosArray = query_single_row("SELECT count(*) FROM ".prefix('images'));
-$photosNumber = array_shift($photosArray);
+$photosNumber = number_format(array_shift($photosArray), 0, '.', ',');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
