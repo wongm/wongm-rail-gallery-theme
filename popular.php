@@ -11,7 +11,6 @@ $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die()
 
 $pageTitle = ' - Popular photos';
 include_once('header.php');
-require_once("functions-search.php");
 $pageBreadCrumb = 'Popular photos';
 ?>
 <table class="headbar">

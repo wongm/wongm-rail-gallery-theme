@@ -24,7 +24,6 @@ if(isset($popularImageText['key'])) {
 }
 
 include_once('header.php'); 
-require_once("functions-search.php");
 
 $totalImages = getNumPhotostreamImages();
 
