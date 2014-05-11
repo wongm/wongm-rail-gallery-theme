@@ -11,8 +11,8 @@ include_once('header.php'); ?>
 </table>
 
 <div class="topbar">
-	<h2><?php printImageTitle(true);?></h2>
-	<?php printImageDesc(true); ?>
+	<h2><?php printEditableImageTitle(true);?></h2>
+	<?php printEditableImageDesc(true); ?>
 </div>
 
 <div id="viewImage">  

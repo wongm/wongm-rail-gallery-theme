@@ -14,8 +14,8 @@ include_once('header.php');
 </table>
 
 <div class="topbar">
-  	<h2><?php printAlbumTitle(true);?></h2>
-  	<?php printAlbumDesc(true); ?>
+  	<h2><?php printEditableAlbumTitle(true);?></h2>
+  	<?php printEditableAlbumDesc(true); ?>
 </div>
 <?
  	drawWongmListSubalbums();
@@ -34,6 +34,7 @@ include_once('header.php');
 
 	printTags('links', 'Tags');
 
-	echo "<p>".formatHitCounter(incrementAndReturnHitCounter('album'), false)."</p>";
+	global $_zp_current_album;
+	echo "<p>".getRollingHitcounter($_zp_current_album, '', false)."</p>";
 	include_once('footer.php');
 ?>
