@@ -6,18 +6,20 @@
  */
 if (!defined('WEBPATH')) die();
 
+$numberofresults = 0;
+$displaySearch = function_exists('searchOn404');
+
 if (function_exists('redirectOn404')) {
 	redirectOn404();
 }
 
-// otherwise show the user possible results
-header("HTTP/1.0 404 Not Found");
-header("Status: 404 Not Found");
+if ($displaySearch) {
+	searchOn404();
+}
  
 $startTime = array_sum(explode(" ",microtime())); 
 $pageTitle = ' - 404 Page Not Found';
 include_once('header.php');
-include_once('functions-search.php');
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found
@@ -26,37 +28,24 @@ include_once('functions-search.php');
 <div class="topbar">
   	<h2>404 Page Not Found</h2>
 </div>
+<h4>The gallery object you are requesting cannot be found.</h4>
 <?php
-echo gettext("<h4>The gallery object you are requesting cannot be found.</h4>");
 
-if (isset($image) AND $image != '') 
+if ($displaySearch) 
 {
-	$term = $image;
-	$image = true;
-}
-else if (isset($album)) 
-{
-	$term = $album;
-	$image = false;
-}
-
-// check for images
-$term  = str_replace('.jpg', '', $term);
-$term  = str_replace('.JPG', '', $term);
-
-if ($image)
-{
-	$numberofresults = imageOrAlbumSearch($term, 'image');
-}
-else
-{
-	$numberofresults = 0;
-}
-
-// no images results, so check for albums
-if ($numberofresults == 0)
-{
-	$numberofresults = imageOrAlbumSearch($term, 'album');
+    echo wasLookingForImage();
+    
+    if (wasLookingForImage()) 
+    {
+        $numberofresults = getNumImages();
+        // will only show top images
+        drawWongmGridImages(3);
+    }
+    else
+    {
+        $numberofresults = getNumAlbums();
+        drawWongmGridAlbums(3);
+    }
 }
 
 // fix for wording below
