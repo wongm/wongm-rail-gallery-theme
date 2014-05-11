@@ -26,8 +26,11 @@ $filepath = getThumbnailURLFromRandomImagesSet($_randomImages[0]);
 		<? getMostRecentImageDate(); ?>
 	</td>
 </tr>
-<?					
-while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
+<?
+
+if (function_exists('next_news')) {
+
+    while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
 <tr class="album">
  	<? if ($i == 1) { ?>
 	<td class="albumthumb" rowspan="<?=getOption('wongm_news_count') + 1?>" valign="top"></td>
@@ -38,16 +41,20 @@ while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
     	<?php echo getNewsContent(true); ?>
     </td>
 </tr>
-<?php	
-endwhile; 
+<?php
+    endwhile; 
 ?>
 <tr class="album">
  	<td class="albumdesc"><p><a title="See more news items" href="/news">See more news items...</a></p></td>
 </tr>
-</table>
 <?php
 
-echo "<h2 class=\"index\">Sliced and diced</h2>\n";
+} // end new if
+
+?>
+</table>
+<h2 class="index">Sliced and diced</h2>
+<?php
 
 $randomFilepath2 = getThumbnailURLFromRandomImagesSet($_randomImages[1]);
 $randomFilepath4 = getThumbnailURLFromRandomImagesSet($_randomImages[2]);
