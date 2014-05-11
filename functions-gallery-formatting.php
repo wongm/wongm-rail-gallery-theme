@@ -9,22 +9,6 @@
 //
 //******************************************************************************
 
-function printFacebookTag()
-{
-	$protocol = SERVER_PROTOCOL;
-	if ($protocol == 'https_admin') {
-		$protocol = 'https';
-	}
-	$path = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . getImageThumb();		
-	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";	
-	if (strlen(getImageDesc()) > 0)	{
-		$description = strip_tags(getImageDesc());
-	}	
-	echo "<meta property=\"og:image\" content=\"$path\" />\n";
-	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
-	echo "<meta property=\"og:description\" content=\"$description\" />\n";
-}
-
 function pluralNumberWord($number, $text)
 {
 	if (is_numeric($number))
@@ -43,7 +27,6 @@ function pluralNumberWord($number, $text)
 		}
 	}
 }
-
 
 /**
  * Returns the url of the previous image.
@@ -72,7 +55,7 @@ function printEXIFData()
 {
 	global $_zp_current_image;
 	$result = getImageMetaData();
-	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
+	$hitCounterText = getRollingHitcounter($_zp_current_image);
 	
 	if (function_exists('getDeathmatchRatingsText'))
 	{
@@ -105,7 +88,8 @@ function printEXIFData()
 		//check if seach by date exists, should be in set up in plugins\archive_days.php
 		if (function_exists('printSingleMonthArchive'))
 		{
-			$dateLink = "<a href=\"".SEARCH_URL_PATH."/archive/$date[0]-$date[1]-$splitdate[0]\" title=\"See other photos from this date\">$fdate</a> $ftime";
+    		$dateString = $date[0] . '-' . $date[1] . '-' . $splitdate[0];
+    		$dateLink = "<a href=\"".html_encode(getSearchURL(null, $dateString, null, 0, null))."\" title=\"See other photos from this date\">$fdate</a> $ftime";
 		}
 		else
 		{
@@ -131,42 +115,6 @@ Focal Length: <?=$result[EXIFFocalLength] ?><br/>
 <?
 	}	// end if
 }		// end function
-
-
-/**
- * Returns the title of the current image.
- * Truncates it if over given length
- *
- * @param bool $editable if set to true and the admin is logged in allows editing of the title
- */
-function printTruncatedImageTitle($editable=false) {
-	global $_zp_current_image;
-
-	if ($editable && zp_loggedin())
-	{
-		$text = getImageTitle();
-		
-		if (empty($text)) 
-		{
-			$text = gettext('(...)');
-		}
-		
-		$class= 'class="' . trim("zp_editable zp_editable_image_title") . '"';
-		echo "<span id=\"editable_image_truncate\" $class>" . $text . "</span>\n";
-		echo "<script type=\"text/javascript\">editInPlace('editable_image_truncate', 'image', 'title');</script>";
-	}
-	else
-	{
-		$imageTitle = getImageTitle();
-
-		if (strlen($imageTitle) > getOption('wongm_imagetitle_truncate_length'))
-		{
-			//$imageTitle = "<abbr title=\"$imageTitle\">" . substr($imageTitle, 0, getOption('wongm_imagetitle_truncate_length')) . "</abbr>...";
-			$imageTitle = substr($imageTitle, 0, getOption('wongm_imagetitle_truncate_length')) . "...";
-		}
-		echo "<span id=\"imageTitle\" style=\"display: inline;\">" . $imageTitle . "</span>\n";
-	}
-}
 
 function drawNewsNextables()
 {
@@ -202,17 +150,16 @@ function drawNewsFrontpageNextables()
  * drawWongmGridSubalbums()
  *
  * Draw a grid of sub-albums for an album
- * Used by Rail Geelong
  *
  */
-function drawWongmGridSubalbums()
+function drawWongmGridAlbums($numberOfItems)
 {
 ?>
 <!-- Sub-Albums -->
 <table class="centeredTable">
 <?php
 	// neater for when only 4 items
-	if (getNumAlbums() == 4)
+	if ($numberOfItems == 4)
 	{
 		$i = 1;
 	}
@@ -221,30 +168,37 @@ function drawWongmGridSubalbums()
 		$i = 0;
 	}
 	while (next_album()):
-	if ($i == 0)
-	{
-		echo '<tr>';
-	}
-	global $_zp_current_album;
+    	$count++;
+    	if ($i == 0)
+    	{
+    		echo '<tr>';
+    	}
+    	global $_zp_current_album;
 ?>
 <td class="album" valign="top">
 	<div class="albumthumb"><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
 	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
 	<div class="albumtitle"><h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
-	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php if (zp_loggedin()) { printHitCounter($_zp_current_album, true); } ?></small></div>
+	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_album, true); } ?></small></div>
 	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
 </td>
 <?php
-
-	if ($i == 2)
-	{
-		echo "</tr>\n";
-		$i = 0;
-	}
-	else
-	{
-		$i++;
-	}
+    	if ($i == 2)
+    	{
+    		echo "</tr>\n";
+    		$i = 0;
+    	}
+    	else
+    	{
+    		$i++;
+    	}
+    	 
+        // enforce limit on items displayed
+        if ($count >= $numberOfItems)
+        {
+            break;
+        }
+    
 	endwhile;
 ?>
 </table>
@@ -298,41 +252,45 @@ function drawWongmGridImages($numberOfItems)
 <table class="centeredTable">
 <?php
   // neater for when only 4 items
-  if ($numberOfItems != 4)
-  {
-	  $row = 0;
-	  $style = ' class="trio"';
-  }
-  
-  // ensure only the 'archive' page displays images in descending date order
-  // let everything else use the defaults
-  if (isset($_REQUEST['date']) || isset($_REQUEST['words']))
-  {
-	  $a = false;
-	  $b = null;
-	  $c = 'date';
-	  $d = 'desc';
-  }
-  else
-  {
-	  $a = null;
-	  $b = null;
-	  $c = null;
-	  $d = null;
-  }
+    if ($numberOfItems != 4)
+    {
+        $row = 0;
+        $style = ' class="trio"';
+    }
+    
+    // ensure the 'archive' page displays images in morning to nightime order
+    if (isset($_REQUEST['date']))
+    {
+        $a = false;
+        $b = null;
+        $c = 'date';
+        $d = 'asc';
+    }
+    // let everything else use the defaults - newest first
+    else
+    {
+        $a = null;
+        $b = null;
+        $c = null;
+        $d = null;
+    }
 
-  while (next_image($a, $b, $c, $d)): $column++;
-	  if ($row == 0)
-	  {
-		echo "<tr$style>\n";
-	  }
-	
-	  if (in_context(ZP_SEARCH))
-	  {
-		  $albumLinkHtml = getImageAlbumLink();
-	  }
-	  
-	  global $_zp_current_image;
+    while (next_image($a, $b, $c, $d))
+    {
+        $column++;
+        $count++;
+        
+        if ($row == 0)
+        {
+            echo "<tr$style>\n";
+        }
+        
+        if (in_context(ZP_SEARCH))
+        {
+            $albumLinkHtml = getImageAlbumLink();
+        }
+        
+        global $_zp_current_image;
 ?>
 <td class="image">
 	<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
@@ -341,24 +299,29 @@ function drawWongmGridImages($numberOfItems)
 	<div class="imagetitle">
 		<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-		<small><?php printImageDate(); ?><?php if (zp_loggedin()) { printHitCounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
+		<small><?php printImageDate(); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
 	</div>
 </td>
 <?php
-	  if ($row == 2 || ($numberOfItems == 4 && $row == 1))
-	  {
-		  echo "</tr>\n";
-		  $row = 0;
-	  }
-	  else
-	  {
-		  $row++;
-	  }
-  endwhile; ?>
+        if ($row == 2 || ($numberOfItems == 4 && $row == 1))
+        {
+            echo "</tr>\n";
+            $row = 0;
+        }
+        else
+        {
+            $row++;
+        }
+        
+        // enforce limit on items displayed
+        if ($count >= $numberOfItems)
+        {
+            break;
+        }
+    } ?>
 </table>
 <?
 }	// end function
-
 
 /*
  *
@@ -432,7 +395,7 @@ function drawWongmAlbumRow()
 		<a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
 	</td><td class="albumdesc">
 		<h4><a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
-		<p><small><?php printAlbumDate(""); ?><?php if (zp_loggedin()) { printHitCounter($_zp_current_album, true); } ?></small></p>
+		<p><small><?php printAlbumDate(""); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_album, true); } ?></small></p>
 		<p><?php printAlbumDesc(); ?></p>
 <? 	if (zp_loggedin())
 	{
@@ -462,7 +425,7 @@ function drawWongmImageCell($pageType)
 	// other types of recent items / most viewed pages
 	else if ($pageType != 'ratings')
 	{
-		$hitcounterText = getMyHitCounter($_zp_current_image, $pageType);
+		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
 	}
 	// ratings instead
 	else
@@ -501,4 +464,188 @@ function replace_filename_with_cache_thumbnail_version($filename)
 	$imgURL = str_replace('.JPEG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPEG', $imgURL);
 	return $imgURL;	
 }
+
+
+function drawWongmListSubalbums()
+{
+	$toReturn = 0;
+	
+	if (getNumAlbums() > 0)
+	{
+?>
+<!-- Sub-Albums -->
+<table class="indexalbums">
+<?php
+	while (next_album()):
+		drawWongmAlbumRow();
+		$toReturn++;
+	endwhile;
+?>
+</table>
+<?
+	}
+	
+	return $toReturn;
+	
+}	/// end function
+
+/**
+ * Returns the date of the search
+ *
+ * @param string $format formatting of the date, default 'F Y'
+ * @return string
+ * @since 1.1
+ */
+function getFullSearchDate($format='F Y') {
+	if (in_context(ZP_SEARCH)) {
+		global $_zp_current_search;
+		$date = $_zp_current_search->getSearchDate();
+		$date = str_replace("/", "", $date);
+		if (empty($date)) { return ""; }
+		if ($date == '0000-00') { return gettext("no date"); };
+
+		if (sizeof(split('-', $date)) == 3) {
+			$format='F d, Y';
+		}
+
+		$dt = strtotime($date."-01");
+		return date($format, $dt);
+	}
+	return false;
+}
+
+
+/**
+ * WHILE next_album(): context switches to Album.
+ * If we're already in the album context, this is a sub-albums loop, which,
+ * quite simply, changes the source of the album list.
+ * Switch back to the previous context when there are no more albums.
+
+ * Returns true if there are albums, false if none
+ *
+ * @param bool $all true to go through all the albums
+ * @param string $sorttype what you want to sort the albums by
+ * @return bool
+ * @since 0.6
+ */
+function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
+	global $_zp_albums, $_zp_gallery, $_zp_current_album, $_zp_page, $_zp_current_album_restore, $_zp_current_search;
+	if (is_null($_zp_albums)) {
+		$_zp_albums = $_zp_gallery->getAlbums($all ? 0 : $_zp_page, $sorttype, $direction);
+
+		if (empty($_zp_albums)) { return false; }
+		$_zp_current_album_restore = $_zp_current_album;
+		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));
+		save_context();
+		add_context(ZP_ALBUM);
+		return true;
+	} else if (empty($_zp_albums)) {
+		$_zp_albums = NULL;
+		$_zp_current_album = $_zp_current_album_restore;
+		restore_context();
+		return false;
+	} else {
+		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));
+		return true;
+	}
+}
+
+function printEditableImageTitle($editable=false, $editclass='editable imageTitleEditable', $messageIfEmpty = true ) {
+	if ( $messageIfEmpty === true ) {
+		$messageIfEmpty = gettext('(No title...)');
+	}
+	printEditable('image', 'title', $editable, $editclass, $messageIfEmpty);
+}
+
+function printEditableImageDesc($editable=false, $editclass='', $messageIfEmpty = true) {
+	if ( $messageIfEmpty === true ) {
+		$messageIfEmpty = gettext('(No description...)');
+	}
+	printEditable('image', 'desc', $editable, $editclass, $messageIfEmpty, !getOption('tinyMCEPresent'));
+}
+
+function printEditableAlbumTitle($editable=false, $editclass='', $messageIfEmpty = true) {
+	if ( $messageIfEmpty === true ) {
+		$messageIfEmpty = gettext('(No title...)');
+	}
+	printEditable('album', 'title', $editable, $editclass, $messageIfEmpty);
+}
+
+function printEditableAlbumDesc($editable=false, $editclass='', $messageIfEmpty = true ) {
+	if ( $messageIfEmpty === true ) {
+		$messageIfEmpty = gettext('(No description...)');
+	}
+	printEditable('album', 'desc', $editable, $editclass, $messageIfEmpty, !getOption('tinyMCEPresent'));
+}
+
+/**
+ * Print any album or image data and make it editable in place
+ *
+ * @param string $context	either 'image' or 'album'
+ * @param string $field		the data field to echo & edit if applicable: 'date', 'title', 'place', 'description', ...
+ * @param bool   $editable 	when true, enables AJAX editing in place
+ * @param string $editclass CSS class applied to element if editable
+ * @param mixed  $messageIfEmpty message echoed if no value to print
+ * @param bool   $convertBR	when true, converts new line characters into HTML line breaks
+ * @param string $override	if not empty, print this string instead of fetching field value from database
+ * @param string $label "label" text to print if the field is not empty
+ * @since 1.3
+ * @author Ozh
+ */
+function printEditable($context, $field, $editable = false, $editclass = 'editable', $messageIfEmpty = true, $convertBR = false, $override = false, $label='') {
+	switch($context) {
+		case 'image':
+			global $_zp_current_image;
+			$object = $_zp_current_image;
+			break;
+		case 'album':
+			global $_zp_current_album;
+			$object = $_zp_current_album;
+			break;
+		case 'pages':
+			global $_zp_current_zenpage_page;
+			$object = $_zp_current_zenpage_page;
+			break;
+		case 'news':
+			global $_zp_current_zenpage_news;
+			$object = $_zp_current_zenpage_news;
+			break;
+		default:
+			trigger_error(gettext('printEditable() incomplete function call.'), E_USER_NOTICE);
+			return false;
+	}
+	if (!$field || !is_object($object)) {
+		trigger_error(gettext('printEditable() invalid function call.'), E_USER_NOTICE);
+		return false;
+	}
+	$text = trim( $override !== false ? $override : get_language_string($object->get($field)) );
+	$text = zp_apply_filter('front-end_edit', $text, $object, $context, $field);
+	if ($convertBR) {
+		$text = str_replace("\r\n", "\n", $text);
+		$text = str_replace("\n", "<br />", $text);
+	}
+
+	if (empty($text)) {
+		if ( $editable && zp_loggedin() ) {
+			if ( $messageIfEmpty === true ) {
+				$text = gettext('(...)');
+			} elseif ( is_string($messageIfEmpty) ) {
+				$text = $messageIfEmpty;
+			}
+		}
+	}
+	if (!empty($text)) echo $label;
+	if ($editable && getOption('edit_in_place') && zp_loggedin()) {
+		// Increment a variable to make sure all elements will have a distinct HTML id
+		static $id = 1;
+		$id++;
+		$class= 'class="' . trim("$editclass zp_editable zp_editable_{$context}_{$field}") . '"';
+		echo "<span id=\"editable_{$context}_$id\" $class>" . $text . "</span>\n";
+		echo "<script type=\"text/javascript\">editInPlace('editable_{$context}_$id', '$context', '$field');</script>";
+	} else {
+		$class= 'class="' . "zp_uneditable zp_uneditable_{$context}_{$field}" . '"';
+		echo "<span $class>" . $text . "</span>\n";
+	}
+}
+
 ?>

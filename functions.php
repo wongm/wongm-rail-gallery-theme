@@ -82,87 +82,21 @@ $popularImageText['wagons']['order'] = "i.mtime DESC";
 $popularImageText['wagons']['where'] = "folder LIKE 'wagons%'";
 $popularImageText['wagons']['subtext'] = 'Sorted by upload date to the site (not when they were taken).';
 
-function drawWongmListSubalbums()
+function printFacebookTag()
 {
-	$toReturn = 0;
-	
-	if (getNumAlbums() > 0)
-	{
-?>
-<!-- Sub-Albums -->
-<table class="indexalbums">
-<?php
-	while (next_album()):
-		drawWongmAlbumRow();
-		$toReturn++;
-	endwhile;
-?>
-</table>
-<?
+	$protocol = SERVER_PROTOCOL;
+	if ($protocol == 'https_admin') {
+		$protocol = 'https';
 	}
-	
-	return $toReturn;
-	
-}	/// end function
-
-/**
- * Returns the date of the search
- *
- * @param string $format formatting of the date, default 'F Y'
- * @return string
- * @since 1.1
- */
-function getFullSearchDate($format='F Y') {
-	if (in_context(ZP_SEARCH)) {
-		global $_zp_current_search;
-		$date = $_zp_current_search->getSearchDate();
-		$date = str_replace("/", "", $date);
-		if (empty($date)) { return ""; }
-		if ($date == '0000-00') { return gettext("no date"); };
-
-		if (sizeof(split('-', $date)) == 3) {
-			$format='F d, Y';
-		}
-
-		$dt = strtotime($date."-01");
-		return date($format, $dt);
-	}
-	return false;
+	$path = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . getImageThumb();		
+	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";	
+	if (strlen(getImageDesc()) > 0)	{
+		$description = strip_tags(getImageDesc());
+	}	
+	echo "<meta property=\"og:image\" content=\"$path\" />\n";
+	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
+	echo "<meta property=\"og:description\" content=\"$description\" />\n";
 }
 
 
-/**
- * WHILE next_album(): context switches to Album.
- * If we're already in the album context, this is a sub-albums loop, which,
- * quite simply, changes the source of the album list.
- * Switch back to the previous context when there are no more albums.
-
- * Returns true if there are albums, false if none
- *
- * @param bool $all true to go through all the albums
- * @param string $sorttype what you want to sort the albums by
- * @return bool
- * @since 0.6
- */
-function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
-	global $_zp_albums, $_zp_gallery, $_zp_current_album, $_zp_page, $_zp_current_album_restore, $_zp_current_search;
-	if (is_null($_zp_albums)) {
-		$_zp_albums = $_zp_gallery->getAlbums($all ? 0 : $_zp_page, $sorttype, $direction);
-
-		if (empty($_zp_albums)) { return false; }
-		$_zp_current_album_restore = $_zp_current_album;
-		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));
-		save_context();
-		add_context(ZP_ALBUM);
-		return true;
-	} else if (empty($_zp_albums)) {
-		$_zp_albums = NULL;
-		$_zp_current_album = $_zp_current_album_restore;
-		restore_context();
-		return false;
-	} else {
-		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));
-		return true;
-	}
-}
 ?>
