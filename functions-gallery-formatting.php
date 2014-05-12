@@ -258,15 +258,21 @@ function drawWongmGridImages($numberOfItems)
         $style = ' class="trio"';
     }
     
+    $a = false;
+    $b = null;
+    $c = 'date';
+    
     // ensure the 'archive' page displays images in morning to nightime order
     if (isset($_REQUEST['date']))
     {
-        $a = false;
-        $b = null;
-        $c = 'date';
         $d = 'asc';
     }
-    // let everything else use the defaults - newest first
+    // dates show the newest item first
+    else if (isset($_REQUEST['words']))
+    {
+        $d = 'desc';        
+    }
+    // let everything else use the defaults
     else
     {
         $a = null;
