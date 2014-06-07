@@ -1,10 +1,9 @@
-<?php 
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 /*
  * index.php in ROOT is where the redirect is set
  *	
  */
-if (!defined('WEBPATH')) die();
 
 $numberofresults = 0;
 $displaySearch = function_exists('searchOn404');

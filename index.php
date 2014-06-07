@@ -1,4 +1,4 @@
-<?php
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - Welcome';
 $rssType = 'Gallery';

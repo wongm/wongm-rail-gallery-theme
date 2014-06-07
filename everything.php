@@ -1,4 +1,5 @@
-<?php
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+
 /*
  * draw all dynamic albums in the gallery
  *

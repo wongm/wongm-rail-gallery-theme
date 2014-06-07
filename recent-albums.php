@@ -1,4 +1,5 @@
-<?php
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+
 $rssType = 'AlbumsRSS';
 $rssTitle = 'Recent albums';
 $pageTitle = ' - '.$rssTitle;

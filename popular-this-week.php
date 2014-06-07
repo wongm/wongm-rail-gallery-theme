@@ -1,4 +1,4 @@
-<?php
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 // reset hitcounters
 if ( zp_loggedin() ) {

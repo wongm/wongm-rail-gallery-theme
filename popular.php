@@ -1,4 +1,5 @@
-<?php 
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+
 /*
  * Shows a list of different types of high rating photo page
  * - highest this month
@@ -7,7 +8,6 @@
  * - highest ranking
  *
  */ 
-$startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - Popular photos';
 include_once('header.php');

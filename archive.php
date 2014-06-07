@@ -1,6 +1,5 @@
-<?php 
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
-$startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 $pageTitle = ' - Archive';
 
 if (isset($_GET['page']))

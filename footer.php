@@ -2,9 +2,8 @@
 <div id="footer">
 <a href="/">Home</a> :: <a href="<?=CONTACT_URL_PATH?>">Contact</a><br/>
 <?php 	//display page generation time
-	// start $time = round(microtime(), 3);
-$time2 = round(microtime(), 3);
-$generation = str_replace('-', '', $time2 - $time);
+$endTime = array_sum(explode(" ",microtime()));
+$generation = str_replace('-', '', round(($endTime - $startTime), 3));
 echo "Page Generation: $generation seconds.<br/>";
 
 echo "$photosNumber images in $albumNumber albums.<br/>";
