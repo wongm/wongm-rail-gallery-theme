@@ -1,4 +1,5 @@
-<?php 
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+
 /*
  * Does the actual ranking of photos
  * - showing pair of images
@@ -7,7 +8,6 @@
  * - showing results
  *
  */ 
-$startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - Rate my photos';
 $votePromptText = "Cast your vote";
@@ -37,9 +37,10 @@ if (isset($_POST['option']))
 	else
 	{
 		// update selected image
-		$sql = "SELECT i.*, a.folder, a.title AS albumtitle FROM zen_images i
-			INNER JOIN zen_albums a ON a.id = i.albumid
-			WHERE i.id = ".mysql_real_escape_string($selected);
+		$sql = "SELECT i.*, a.folder, a.title AS albumtitle 
+		    FROM " . prefix('images') . " i
+			INNER JOIN " . prefix('albums') . " a ON a.id = i.albumid
+			WHERE i.id = " . db_quote($selected);
 		$resultWinner = query_single_row($sql);
 		
 		$winnerRatings_win = $resultWinner['ratings_win'];
@@ -60,15 +61,17 @@ if (isset($_POST['option']))
 		$winnerRatings_score = calculateScore($winnerRatings_win, $winnerRatings_view);
 		
 		// save to DB
-		$sql = "UPDATE zen_images 
-			SET ratings_win = '$winnerRatings_win', ratings_score = '$winnerRatings_score', ratings_view = '$winnerRatings_view' 
-			WHERE id = '$selected'";
+		$sql = "UPDATE " . prefix('images') . " 
+			SET ratings_win = " . db_quote($winnerRatings_win) . ", 
+			    ratings_score = " . db_quote($winnerRatings_score) . ", 
+			    ratings_view = " . db_quote($winnerRatings_view) . " 
+			WHERE id = " . db_quote($selected);
 		query($sql);
 			
-		// update rejected image		
+		// update rejected image
 		if (!$noPenaltyForLoser)
 		{
-			$sql = "SELECT ratings_win, ratings_view FROM zen_images WHERE id = ".mysql_real_escape_string($rejected);
+			$sql = "SELECT ratings_win, ratings_view FROM " . prefix('images') . " WHERE id = " . db_quote($rejected);
 			$resultRejectedImage = query_single_row($sql);
 			
 			$loserRatings_win = $resultRejectedImage['ratings_win'];
@@ -78,9 +81,10 @@ if (isset($_POST['option']))
 			$loserRatings_score = calculateScore($loserRatings_win, $loserRatings_view);
 			
 			// save to DB
-			$sql = "UPDATE zen_images 
-				SET ratings_score = '$loserRatings_score', ratings_view = '$loserRatings_view'
-				WHERE id = '$rejected'";
+			$sql = "UPDATE " . prefix('images') . " 
+				SET ratings_score = " . db_quote($loserRatings_score) . ", 
+				    ratings_view = " . db_quote($loserRatings_view) . "
+				WHERE id = " . db_quote($rejected);
 			query($sql);
 		}
 		
@@ -92,7 +96,7 @@ if (isset($_POST['option']))
 		
 		if (zp_loggedin())
 		{
-			$resultText .= " for a score of $winnerRatings_score.";
+			$resultText .= " for a score of " . round($winnerRatings_score, 1) . ".";
 		}
 		else
 		{
