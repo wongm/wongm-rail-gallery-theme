@@ -11,7 +11,7 @@ $server = $_SERVER['HTTP_HOST'];
 if ($server == 'y' OR $server == 'localhost' OR $server == 'wongm' OR isset($_GET['wongm']))
 {
 	$editablelinkforadmin = true;
-	//error_reporting(E_ALL);
+	error_reporting(E_ALL);
 }
 else
 {
@@ -58,7 +58,7 @@ $photosNumber = number_format(array_shift($photosArray), 0, '.', ',');
 <meta name="keywords" content="railways train geelong Victoria Australia photos photographs images" />
 <?php
 //special RSS stuff
-if (strlen($rssType) > 0 AND strlen($rssTitle) > 0)
+if (isset($rssType) AND isset($rssTitle) AND strlen($rssType) > 0 AND strlen($rssTitle) > 0)
 {
 	printRSSHeaderLink($rssType, $rssTitle);
 }

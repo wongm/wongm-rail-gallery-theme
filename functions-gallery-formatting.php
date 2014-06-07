@@ -77,9 +77,9 @@ function printEXIFData()
 		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
 	}
 
-	if (sizeof($result) > 1 AND $result[EXIFDateTimeOriginal] != '')
+	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
 	{
-		$date = split(':', $result[EXIFDateTimeOriginal]);
+		$date = split(':', $result['EXIFDateTimeOriginal']);
 		$splitdate = split(' ', $date[2]);
 		$udate = mktime($splitdate[1], $date[3],$date[4],$date[1],$splitdate[0],$date[0]);
 		$fdate = strftime('%B %d, %Y', $udate);
@@ -97,11 +97,11 @@ function printEXIFData()
 		}
 	?>
 <p class="exif">
-Taken with a <?=$result[EXIFModel] ?><br/>
+Taken with a <?=$result['EXIFModel'] ?><br/>
 Date: <?=$dateLink;?><br/>
-Exposure Time: <?=$result[EXIFExposureTime] ?><br/>
-Aperture Value: <?=$result[EXIFFNumber] ?><br/>
-Focal Length: <?=$result[EXIFFocalLength] ?><br/>
+Exposure Time: <?=$result['EXIFExposureTime'] ?><br/>
+Aperture Value: <?=$result['EXIFFNumber'] ?><br/>
+Focal Length: <?=$result['EXIFFocalLength'] ?><br/>
 <?=$hitCounterText.$ratingsText?>
 </p>
 <?
