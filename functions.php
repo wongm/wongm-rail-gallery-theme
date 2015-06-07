@@ -11,13 +11,6 @@
 
 require_once('functions-gallery-formatting.php');
 
-// dynamic from the DB
-define ('MAXIMAGES_PERPAGE', $_zp_options['images_per_page']);
-define ('MAXIMAGES_PERRANDOM', 12);
-define ('MAXALBUMS_PERPAGE', $_zp_options['albums_per_page']);
-define ('THUMBNAIL_IMAGE_SIZE', $_zp_options['thumb_size']);
-define ('TIME_FORMAT', $_zp_options['date_format']);
-
 DEFINE ('ARCHIVE_URL_PATH', "/page/archive");
 DEFINE ('SEARCH_URL_PATH', "/page/search");
 DEFINE ('EVERY_ALBUM_PATH', "/page/everything");
@@ -36,8 +29,6 @@ DEFINE ('RATINGS_URL_PATH', '/page/popular-by-ratings');
 DEFINE ('POPULAR_URL_PATH', "/page/popular");
 DEFINE ('DO_RATINGS_URL_PATH', '/page/rate-my-photos');
 DEFINE ('GALLERY_PATH', '');
-
-DEFINE ('HITCOUNTER_SHOW_THRESHOLD', 3);
 
 DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . '">here</a>');
 
@@ -150,5 +141,68 @@ function printFacebookTag()
 	echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
 }
 
+function drawWongmImageCell($pageType)
+{
+	global $_zp_current_image;
+	
+	$albumLinkText = getImageAlbumLink();
+	
+	// if recent uploads and not logged in
+	if ($pageType == 'uploads' && !zp_loggedin())
+	{
+		$hitcounterText = '';
+	}
+	// other types of recent items / most viewed pages
+	else if ($pageType != 'ratings')
+	{
+		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
+	}
+	// ratings instead
+	else
+	{
+		$hitcounterText = getDeathmatchRatingsText();
+	}
+	
+	if (strlen($hitcounterText) > 0)
+	{
+		$hitcounterText = '<br/>' . $hitcounterText;
+	}
+?>
+<td class="image">
+	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
+		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+	</a></div>
+	<div class="imagetitle">
+		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<?php echo printImageDescWrapped(); ?>
+		<small><?php printImageDate(); ?><?php echo $hitcounterText ?></small>
+		<?php echo $albumLinkText ?>
+	</div>
+</td>
+<?php
+}
+
+function drawWongmListSubalbums()
+{
+	$toReturn = 0;
+	
+	if (getNumAlbums() > 0)
+	{
+?>
+<!-- Sub-Albums -->
+<table class="indexalbums">
+<?php
+	while (next_album()):
+		drawWongmAlbumRow();
+		$toReturn++;
+	endwhile;
+?>
+</table>
+<?
+	}
+	
+	return $toReturn;
+	
+}	/// end function
 
 ?>

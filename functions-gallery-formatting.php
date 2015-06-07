@@ -422,48 +422,6 @@ function drawWongmAlbumRow()
 
 }	// end function
 
-
-function drawWongmImageCell($pageType)
-{
-	global $_zp_current_image;
-	
-	$albumLinkText = getImageAlbumLink();
-	
-	// if recent uploads and not logged in
-	if ($pageType == 'uploads' && !zp_loggedin())
-	{
-		$hitcounterText = '';
-	}
-	// other types of recent items / most viewed pages
-	else if ($pageType != 'ratings')
-	{
-		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
-	}
-	// ratings instead
-	else
-	{
-		$hitcounterText = getDeathmatchRatingsText();
-	}
-	
-	if (strlen($hitcounterText) > 0)
-	{
-		$hitcounterText = '<br/>' . $hitcounterText;
-	}
-?>
-<td class="image">
-	<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
-	</a></div>
-	<div class="imagetitle">
-		<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
-		<?php echo printImageDescWrapped(); ?>
-		<small><?php printImageDate(); ?><?php echo $hitcounterText ?></small>
-		<?php echo $albumLinkText ?>
-	</div>
-</td>
-<?php
-}
-
 function replace_filename_with_cache_thumbnail_version($filename)
 {
     $thumb_size = getOption('thumb_size');
@@ -479,56 +437,6 @@ function replace_filename_with_cache_thumbnail_version($filename)
 	$imgURL = str_replace('.JPEG', '_' . $thumb_size . '_thumb.jpeg', $imgURL);
 	return $imgURL;	
 }
-
-
-function drawWongmListSubalbums()
-{
-	$toReturn = 0;
-	
-	if (getNumAlbums() > 0)
-	{
-?>
-<!-- Sub-Albums -->
-<table class="indexalbums">
-<?php
-	while (next_album()):
-		drawWongmAlbumRow();
-		$toReturn++;
-	endwhile;
-?>
-</table>
-<?
-	}
-	
-	return $toReturn;
-	
-}	/// end function
-
-/**
- * Returns the date of the search
- *
- * @param string $format formatting of the date, default 'F Y'
- * @return string
- * @since 1.1
- */
-function getFullSearchDate($format='F Y') {
-	if (in_context(ZP_SEARCH)) {
-		global $_zp_current_search;
-		$date = $_zp_current_search->getSearchDate();
-		$date = str_replace("/", "", $date);
-		if (empty($date)) { return ""; }
-		if ($date == '0000-00') { return gettext("no date"); };
-
-		if (sizeof(split('-', $date)) == 3) {
-			$format='F d, Y';
-		}
-
-		$dt = strtotime($date."-01");
-		return date($format, $dt);
-	}
-	return false;
-}
-
 
 /**
  * WHILE next_album(): context switches to Album.
@@ -661,6 +569,31 @@ function printEditable($context, $field, $editable = false, $editclass = 'editab
 		$class= 'class="' . "zp_uneditable zp_uneditable_{$context}_{$field}" . '"';
 		echo "<span $class>" . $text . "</span>\n";
 	}
+}
+
+/**
+ * Returns the date of the search
+ *
+ * @param string $format formatting of the date, default 'F Y'
+ * @return string
+ * @since 1.1
+ */
+function getFullSearchDate($format='F Y') {
+	if (in_context(ZP_SEARCH)) {
+		global $_zp_current_search;
+		$date = $_zp_current_search->getSearchDate();
+		$date = str_replace("/", "", $date);
+		if (empty($date)) { return ""; }
+		if ($date == '0000-00') { return gettext("no date"); };
+
+		if (sizeof(explode('-', $date)) == 3) {
+			$format='F d, Y';
+		}
+
+		$dt = strtotime($date."-01");
+		return date($format, $dt);
+	}
+	return false;
 }
 
 ?>
