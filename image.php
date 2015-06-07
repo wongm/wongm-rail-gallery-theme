@@ -6,7 +6,7 @@ include_once('header.php'); ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
 		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
-		<a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
+		<a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
 	</td><td><?php printSearchForm();?></td></tr>
 </table>
 

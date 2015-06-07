@@ -17,22 +17,23 @@ include_once('header.php');
 echo "<table class=\"centeredTable\">";
 $i=0;
 $j=0;
+$photoDesc = "";
 
 while ($i < getOption('wongm_randompage_count'))
 {
-	echo "<tr>";
+	echo '<tr class="trio">';
 
 	while ($j < 3)
 	{
 		$randomImage = getRandomImages();
-		$randomImageURL = $randomImage->getImageLink();
+		$randomImageURL = $randomImage->getLink();
 		$photoTitle = $randomImage->getTitle();
-		$photoDate = strftime(TIME_FORMAT, strtotime($randomImage->getDateTime()));
+		$photoDate = strftime(getOption('date_format'), strtotime($randomImage->getDateTime()));
 		$imageCode = "<img src='".$randomImage->getThumb()."' alt='".$photoTitle."'>";
 
 		$albumForPhoto = $randomImage->getAlbum();
 		$photoAlbumTitle = $albumForPhoto->getTitle();
-		$photoPath = $albumForPhoto->getAlbumLink();
+		$photoPath = $albumForPhoto->getLink();
 
 		if ($photoDesc == '')
 		{
@@ -43,10 +44,19 @@ while ($i < getOption('wongm_randompage_count'))
 			$photoDesc = 'Description: '.$photoDesc;
 		}
 ?>
-<td class="i" width="33%"><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$imageCode?></a>
-	<h4><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$photoTitle; ?></a></h4>
-	<small><?=$photoDate?><? printRollingHitcounter($randomImage, true); ?></small><br/>
-	In Album: <a href="http://<?=$_SERVER['HTTP_HOST'].$photoPath; ?>"><?=$photoAlbumTitle; ?></a>
+<td class="image">
+	<div class="imagethumb"><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>">
+		<?=$imageCode?>
+	</a></div>
+	<div class="imagetitle">	
+		<h4><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$photoTitle; ?></a></h4>
+		<small><?php echo $photoDate ?><?php if (zp_loggedin())
+		{
+			printRollingHitcounter($randomImage, true);
+		} 
+		?></small>
+		<p>In Album: <a href="http://<?=$_SERVER['HTTP_HOST'].$photoPath; ?>"><?=$photoAlbumTitle; ?></a></p>
+	</div>
 </td>
 <?
 		$j++;

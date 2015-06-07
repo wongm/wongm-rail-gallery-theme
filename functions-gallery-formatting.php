@@ -103,8 +103,8 @@ function printEXIFData()
 
 	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
 	{
-		$date = split(':', $result['EXIFDateTimeOriginal']);
-		$splitdate = split(' ', $date[2]);
+		$date = explode(':', $result['EXIFDateTimeOriginal']);
+		$splitdate = explode(' ', $date[2]);
 		$udate = mktime($splitdate[1], $date[3],$date[4],$date[1],$splitdate[0],$date[0]);
 		$fdate = strftime('%B %d, %Y', $udate);
 		$ftime = strftime('%H:%M %p', $udate);
@@ -200,9 +200,9 @@ function drawWongmGridAlbums($numberOfItems)
     	global $_zp_current_album;
 ?>
 <td class="album" valign="top">
-	<div class="albumthumb"><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
+	<div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
 	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
-	<div class="albumtitle"><h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
+	<div class="albumtitle"><h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
 	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_album, true); } ?></small></div>
 	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
 </td>
@@ -248,8 +248,8 @@ function getImageAlbumLink() {
 	{
 		$title = $_zp_current_image->getAlbum()->getTitle();
 	}
-	$folder = getAlbumLinkURL($_zp_current_image->getAlbum());
-	return "<br/>In album: <a href=\"$folder\">$title</a>";
+	$folder = getAlbumURL($_zp_current_image->getAlbum());
+	return "<p>In album: <a href=\"$folder\">$title</a></p>";
 }
 
 function printImageDescWrapped()
@@ -323,11 +323,11 @@ function drawWongmGridImages($numberOfItems)
         global $_zp_current_image;
 ?>
 <td class="image">
-	<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
+	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
 		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
 	</a></div>
 	<div class="imagetitle">
-		<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
 		<small><?php printImageDate(); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
 	</div>
@@ -428,15 +428,15 @@ function drawWongmAlbumRow()
 ?>
 <tr class="album">
 	<td class="albumthumb">
-		<a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
+		<a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
 	</td><td class="albumdesc">
-		<h4><a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
+		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
 		<p><small><?php printAlbumDate(""); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_album, true); } ?></small></p>
 		<p><?php printAlbumDesc(); ?></p>
 <? 	if (zp_loggedin())
 	{
 		echo "<p>";
-		echo printLink($zf . '/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumLinkURL()), gettext("Edit details"), NULL, NULL, NULL);
+		echo printLinkHTML('/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumURL()), gettext("Edit details"), NULL, NULL, NULL);
 		echo '</p>';
 	}
 ?>
@@ -571,7 +571,7 @@ function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
 
 		if (empty($_zp_albums)) { return false; }
 		$_zp_current_album_restore = $_zp_current_album;
-		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));
+		$_zp_current_album = newAlbum(array_shift($_zp_albums), true, true);
 		save_context();
 		add_context(ZP_ALBUM);
 		return true;
@@ -581,7 +581,7 @@ function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
 		restore_context();
 		return false;
 	} else {
-		$_zp_current_album = new Album($_zp_gallery, array_shift($_zp_albums));
+		$_zp_current_album = newAlbum(array_shift($_zp_albums), true, true);
 		return true;
 	}
 }

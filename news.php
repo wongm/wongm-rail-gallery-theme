@@ -53,15 +53,10 @@ drawNewsFrontpageNextables();
 <?php
   while (next_news()): ;?> 
 	<div class="newsarticle"> 
-    	<h4><?php printNewsTitleLink(); ?></h4>
+    	<h4><?php printNewsURL(); ?></h4>
         <div class="newsarticlecredit">
         	<span class="newsarticlecredit-left">
         	<small><?php printNewsDate();?></small>
-<?php
-if(is_GalleryNewsType()) {
-	echo gettext("Album:")."<a href='".getNewsAlbumURL()."' title='".getBareNewsAlbumTitle()."'> ".getNewsAlbumTitle()."</a>";
-}
-?>
 			</span>
 		</div>
     	<?php printNewsContent(false); ?>
