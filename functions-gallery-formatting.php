@@ -366,9 +366,15 @@ function drawIndexAlbums($type=null, $site=null)
 	}
 	elseif($type=='recent')
 	{
+    	$totalDisplayed = 0;
+    	
 		while (next_non_dynamic_album(false, 'ID', 'DESC'))
 		{
-			drawWongmAlbumRow();
+			if (!$_zp_current_album->isDynamic() && $totalDisplayed < getOption('wongm_recentalbum_count'))
+			{
+    			$totalDisplayed++;
+    			drawWongmAlbumRow();
+			}
 		}
 	}
 	else

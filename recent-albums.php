@@ -13,7 +13,7 @@ include_once('header.php');
 </table>
 <div class="topbar">
   	<h2><?=$rssTitle?></h2>
-	<span>Occasionally I will add new albums that contain older photos, here are the <?=MAXALBUMS_PERPAGE?> most recently added.</span>
+	<span>Occasionally I will add new albums that contain older photos, here are the <?= getOption('wongm_recentalbum_count') ?> most recently added.</span>
 </div>
 <?
 drawIndexAlbums('recent');	
