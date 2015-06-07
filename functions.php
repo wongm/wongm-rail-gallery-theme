@@ -139,9 +139,15 @@ function printFacebookTag()
 	if (strlen(getImageDesc()) > 0) {
 		$description = strip_tags(getImageDesc());
 	}
-	echo "<meta property=\"og:image\" content=\"$path\" />\n";
-	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
-	echo "<meta property=\"og:description\" content=\"$description\" />\n";
+	echo "<meta name=\"og:image\" content=\"$path\" />\n";
+	echo "<meta name=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
+	echo "<meta name=\"og:description\" content=\"$description\" />\n";
+	echo "<meta name=\"twitter:card\" content=\"photo\">\n";
+	echo "<meta name=\"twitter:site\" content=\"aussiewongm\">\n";
+	echo "<meta name=\"twitter:creator\" content=\"aussiewongm\">\n";
+	echo "<meta name=\"twitter:title\" content=\"" . getImageTitle() . "\">\n";
+	echo "<meta name=\"twitter:image:src\" content=\"$path\">\n";
+	echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
 }
 
 
