@@ -246,7 +246,7 @@ function getRandomImageForRatings()
 	$_zp_current_image = $random;
 	$id = $random->get('id');
 		
-	$toExclude = split(',' , getOption('wongm_ratings_folder_exclude'));
+	$toExclude = explode(',' , getOption('wongm_ratings_folder_exclude'));
 	$randomFolderName = $random->getAlbum()->getFolder();
 	
 	//old code

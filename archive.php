@@ -15,7 +15,7 @@ if ($showSingleMonth)
 {
 	// using the PAGE param so calls from archive-date.php are not cached (resulting in only a single date ever seen)
 	$month = $_GET['page'];
-	$splitmonth = split('-', $month);
+	$splitmonth = explode('-', $month);
 	
 	if (is_numeric($splitmonth[0]))
 	{	
