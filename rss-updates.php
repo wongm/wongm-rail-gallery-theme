@@ -109,7 +109,13 @@ krsort($datecount);
 				$albumList .= ", ";
 			}
 			
-			$albumList .= $album['title'];
+			$text = $album['title'];
+			if ($locale !== 'all') {
+                $text = get_language_string($text, $locale);
+            }
+            $text = zpFunctions::unTagURLs($text);
+
+			$albumList .= $text;
 			$albumCount++;
 		}
 		
