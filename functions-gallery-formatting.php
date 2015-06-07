@@ -75,6 +75,23 @@ function printEXIFData()
 		}
 		
 		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
+
+		if ($result['EXIFGPSLatitudeRef'] == 'S')
+		{
+    		$EXIFGPSLatitudeRef = '-';
+		}
+		if ($result['EXIFGPSLongitudeRef'] == 'W')
+		{
+    		$EXIFGPSLongitudeRef = '-';
+		}
+		
+		$maptext = $EXIFGPSLatitudeRef . $result['EXIFGPSLatitude'] . "," . $EXIFGPSLongitudeRef . $result['EXIFGPSLongitude'];
+		$mapurl = "https://www.google.com.au/maps/@$maptext,14z";
+		$maplink = "<br/><a href=\"$mapurl\" target=\"_blank\">$maptext</a>";
+	}
+	else
+	{
+    	$maplink = '';
 	}
 
 	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
@@ -102,7 +119,7 @@ Date: <?=$dateLink;?><br/>
 Exposure Time: <?=$result['EXIFExposureTime'] ?><br/>
 Aperture Value: <?=$result['EXIFFNumber'] ?><br/>
 Focal Length: <?=$result['EXIFFocalLength'] ?><br/>
-<?=$hitCounterText.$ratingsText?>
+<?=$hitCounterText.$ratingsText.$maplink?>
 </p>
 <?
 	}
