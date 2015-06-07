@@ -9,7 +9,7 @@ $validlocale = getRSSLocaleXML();
 $host = getRSSHost();
 $protocol = SERVER_PROTOCOL;
 $albumname = getRSSAlbumTitle();
-$size = getRSSImageSize();
+$size = getOption('image_size');
 $items = getOption('RSS_items'); // # of Items displayed on the feed
 
 $alldates = array();
@@ -81,8 +81,8 @@ krsort($datecount);
 				
 		$heading = date("l, F j Y",strtotime($dateValue));
 		
-		$thumbUrl = str_replace( ".jpg", "_" . $size . "_thumb.jpg", $thumbnailImageResult[0]['filename']);
-		$thumbUrl = str_replace( ".JPG", "_" . $size . "_thumb.jpg", $thumbUrl);
+		$thumbUrl = str_replace( ".jpg", "_" . $size . ".jpg", $thumbnailImageResult[0]['filename']);
+		$thumbUrl = str_replace( ".JPG", "_" . $size . ".jpg", $thumbUrl);
 		$imageURL = "railgallery.wongm.com/cache/" . $thumbnailImageResult[0]['folder'] . "/$thumbUrl";
 		$itemlink = "railgallery.wongm.com/gallery/search/archive/$dateValue";
 		
