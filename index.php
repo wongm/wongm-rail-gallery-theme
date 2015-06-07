@@ -225,10 +225,12 @@ function getMostRecentImageData()
 	
 	$thumbnailUrl = getThumbnailURLFromRandomImagesSet($randomImage);
 	
-	// get date difference	
-	$dateDiff = time() - $mostRecentImageDate;
+	// get date difference
+	$mostRecentImageDate = strtotime(Date("Y-m-d", $mostRecentImageTimestamp));
+	$todayDate = strtotime(Date("Y-m-d", time()));
+    $dateDiff = $todayDate - $mostRecentImageDate;
 	$daysSinceUpdate = floor($dateDiff/(60*60*24));
-	$formattedUpdatedDate = strftime('%A %B %e, %Y', $mostRecentImageDate);
+	$formattedUpdatedDate = strftime('%A %B %e, %Y', $mostRecentImageTimestamp);
 	
 	$plural = "s";
 	
