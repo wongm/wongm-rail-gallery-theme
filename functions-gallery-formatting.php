@@ -305,7 +305,8 @@ function drawWongmGridImages($numberOfItems)
         $d = null;
     }
 
-    while (next_image($a, $b, $c, $d))
+    // also enforce limit on items displayed
+    while (next_image() && ($count <= $numberOfItems))
     {
         $column++;
         $count++;
@@ -341,12 +342,6 @@ function drawWongmGridImages($numberOfItems)
         else
         {
             $row++;
-        }
-        
-        // enforce limit on items displayed
-        if ($count >= $numberOfItems)
-        {
-            break;
         }
     } ?>
 </table>
