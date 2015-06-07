@@ -137,17 +137,18 @@ a:hover {
 	padding: 5px 10px;
 	text-align: center;
 }
-.i {
-	background-color: #FAFAFA;
-	padding: 10px !important;
+.imagetitle {
 	vertical-align: top;
 }
-.i h4 {
+.imagetitle h4 {
 	padding: 5px 0;
 	margin: 0;
 }
-.i h4:hover {
+.imagetitle h4:hover {
 	text-decoration: underline;
+}
+.imagetitle p {
+	margin: 0.3em auto;	
 }
 tr.trio td.image {
 	width: 33%;
@@ -209,7 +210,11 @@ td.image {
 	height: 250px !important;
 	width: 250px !important;
 }
-	
+
+.pastyears h3 {
+	text-align: left;
+	margin: 15px 0 0 1%;
+}
 	
 /* Archive
 ------------------------------ */
@@ -335,9 +340,6 @@ p {
 }
 p.date {
 	font-size: 0.8em;
-}
-.imagetitle p {
-	margin: 0 auto 0.8em;
 }
 
 /* Image formatting
