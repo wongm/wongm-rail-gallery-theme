@@ -271,6 +271,10 @@ function printImageDescWrapped()
  */
 function drawWongmGridImages($numberOfItems)
 {
+    $albumLinkHtml = "";
+    $column = 0;
+    $count = 0;
+    
 	?>
 <!-- Images -->
 <table class="centeredTable">
@@ -280,29 +284,6 @@ function drawWongmGridImages($numberOfItems)
     {
         $row = 0;
         $style = ' class="trio"';
-    }
-    
-    $a = false;
-    $b = null;
-    $c = 'date';
-    
-    // ensure the 'archive' page displays images in morning to nightime order
-    if (isset($_REQUEST['date']))
-    {
-        $d = 'asc';
-    }
-    // dates show the newest item first
-    else if (isset($_REQUEST['words']))
-    {
-        $d = 'desc';        
-    }
-    // let everything else use the defaults
-    else
-    {
-        $a = null;
-        $b = null;
-        $c = null;
-        $d = null;
     }
 
     // also enforce limit on items displayed

@@ -1,9 +1,33 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
+global $_zp_current_search;
+if (isset($_zp_current_search))
+{
+    // ensure the 'archive' page displays images in morning to nightime order
+    if (isset($_REQUEST['date']))
+    {
+        $_zp_current_search->setSortDirection(false);
+    }
+    // dates show the newest item first
+    else if (isset($_REQUEST['words']))
+    {
+        if (strpos($_REQUEST['words'],'js-agent.newrelic.com') !== false) {
+            http_response_code(404);
+            die();
+        }
+        $_zp_current_search->setSortDirection(true);  
+    }
+    // let everything else use the defaults
+    else
+    {
+        $_zp_current_search->setSortDirection(false);
+    }
+}
+
 $pageTitle = ' - Search';
 include_once('header.php');
 
-if ($_REQUEST['words']) { ?>
+if (isset($_REQUEST['words'])) { ?>
 <script type="text/javascript">$(document).ready(function() {
 	document.getElementById('search_input').value = '<? echo getSearchWords(); ?>';
 });</script>
@@ -17,6 +41,7 @@ if ($_REQUEST['words']) { ?>
 </table>
 <?php
 
+$albumsText = '';
 $totalAlbums = getNumAlbums();
 $totalImages = getNumImages();
 $totalItems = $totalAlbums + $totalImages;
