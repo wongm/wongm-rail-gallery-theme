@@ -32,8 +32,6 @@ include_once('header.php');
 
 if ($displaySearch) 
 {
-    echo wasLookingForImage();
-    
     if (wasLookingForImage()) 
     {
         $numberofresults = getNumImages();
