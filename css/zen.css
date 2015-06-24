@@ -347,6 +347,9 @@ p.date {
 img {
 	border: none;
 }
+p.iconimage img {
+    vertical-align: middle;
+}
 
 /* Link bar along the top
 ------------------------------ */
