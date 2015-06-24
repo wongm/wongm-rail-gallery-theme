@@ -43,7 +43,7 @@ if ($showSingleMonth and $month != '')
 }
 else
 {
-	printAllMonths();
+	printAllMonths('archive', 'year', 'month', 'desc');
 	echo '</div>';
 		
 	if ($zenpage = getOption('zp_plugin_zenpage')) 
