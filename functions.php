@@ -112,6 +112,8 @@ class wongmTheme {
     	echo "<li>";
     	printLinkHTML(WEBPATH.'/page/recent-resize', 'Images to resize', NULL, NULL, NULL);
     	echo "</li><li>";
+    	printLinkHTML(WEBPATH.'/page/recent-shrink', 'Images to shrink', NULL, NULL, NULL);
+    	echo "</li><li>";
     	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Uncaptioned images', NULL, NULL, NULL);
     	echo "</li><li>";
     	printLinkHTML(WEBPATH.'/page/recent-uncaptioned-albums', 'Uncaptioned albums', NULL, NULL, NULL);
