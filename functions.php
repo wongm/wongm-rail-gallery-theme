@@ -96,6 +96,8 @@ class wongmTheme {
         	case 'recent-albums':
         	case 'recent-duplicates':
         	case 'recent-resize':
+        	case 'recent-shrink':
+        	case 'recent-shrink-albums':
         	case 'recent-uncaptioned':
         	case 'recent-uncaptioned-albums':
         	case 'recent-uploads':
@@ -113,6 +115,8 @@ class wongmTheme {
     	printLinkHTML(WEBPATH.'/page/recent-resize', 'Images to resize', NULL, NULL, NULL);
     	echo "</li><li>";
     	printLinkHTML(WEBPATH.'/page/recent-shrink', 'Images to shrink', NULL, NULL, NULL);
+    	echo "</li><li>";
+    	printLinkHTML(WEBPATH.'/page/recent-shrink-albums', 'Images to shrink by album', NULL, NULL, NULL);
     	echo "</li><li>";
     	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Uncaptioned images', NULL, NULL, NULL);
     	echo "</li><li>";
