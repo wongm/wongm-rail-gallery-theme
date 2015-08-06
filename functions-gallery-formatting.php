@@ -125,7 +125,7 @@ Taken with a <?=$result['EXIFModel'] ?><br/>
 Date: <?=$dateLink;?><br/>
 Exposure Time: <?=$result['EXIFExposureTime'] ?><br/>
 Aperture Value: <?=$result['EXIFFNumber'] ?><br/>
-Focal Length: <?=$result['EXIFFocalLength'] ?><br/>
+<? if (isset($result['EXIFFocalLength'])) { ?>Focal Length: <?=$result['EXIFFocalLength'] ?><br/><? } ?>
 <?=$hitCounterText.$ratingsText.$maplink?>
 </p>
 <?

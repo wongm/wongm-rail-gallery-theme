@@ -69,7 +69,7 @@ if ($popularImageText[$pageType]['subtext'])
 <table class="centeredTable">
 <?php
   // neater for when only 4 items
-  if ($numberOfItems == 4)
+  if (isset($numberOfItems) && $numberOfItems == 4)
   {
 	  $row = 1;
   }
@@ -78,6 +78,8 @@ if ($popularImageText[$pageType]['subtext'])
 	  $row = 0;
 	  $style = ' class="trio"';
   }
+  
+  $column = 0;
 
   while (next_photostream_image()): $column++;
 	  if ($row == 0)
