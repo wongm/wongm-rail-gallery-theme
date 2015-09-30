@@ -69,7 +69,7 @@ if (strlen($searchwords) == 0)
 else
 {
 	$leadingIntroText = "<h2>Search results</h2>\n";
-	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)." $albumsText, ordered by date.</p>";
+	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)."$albumsText, ordered by date.</p>";
 }
 ?>
 <div class="topbar">

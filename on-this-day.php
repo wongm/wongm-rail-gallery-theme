@@ -59,7 +59,7 @@ foreach (array(1, 5, 10) AS $year)
     if ($photocount > 0)
     {
         echo "<div class=\"pastyears\"><h3>$year $suffix ago</h3>\n";
-        echo "<p>$photocount photos found - <a href=\"/page/search/archive/$dayLink\">View more...</a>$extraText</p></div>";
+        echo "<p>$photocount photos found - <a href=\"/page/archive/$dayLink\">View more...</a>$extraText</p></div>";
 ?>
 <table class="centeredTable">
     <tr class="trio">
