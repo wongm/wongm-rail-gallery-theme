@@ -22,6 +22,11 @@ $mostRecentImageData = getMostRecentImageData();
 	 </td><td class="albumdesc">
 		<h4><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h4>
 		<p><? echo $mostRecentImageData['content']; ?></p>
+		<ul><?php NewDailySummary(5);
+        while (next_DailySummaryItem()) { ?>
+        <li><p><?php echo date("F j", strtotime(getDailySummaryDate())); ?> - <?php echo getDailySummaryNumImages(); ?> new photos in <?php echo getDailySummaryAlbumNameText(); ?></p></li>
+        <?php } ?>
+        </ul>
 	</td>
 </tr>
 <?
