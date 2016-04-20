@@ -22,6 +22,11 @@ $pageBreadCrumb = 'On this day';
 <?
 
 $now = time();
+if (isset($_GET['date']))
+{
+    $now = strtotime($_GET['date']);
+}
+
 $melbournetimezone = new DateTimeZone('Australia/Melbourne');
 $timestamp = new DateTime();
 $timestamp->setTimestamp($now);
