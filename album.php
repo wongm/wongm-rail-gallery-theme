@@ -33,6 +33,10 @@ include_once('header.php');
 	}
 
 	printTags('links', 'Tags');
+	
+if (function_exists('printGoogleMap') && zp_loggedin()) {
+    	printGoogleMap();
+    }
 
 	global $_zp_current_album;
 	echo "<p>".getRollingHitcounter($_zp_current_album, '', false)."</p>";

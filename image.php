@@ -54,5 +54,10 @@ if(function_exists("printImageMarkupFields"))
 {	
 	printImageMarkupFields();
 }
+
+if (function_exists('printGoogleMap') && zp_loggedin()) {
+	printGoogleMap();
+}
+
 include_once('footer.php'); 
 ?>
