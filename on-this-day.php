@@ -76,11 +76,6 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
         {
             drawWongmImageCell('uploads');
         }
-        
-        while (++$count <= $photosPerItem)
-        {
-            echo "<td class=\"image\"></td>";
-        }
     }
 ?>
     </tr>
