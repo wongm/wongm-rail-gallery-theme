@@ -33,7 +33,7 @@ $timestamp->setTimezone($melbournetimezone);
 </div>
 <?
 
-foreach (array(1, 5, 10) AS $year)
+foreach (array(1, 2, 5, 10, 15) AS $year)
 {
     if ($year == 1)
     {
@@ -72,7 +72,7 @@ foreach (array(1, 5, 10) AS $year)
             drawWongmImageCell('uploads');
         }
         
-        while (++$count <= $photosPerItem )
+        while (++$count <= $photosPerItem)
         {
             echo "<td class=\"image\"></td>";
         }
