@@ -1,28 +1,27 @@
 <?php
 $_zp_script_timer['start'] = microtime();
 // force UTF-8 Ø
-startRSSCache();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-header('Content-Type: application/xml');
-$locale = getRSSLocale();
-$validlocale = getRSSLocaleXML();
-$host = getRSSHost();
-$protocol = SERVER_PROTOCOL;
-$albumname = getRSSAlbumTitle();
-
 if (!function_exists('next_DailySummaryItem')) {
 	exit();
 }
+
+header('Content-Type: application/xml');
+$locale = getOption('locale');
+$validlocale = strtr($locale,"_","-");
+$host = htmlentities($_SERVER["HTTP_HOST"], ENT_QUOTES, 'UTF-8');
+$protocol = SERVER_PROTOCOL;
+$albumname = "Recent updates by upload date";
 
 NewDailySummary(getOption('RSS_items'));
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
-<title><?php echo strip_tags(get_language_string(getOption('gallery_title'), $locale)).' '.strip_tags($albumname); ?></title>
+<title><?php echo strip_tags(get_language_string(getOption('gallery_title'), $locale)).' - '.strip_tags($albumname); ?></title>
 <link><?php echo $protocol."://".$host.WEBPATH; ?></link>
 <atom:link href="<?php echo $protocol; ?>://<?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self"	type="application/rss+xml" />
 <description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)); ?></description>
@@ -42,5 +41,3 @@ NewDailySummary(getOption('RSS_items'));
 <?php } ?>
 </channel>
 </rss>
-<?php endRSSCache(); 
-?>
