@@ -30,11 +30,15 @@ NewDailySummary(getOption('RSS_items'));
 <lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>ZenPhoto RSS Generator</generator>
-<?php while (next_DailySummaryItem()) { ?>
+<?php while (next_DailySummaryItem()) { 
+	global $_zp_current_DailySummaryItem;
+	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());
+	$imagePath = getDefaultSizedImage();
+?>
 <item>
     <title><?php echo getDailySummaryTitle(); ?></title>
     <link><![CDATA[<?php echo $protocol . '://' . $host . getDailySummaryUrl(); ?>]]></link>
-    <description><![CDATA[<img border="0" src="<?php echo $protocol . '://' . $host . getCustomDailySummaryThumb(getOption('image_size')); ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo getDailySummaryDesc(); ?>]]></description>
+    <description><![CDATA[<img border="0" src="<?php echo $protocol . '://' . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo getDailySummaryDesc(); ?>]]></description>
     <guid><![CDATA[<?php echo $protocol . '://' . $host . getDailySummaryUrl(); ?>]]></guid>
     <pubDate><?php echo getDailySummaryDate("%a, %d %b %Y %H:%M:%S %z"); ?></pubDate>
 </item>
