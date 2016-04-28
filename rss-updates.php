@@ -10,6 +10,10 @@ if (!function_exists('next_DailySummaryItem')) {
 	exit();
 }
 
+$lastModifiedImageDateSQL = "SELECT mtime FROM " . prefix('images') . " ORDER BY mtime DESC LIMIT 0, 1";
+$lastModifiedImageDate = query_single_row($lastModifiedImageDateSQL)['mtime'];
+
+header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastModifiedImageDate).' GMT', true, 200);
 header('Content-Type: application/xml');
 $locale = getOption('locale');
 $validlocale = strtr($locale,"_","-");
@@ -26,8 +30,8 @@ NewDailySummary(getOption('RSS_items'));
 <atom:link href="<?php echo $protocol; ?>://<?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self"	type="application/rss+xml" />
 <description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)); ?></description>
 <language><?php echo $validlocale; ?></language>
-<pubDate><?php echo date("r", time()); ?></pubDate>
-<lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
+<pubDate><?php echo date("r", $lastModifiedImageDate); ?></pubDate>
+<lastBuildDate><?php echo date("r", $lastModifiedImageDate); ?></lastBuildDate>
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>ZenPhoto RSS Generator</generator>
 <?php while (next_DailySummaryItem()) { 
