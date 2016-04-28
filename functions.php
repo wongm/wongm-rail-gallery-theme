@@ -131,11 +131,10 @@ function printMetadata()
 {
 	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";
 	$title = "";
-		
-	//facebook headers for image.php
+	
+	// if date based search with images - we can get summary data for the current date
 	if (isset($_REQUEST['date']))
 	{
-		// if date based search with images - we can get summary data for the current date
 		if (getNumImages())
 		{
 			global $_zp_current_DailySummaryItem;
@@ -145,6 +144,11 @@ function printMetadata()
 			$imagePath = $_zp_current_DailySummaryItem->getAlbumThumbImage()->getSizedImage(getOption('image_size'));
 		}
 	}
+	// custom pages - can't do anything here
+	else if (isset($_REQUEST['p']))
+	{
+	}
+	// image page
 	else if (getImageThumb())
 	{
 		$imagePath = getDefaultSizedImage();
@@ -153,6 +157,7 @@ function printMetadata()
 		}
 		$title = getImageTitle();
 	} 
+	// album page
 	else if (getAlbumThumb())
 	{
 		global $_zp_current_album;
