@@ -127,26 +127,63 @@ class wongmTheme {
     }
 }
 
-function printFacebookTag()
+function printMetadata()
 {
-	$protocol = SERVER_PROTOCOL;
-	if ($protocol == 'https_admin') {
-		$protocol = 'https';
-	}
-	$path = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . getDefaultSizedImage();
 	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";
-	if (strlen(getImageDesc()) > 0) {
-		$description = strip_tags(getImageDesc());
+	$title = "";
+		
+	//facebook headers for image.php
+	if (isset($_REQUEST['date']))
+	{
+		// if date based search with images - we can get summary data for the current date
+		if (getNumImages())
+		{
+			global $_zp_current_DailySummaryItem;
+			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);			
+			$description = getDailySummaryDesc();
+			$title = getDailySummaryTitle();
+			$imagePath = $_zp_current_DailySummaryItem->getAlbumThumbImage()->getSizedImage(getOption('image_size'));
+		}
 	}
-	echo "<meta name=\"og:image\" content=\"$path\" />\n";
-	echo "<meta name=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
-	echo "<meta name=\"og:description\" content=\"$description\" />\n";
-	echo "<meta name=\"twitter:card\" content=\"photo\">\n";
-	echo "<meta name=\"twitter:site\" content=\"aussiewongm\">\n";
-	echo "<meta name=\"twitter:creator\" content=\"aussiewongm\">\n";
-	echo "<meta name=\"twitter:title\" content=\"" . getImageTitle() . "\">\n";
-	echo "<meta name=\"twitter:image:src\" content=\"$path\">\n";
-	echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
+	else if (getImageThumb())
+	{
+		$imagePath = getDefaultSizedImage();
+		if (strlen(getImageDesc()) > 0) {
+			$description = strip_tags(getImageDesc());
+		}
+		$title = getImageTitle();
+	} 
+	else if (getAlbumThumb())
+	{
+		global $_zp_current_album;
+		makeImageCurrent($_zp_current_album->getAlbumThumbImage());
+		$imagePath = getDefaultSizedImage();
+		if (strlen(getAlbumDesc()) > 0) {
+			$description = strip_tags(getAlbumDesc());
+		}
+		$title = getBareAlbumTitle();
+	}
+	
+	if (strlen($title) > 0)
+	{
+		$protocol = SERVER_PROTOCOL;
+		if ($protocol == 'https_admin') {
+			$protocol = 'https';
+		}
+		$imagePath = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . $imagePath;
+		
+		echo "<meta name=\"og:image\" content=\"$imagePath\" />\n";
+		echo "<meta name=\"og:title\" content=\"$title\" />\n";	
+		echo "<meta name=\"og:description\" content=\"$description\" />\n";
+		echo "<meta name=\"twitter:card\" content=\"photo\">\n";
+		echo "<meta name=\"twitter:site\" content=\"aussiewongm\">\n";
+		echo "<meta name=\"twitter:creator\" content=\"aussiewongm\">\n";
+		echo "<meta name=\"twitter:title\" content=\"$title\">\n";
+		echo "<meta name=\"twitter:image:src\" content=\"$imagePath\">\n";
+		echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
+	}
+	
+	echo "<meta name=\"description\" content=\"$description\" />\n";
 }
 
 function drawWongmImageCell($pageType)

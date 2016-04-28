@@ -41,7 +41,7 @@ if (isset($_REQUEST['words'])) { ?>
 </table>
 <?php
 
-$albumsText = '';
+$albumsText = $searchwords = '';
 $totalAlbums = getNumAlbums();
 $totalImages = getNumImages();
 $totalItems = $totalAlbums + $totalImages;

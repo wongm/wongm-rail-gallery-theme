@@ -11,6 +11,8 @@ $server = $_SERVER['HTTP_HOST'];
 if ($server == 'y' OR $server == 'localhost' OR $server == 'wongm' OR isset($_GET['wongm']))
 {
 	$editablelinkforadmin = true;
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 }
 else
@@ -54,7 +56,6 @@ $photosNumber = number_format(array_shift($photosArray), 0, '.', ',');
 <?php zp_apply_filter("theme_head"); ?>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <meta name="author" content="Marcus Wong" />
-<meta name="description" content="Photographs of trains and railway infrastructure from around Victoria, Australia" />
 <meta name="keywords" content="railways train geelong Victoria Australia photos photographs images" />
 <?php
 //special RSS stuff
@@ -62,11 +63,7 @@ if (isset($rssType) AND isset($rssTitle) AND strlen($rssType) > 0 AND strlen($rs
 {
 	printRSSHeaderLink($rssType, $rssTitle);
 }
-//facebook headers for image.php
-if (getImageThumb())
-{
-	printFacebookTag();
-}
+printMetadata();
 ?>
 </head>
 <body>
