@@ -141,7 +141,7 @@ function printMetadata()
 			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);			
 			$description = getDailySummaryDesc();
 			$title = getDailySummaryTitle();
-			$imagePath = $_zp_current_DailySummaryItem->getAlbumThumbImage()->getSizedImage(getOption('image_size'));
+			$imagePath = $_zp_current_DailySummaryItem->getDailySummaryThumbImage()->getSizedImage(getOption('image_size'));
 		}
 	}
 	// custom pages - can't do anything here
