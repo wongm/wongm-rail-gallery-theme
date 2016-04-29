@@ -24,23 +24,6 @@ if (isset($_zp_current_search))
     }
 }
 
-$pageTitle = ' - Search';
-include_once('header.php');
-
-if (isset($_REQUEST['words'])) { ?>
-<script type="text/javascript">$(document).ready(function() {
-	document.getElementById('search_input').value = '<? echo getSearchWords(); ?>';
-});</script>
-<? 
-}
- ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<a href="<?=SEARCH_URL_PATH?>" title="Gallery Search">Search</a>
-	</td><td id="righthead"><? printSearchForm();?></td></tr>
-</table>
-<?php
-
 $albumsText = $searchwords = '';
 $totalAlbums = getNumAlbums();
 $totalImages = getNumImages();
@@ -64,14 +47,30 @@ if ($totalItems > 0)
 
 if (strlen($searchwords) == 0)
 {
+	$pageTitle = 'Search';
 	$leadingIntroText = "<h2>Search</h2>";
 }
 else
 {
+	$pageTitle = 'Search results - ' . $searchwords;
 	$leadingIntroText = "<h2>Search results</h2>\n";
 	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)."$albumsText, ordered by date.</p>";
 }
-?>
+
+include_once('header.php');
+
+if (isset($_REQUEST['words'])) { ?>
+<script type="text/javascript">$(document).ready(function() {
+	document.getElementById('search_input').value = '<? echo str_replace("\"", "", getSearchWords()); ?>';
+});</script>
+<? 
+}
+ ?>
+<table class="headbar">
+	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+	<a href="<?=SEARCH_URL_PATH?>" title="Gallery Search">Search</a>
+	</td><td id="righthead"><? printSearchForm();?></td></tr>
+</table>
 <div class="topbar">
 	<?php echo $leadingIntroText; ?>
 </div>
