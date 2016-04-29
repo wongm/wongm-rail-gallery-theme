@@ -127,15 +127,16 @@ class wongmTheme {
     }
 }
 
-function printMetadata()
+function printMetadata($pageTitle)
 {
 	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";
 	$title = "";
 	
 	// if date based search with images - we can get summary data for the current date
-	if (isset($_REQUEST['date']))
+	if (in_context(ZP_SEARCH))
 	{
-		if (getNumImages())
+		// check for images, and that we are not on a month based archive page
+		if (isset($_REQUEST['date']) && getNumImages() && strlen($_REQUEST['date']) > 7)
 		{
 			global $_zp_current_DailySummaryItem;
 			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);			
@@ -144,12 +145,8 @@ function printMetadata()
 			$imagePath = $_zp_current_DailySummaryItem->getDailySummaryThumbImage()->getSizedImage(getOption('image_size'));
 		}
 	}
-	// custom pages - can't do anything here
-	else if (isset($_REQUEST['p']))
-	{
-	}
 	// image page
-	else if (getImageThumb())
+	else if (in_context(ZP_IMAGE))
 	{
 		$imagePath = getDefaultSizedImage();
 		if (strlen(getImageDesc()) > 0) {
@@ -158,7 +155,7 @@ function printMetadata()
 		$title = getImageTitle();
 	} 
 	// album page
-	else if (getAlbumThumb())
+	else if (in_context(ZP_ALBUM))
 	{
 		global $_zp_current_album;
 		makeImageCurrent($_zp_current_album->getAlbumThumbImage());
@@ -168,6 +165,8 @@ function printMetadata()
 		}
 		$title = getBareAlbumTitle();
 	}
+	
+	echo "<meta name=\"og:description\" content=\"$description\" />\n";
 	
 	if (strlen($title) > 0)
 	{
@@ -179,15 +178,19 @@ function printMetadata()
 		
 		echo "<meta name=\"og:image\" content=\"$imagePath\" />\n";
 		echo "<meta name=\"og:title\" content=\"$title\" />\n";	
-		echo "<meta name=\"og:description\" content=\"$description\" />\n";
 		echo "<meta name=\"twitter:card\" content=\"photo\">\n";
-		echo "<meta name=\"twitter:site\" content=\"aussiewongm\">\n";
-		echo "<meta name=\"twitter:creator\" content=\"aussiewongm\">\n";
 		echo "<meta name=\"twitter:title\" content=\"$title\">\n";
 		echo "<meta name=\"twitter:image:src\" content=\"$imagePath\">\n";
-		echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
+	}
+	else{
+		echo "<meta name=\"twitter:card\" content=\"summary\" />\n";
+		echo "<meta name=\"twitter:title\" content=\"" . $pageTitle . "\">\n";
 	}
 	
+	echo "<meta name=\"twitter:site\" content=\"@wongmsrailpics\">\n";
+	echo "<meta name=\"twitter:creator\" content=\"@aussiewongm\">\n";
+	echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
+	echo "<meta name=\"twitter:description\" content=\"$description\">\n";	
 	echo "<meta name=\"description\" content=\"$description\" />\n";
 }
 

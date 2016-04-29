@@ -63,7 +63,7 @@ if (isset($rssType) AND isset($rssTitle) AND strlen($rssType) > 0 AND strlen($rs
 {
 	printRSSHeaderLink($rssType, $rssTitle);
 }
-printMetadata();
+printMetadata($pageTitle);
 ?>
 </head>
 <body>
