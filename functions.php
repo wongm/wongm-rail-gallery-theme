@@ -136,7 +136,7 @@ function printMetadata($pageTitle)
 	if (in_context(ZP_SEARCH))
 	{
 		// check for images, and that we are not on a month based archive page
-		if (isset($_REQUEST['date']) && getNumImages() && strlen($_REQUEST['date']) > 7)
+		if (isset($_REQUEST['date']) && strlen($_REQUEST['date']) > 8 && getNumImages() && strlen($_REQUEST['date']) > 7)
 		{
 			global $_zp_current_DailySummaryItem;
 			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);			
