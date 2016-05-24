@@ -36,7 +36,7 @@ include_once('header.php');
 </div>
 <div id="archive">
 <?	
-if ($showSingleMonth and $month != '')
+if ($showSingleMonth and $month != '' and function_exists("printSingleMonthArchive"))
 {
 	printSingleMonthArchive();
 	echo '</div>';
