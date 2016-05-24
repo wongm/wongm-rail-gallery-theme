@@ -203,7 +203,7 @@ function drawWongmGridAlbums($numberOfItems)
 	<div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
 	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
 	<div class="albumtitle"><h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
-	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_album, true); } ?></small></div>
+	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></div>
 	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
 </td>
 <?php
@@ -240,11 +240,13 @@ function getImageAlbumLink() {
 	if(!in_context(ZP_IMAGE)) return false;
 	global $_zp_current_image;
 	
-	if (strlen(getAlbumTitleForPhotostreamImage()) > 0)
+	$title = '';
+	if (function_exists('getAlbumTitleForPhotostreamImage'))
 	{
 		$title = getAlbumTitleForPhotostreamImage();
 	}
-	else
+	
+	if (strlen($title) == 0)
 	{
 		$title = $_zp_current_image->getAlbum()->getTitle();
 	}
@@ -311,7 +313,7 @@ function drawWongmGridImages($numberOfItems)
 	<div class="imagetitle">
 		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-		<small><?php printImageDate(); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
+		<small><?php printImageDate(); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
 	</div>
 </td>
 <?php
@@ -407,7 +409,7 @@ function drawWongmAlbumRow()
 		<a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
 	</td><td class="albumdesc">
 		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
-		<p><small><?php printAlbumDate("", "%B %d, %Y"); ?><?php if (zp_loggedin()) { printRollingHitcounter($_zp_current_album, true); } ?></small></p>
+		<p><small><?php printAlbumDate("", "%B %d, %Y"); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></p>
 		<p><?php printAlbumDesc(); ?></p>
 <? 	if (zp_loggedin())
 	{
