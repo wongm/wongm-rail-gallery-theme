@@ -14,8 +14,8 @@ include_once('header.php');
 </table>
 
 <div class="topbar">
-  	<h2><?php printEditableAlbumTitle(true);?></h2>
-  	<?php printEditableAlbumDesc(true); ?>
+  	<h2><?php printMWEditableAlbumTitle(true);?></h2>
+  	<?php printMWEditableAlbumDesc(true); ?>
 </div>
 <?
  	drawWongmListSubalbums();

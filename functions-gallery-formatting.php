@@ -473,32 +473,32 @@ function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
 	}
 }
 
-function printEditableImageTitle($editable=false, $editclass='editable imageTitleEditable', $messageIfEmpty = true ) {
+function printMWEditableImageTitle($editable=false, $editclass='editable imageTitleEditable', $messageIfEmpty = true ) {
 	if ( $messageIfEmpty === true ) {
 		$messageIfEmpty = gettext('(No title...)');
 	}
-	printEditable('image', 'title', $editable, $editclass, $messageIfEmpty);
+	printMWEditable('image', 'title', $editable, $editclass, $messageIfEmpty);
 }
 
-function printEditableImageDesc($editable=false, $editclass='', $messageIfEmpty = true) {
+function printMWEditableImageDesc($editable=false, $editclass='', $messageIfEmpty = true) {
 	if ( $messageIfEmpty === true ) {
 		$messageIfEmpty = gettext('(No description...)');
 	}
-	printEditable('image', 'desc', $editable, $editclass, $messageIfEmpty, !getOption('tinyMCEPresent'));
+	printMWEditable('image', 'desc', $editable, $editclass, $messageIfEmpty, !getOption('tinyMCEPresent'));
 }
 
-function printEditableAlbumTitle($editable=false, $editclass='', $messageIfEmpty = true) {
+function printMWEditableAlbumTitle($editable=false, $editclass='', $messageIfEmpty = true) {
 	if ( $messageIfEmpty === true ) {
 		$messageIfEmpty = gettext('(No title...)');
 	}
-	printEditable('album', 'title', $editable, $editclass, $messageIfEmpty);
+	printMWEditable('album', 'title', $editable, $editclass, $messageIfEmpty);
 }
 
-function printEditableAlbumDesc($editable=false, $editclass='', $messageIfEmpty = true ) {
+function printMWEditableAlbumDesc($editable=false, $editclass='', $messageIfEmpty = true ) {
 	if ( $messageIfEmpty === true ) {
 		$messageIfEmpty = gettext('(No description...)');
 	}
-	printEditable('album', 'desc', $editable, $editclass, $messageIfEmpty, !getOption('tinyMCEPresent'));
+	printMWEditable('album', 'desc', $editable, $editclass, $messageIfEmpty, !getOption('tinyMCEPresent'));
 }
 
 /**
@@ -515,7 +515,7 @@ function printEditableAlbumDesc($editable=false, $editclass='', $messageIfEmpty 
  * @since 1.3
  * @author Ozh
  */
-function printEditable($context, $field, $editable = false, $editclass = 'editable', $messageIfEmpty = true, $convertBR = false, $override = false, $label='') {
+function printMWEditable($context, $field, $editable = false, $editclass = 'editable', $messageIfEmpty = true, $convertBR = false, $override = false, $label='') {
 	switch($context) {
 		case 'image':
 			global $_zp_current_image;
@@ -534,11 +534,11 @@ function printEditable($context, $field, $editable = false, $editclass = 'editab
 			$object = $_zp_current_zenpage_news;
 			break;
 		default:
-			trigger_error(gettext('printEditable() incomplete function call.'), E_USER_NOTICE);
+			trigger_error(gettext('printMWEditable() incomplete function call.'), E_USER_NOTICE);
 			return false;
 	}
 	if (!$field || !is_object($object)) {
-		trigger_error(gettext('printEditable() invalid function call.'), E_USER_NOTICE);
+		trigger_error(gettext('printMWEditable() invalid function call.'), E_USER_NOTICE);
 		return false;
 	}
 	$text = trim( $override !== false ? $override : get_language_string($object->get($field)) );
