@@ -119,14 +119,16 @@ $dynamicAlbumResults = query_full_array( $sql );
 
 foreach ($dynamicAlbumResults as $album)
 {
+	$albumTitle = get_language_string($album['title']);
+	$albumDesc = get_language_string($album['desc']);
 ?>
 <tr class="album">
 	<td class="albumthumb">
-		<a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags($album['title']);?>">
-		<img src="/cache<?=replace_filename_with_cache_thumbnail_version($album['thumb']); ?>" alt="<?php echo $album['title']; ?>" title="<?php echo $album['title']; ?>" /></a>
+		<a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags($albumTitle);?>">
+		<img src="/cache<?=replace_filename_with_cache_thumbnail_version($album['thumb']); ?>" alt="<?php echo $albumTitle; ?>" title="<?php echo $albumTitle; ?>" /></a>
 	</td><td class="albumdesc">
-		<h4><a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo $album['title']; ?>"><?php echo $album['title']; ?></a></h4>
-		<p><?php echo $album['desc']; ?></p>
+		<h4><a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo $albumTitle; ?>"><?php echo $albumTitle; ?></a></h4>
+		<p><?php echo $albumDesc; ?></p>
 <? 	if (zp_loggedin())
 	{
 		echo "<p>";
