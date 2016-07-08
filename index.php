@@ -193,7 +193,7 @@ function getMostRecentImageData()
 {
 	global $photosNumber;
 	
-	$thresholdText = '';
+	$thresholdText = $thresholdTextMiddle = '';
 	
 	// options
 	$alertThreshold = getOption('wongm_frontpage_alert_threshold');
