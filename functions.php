@@ -158,8 +158,15 @@ function printMetadata($pageTitle)
 	else if (in_context(ZP_ALBUM))
 	{
 		global $_zp_current_album;
+		
+		// makeImageCurrent can change $_zp_current_album variable to child album
+		// save a local copy, so we can get THIS album back later
+		$currentAlbum = $_zp_current_album;
 		makeImageCurrent($_zp_current_album->getAlbumThumbImage());
+		$_zp_current_album = $currentAlbum;
+		
 		$imagePath = getDefaultSizedImage();
+		
 		if (strlen(getAlbumDesc()) > 0) {
 			$description = strip_tags(getAlbumDesc());
 		}
