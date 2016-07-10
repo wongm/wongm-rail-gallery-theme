@@ -6,9 +6,9 @@ $endTime = array_sum(explode(" ",microtime()));
 $generation = str_replace('-', '', round(($endTime - $startTime), 3));
 echo "Page Generation: $generation seconds.<br/>";
 
-echo "$photosNumber images in $albumNumber albums.<br/>";
+echo buildGalleryImageAlbumCountMessage();
 ?>
-Copyright 2005 - <?=date('Y')?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.<br/><br/>
+</br>Copyright 2005 - <?=date('Y')?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.<br/><br/>
 </div>
 </div>
 <script type="text/javascript">

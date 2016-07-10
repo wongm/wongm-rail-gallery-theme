@@ -598,4 +598,15 @@ function getFullSearchDate($format='F Y') {
 	return false;
 }
 
+function buildGalleryImageAlbumCountMessage()
+{
+    $albumsArray = query_single_row("SELECT count(*) FROM ".prefix('albums'));
+    $albumNumber = number_format(array_shift($albumsArray), 0, '.', ',');
+    
+    $photosArray = query_single_row("SELECT count(*) FROM ".prefix('images'));
+    $photosNumber = number_format(array_shift($photosArray), 0, '.', ',');
+    
+    return "$photosNumber images in $albumNumber albums.";
+}
+
 ?>
