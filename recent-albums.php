@@ -13,9 +13,13 @@ include_once('header.php');
 </table>
 <div class="topbar">
   	<h2><?=$rssTitle?></h2>
-	<span>Occasionally I will add new albums that contain older photos, here are the <?= getOption('wongm_recentalbum_count') ?> most recently added.</span>
+	<span>Occasionally I will add new albums that contain older photos, here are the most recently added.</span>
 </div>
 <?
-drawIndexAlbums('recent');	
+drawIndexAlbums('recent');
+if(hasNextPage() || hasPrevPage())
+{
+	printPageListWithNav("« ".gettext("Prev"), gettext("Next")." »");
+}
 include_once('footer.php');
 ?>
