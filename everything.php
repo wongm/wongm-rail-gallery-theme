@@ -42,9 +42,6 @@ else
 	<span>All <?=$albumNumber?> albums that are currently on the site.</span>
 </div>
 <?
-	$prevPageUrl = EVERY_ALBUM_PATH . '/page/' . (getCurrentPage() - 1) . '/';
-	$nextPageUrl = EVERY_ALBUM_PATH . '/page/' . (getCurrentPage() + 1) . '/';
-
 	drawIndexAlbums('nodynamic');
 
 	if(hasNextPage() || hasPrevPage())
