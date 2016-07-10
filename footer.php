@@ -20,5 +20,6 @@ try {
 var pageTracker = _gat._getTracker("UA-7118921-1");
 pageTracker._trackPageview();
 } catch(err) {}</script>
+<?php zp_apply_filter("theme_body_close"); ?>
 </body>
 </html>

@@ -47,7 +47,6 @@ include_once('functions-gallery-formatting.php');
 <link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml" href="/provider.xml" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?= $_zp_themeroot ?>/js/slimbox2.js"></script>
-<?php zp_apply_filter("theme_head"); ?>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <meta name="author" content="Marcus Wong" />
 <meta name="keywords" content="railways train geelong Victoria Australia photos photographs images" />
@@ -59,9 +58,10 @@ if (isset($rssType) AND isset($rssTitle) AND strlen($rssType) > 0 AND strlen($rs
 }
 printMetadata($pageTitle);
 ?>
+<?php zp_apply_filter("theme_head"); ?>
 </head>
 <body>
-<?php zp_apply_filter("theme_body_close"); ?>
+<?php zp_apply_filter("theme_body_open"); ?>
 <div id="container">
 <div id="header">
 <div id="sitename">
