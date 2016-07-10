@@ -32,9 +32,6 @@ if (substr($pageTitle, 0, 3) == ' - ')
 {
 	$pageTitle = substr($pageTitle, 3);
 }
-
-require_once("functions.php");
-include_once('functions-gallery-formatting.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

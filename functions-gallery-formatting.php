@@ -168,7 +168,6 @@ function drawNewsFrontpageNextables()
   <?php }
 }
 
-
 /*
  *
  * drawWongmGridSubalbums()
@@ -261,7 +260,6 @@ function printImageDescWrapped()
 		echo "<p>" . getImageDesc() . "</p>\n";
 	}	
 }
-
 
 /*
  *
@@ -598,6 +596,82 @@ function getFullSearchDate($format='F Y') {
 	return false;
 }
 
+function printMetadata($pageTitle)
+{
+	$description = "Photographs of trains and railway infrastructure from around Victoria, Australia";
+	$title = "";
+	
+	// if date based search with images - we can get summary data for the current date
+	if (in_context(ZP_SEARCH))
+	{
+		// check for images, and that we are not on a month based archive page
+		if (isset($_REQUEST['date']) && strlen($_REQUEST['date']) > 8 && getNumImages() && strlen($_REQUEST['date']) > 7)
+		{
+			global $_zp_current_DailySummaryItem;
+			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);			
+			$description = getDailySummaryDesc();
+			$title = getDailySummaryTitle();
+			$imagePath = $_zp_current_DailySummaryItem->getDailySummaryThumbImage()->getSizedImage(getOption('image_size'));
+		}
+	}
+	// image page
+	else if (in_context(ZP_IMAGE))
+	{
+		$imagePath = getDefaultSizedImage();
+		if (strlen(getImageDesc()) > 0) {
+			$description = strip_tags(getImageDesc());
+		}
+		$title = getImageTitle();
+	} 
+	// album page
+	else if (in_context(ZP_ALBUM))
+	{
+		global $_zp_current_album;
+		
+		// makeImageCurrent can change $_zp_current_album variable to child album
+		// save a local copy, so we can get THIS album back later
+		$currentAlbum = $_zp_current_album;
+		$currentContext = get_context();
+		makeImageCurrent($_zp_current_album->getAlbumThumbImage());
+		$_zp_current_album = $currentAlbum;
+		set_context($currentContext);
+		
+		$imagePath = getDefaultSizedImage();
+		
+		if (strlen(getAlbumDesc()) > 0) {
+			$description = strip_tags(getAlbumDesc());
+		}
+		$title = getBareAlbumTitle();
+	}
+	
+	echo "<meta name=\"og:description\" content=\"$description\" />\n";
+	
+	if (strlen($title) > 0)
+	{
+		$protocol = SERVER_PROTOCOL;
+		if ($protocol == 'https_admin') {
+			$protocol = 'https';
+		}
+		$imagePath = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . $imagePath;
+		
+		echo "<meta name=\"og:image\" content=\"$imagePath\" />\n";
+		echo "<meta name=\"og:title\" content=\"$title\" />\n";	
+		echo "<meta name=\"twitter:card\" content=\"photo\">\n";
+		echo "<meta name=\"twitter:title\" content=\"$title\">\n";
+		echo "<meta name=\"twitter:image:src\" content=\"$imagePath\">\n";
+	}
+	else{
+		echo "<meta name=\"twitter:card\" content=\"summary\" />\n";
+		echo "<meta name=\"twitter:title\" content=\"" . $pageTitle . "\">\n";
+	}
+	
+	echo "<meta name=\"twitter:site\" content=\"@wongmsrailpics\">\n";
+	echo "<meta name=\"twitter:creator\" content=\"@aussiewongm\">\n";
+	echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
+	echo "<meta name=\"twitter:description\" content=\"$description\">\n";	
+	echo "<meta name=\"description\" content=\"$description\" />\n";
+}
+
 function buildGalleryImageAlbumCountMessage()
 {
     $albumsArray = query_single_row("SELECT count(*) FROM ".prefix('albums'));
@@ -608,5 +682,69 @@ function buildGalleryImageAlbumCountMessage()
     
     return "$photosNumber images in $albumNumber albums.";
 }
+
+function drawWongmImageCell($pageType)
+{
+	global $_zp_current_image;
+	
+	$albumLinkText = getImageAlbumLink();
+	
+	// if recent uploads and not logged in
+	if ($pageType == 'uploads' && !zp_loggedin())
+	{
+		$hitcounterText = '';
+	}
+	// other types of recent items / most viewed pages
+	else if ($pageType != 'ratings')
+	{
+		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
+	}
+	// ratings instead
+	else
+	{
+		$hitcounterText = getDeathmatchRatingsText();
+	}
+	
+	if (strlen($hitcounterText) > 0)
+	{
+		$hitcounterText = '<br/>' . $hitcounterText;
+	}
+?>
+<td class="image">
+	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
+		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+	</a></div>
+	<div class="imagetitle">
+		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<?php echo printImageDescWrapped(); ?>
+		<small><?php printImageDate(); ?><?php echo $hitcounterText ?></small>
+		<?php echo $albumLinkText ?>
+	</div>
+</td>
+<?php
+}
+
+function drawWongmListSubalbums()
+{
+	$toReturn = 0;
+	
+	if (getNumAlbums() > 0)
+	{
+?>
+<!-- Sub-Albums -->
+<table class="indexalbums">
+<?php
+	while (next_album()):
+		drawWongmAlbumRow();
+		$toReturn++;
+	endwhile;
+?>
+</table>
+<?
+	}
+	
+	return $toReturn;
+	
+}	/// end function
 
 ?>
