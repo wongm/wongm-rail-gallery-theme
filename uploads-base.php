@@ -58,7 +58,7 @@ if ($pageType == 'ratings')
 
 <p><? echo $popularImageText[$pageType]['text']; ?>, images <? echo getNumberCurrentDisplayedRecords(); ?> shown on this page.
 <?php
-if ($popularImageText[$pageType]['subtext'])
+if (array_key_exists('subtext', $popularImageText[$pageType]))
 {
 	echo ' ' . $popularImageText[$pageType]['subtext'];
 }
