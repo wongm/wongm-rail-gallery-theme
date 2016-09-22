@@ -32,7 +32,8 @@ class ThemeOptions {
 						gettext('Frontpage: recent image notice threshold') => array('key' => 'wongm_frontpage_notice_threshold', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold in days for the additional image update count text')),
 						gettext('Random images: how many per page') => array('key' => 'wongm_randompage_count', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('How many images should be shown on the "Random images" page')),
 						gettext('Recent albums: how many per page') => array('key' => 'wongm_recentalbum_count', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('How many albums should be shown on the "Recent albums" page')),
-						gettext('Popular images: hitcounter threshold') => array('key' => 'popular_threshold_hitcounter', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for popular images pages'))
+						gettext('Popular images: hitcounter threshold') => array('key' => 'popular_threshold_hitcounter', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for popular images pages')),
+						gettext('Security key') => array('key' => 'wongm_cron_security_key', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Security key for incoming cron web requests'))
 					);
 	}
 
