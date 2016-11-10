@@ -53,7 +53,9 @@ if (isset($rssType) AND isset($rssTitle) AND strlen($rssType) > 0 AND strlen($rs
 {
 	printRSSHeaderLink($rssType, $rssTitle);
 }
-printMetadata($pageTitle);
+if (function_exists('printMetadata')) {
+    printMetadata($pageTitle);
+}
 ?>
 <?php zp_apply_filter("theme_head"); ?>
 </head>
