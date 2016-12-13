@@ -51,8 +51,22 @@ $popularImageText['ratings']['where'] = "i.ratings_view > " . getOption('popular
 
 $popularImageText['uploads']['url'] = UPDATES_URL_PATH;
 $popularImageText['uploads']['title'] = 'Recent uploads';
-$popularImageText['uploads']['text'] = 'Recent uploads';
 $popularImageText['uploads']['subtext'] = 'For recent wagon photos go to the <a href="' . WAGON_UPDATES_URL_PATH . '" title="wagons and containers page">wagons and containers page</a>.';
+
+$popularImageText['resize']['title'] = 'Images to resize';
+$popularImageText['resize']['text'] = 'Images to be resized to standard aspect ratio';
+
+$popularImageText['shrink']['title'] = 'Images to shrink';
+$popularImageText['shrink']['text'] = 'Images to be shrunk to standard aspect ratio';
+
+$popularImageText['shrink-albums']['title'] = 'Images to shrink, by album';
+$popularImageText['shrink-albums']['text'] = 'Images to be shrunk to standard aspect ratio, ordered by album';
+
+$popularImageText['uncaptioned']['title'] = 'Images to caption';
+
+$popularImageText['uncaptioned-albums']['title'] = 'Albums with images to caption';
+
+$popularImageText['duplicates']['title'] = 'Duplicated images';
 
 $popularImageText['wagons']['url'] = WAGON_UPDATES_URL_PATH;
 $popularImageText['wagons']['title'] = 'Recent uploads - Wagons';

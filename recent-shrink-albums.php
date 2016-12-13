@@ -1,5 +1,7 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
+$popularImageText['key'] = 'shrink-albums';
+
 $where = "(i.height = 1024 AND i.width > 683) OR (i.width = 1024 AND i.height > 683) OR (i.height = 1920 AND i.width > 1280) OR (i.width = 1920 AND i.height > 1280)";
 setCustomPhotostream($where, "", "i.albumid, i.date DESC");
 require_once('uploads-base.php');

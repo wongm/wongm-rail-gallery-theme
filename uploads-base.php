@@ -20,6 +20,8 @@ if(isset($popularImageText['key'])) {
 	
 	if(isset($popularImageText[$pageType]['text'])) {
 		$subheading = $popularImageText[$pageType]['text'];
+	} else if(isset($popularImageText[$pageType]['title'])) {
+		$subheading = $popularImageText[$pageType]['title'];
 	}
 }
 
@@ -38,14 +40,7 @@ switch ($pageClass)
 	default:
 		$pageBreadCrumb = '<a href="' . UPDATES_URL_PATH . '">Recent uploads</a>';
 		break;
-}	
-
-if ($pageType == 'ratings')
-{
-	//$subheading = RATINGS_TEXT;
 }
-
-
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
@@ -56,7 +51,7 @@ if ($pageType == 'ratings')
 	<h2><?=$subheading?></h2>
 </div>
 
-<p><? echo $popularImageText[$pageType]['text']; ?>, images <? echo getNumberCurrentDisplayedRecords(); ?> shown on this page.
+<p><? echo $subheading; ?>, images <? echo getNumberCurrentDisplayedRecords(); ?> shown on this page.
 <?php
 if (array_key_exists('subtext', $popularImageText[$pageType]))
 {
