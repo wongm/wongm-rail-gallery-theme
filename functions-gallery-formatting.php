@@ -338,13 +338,13 @@ function drawWongmGridImages($numberOfItems)
  * Used by recent-albums.php (recent albums) and everything.php (all albums)
  *
  */
-function drawIndexAlbums($type=null, $site=null)
+function drawIndexAlbums($type=null)
 {
 	global $_zp_current_album;
 
 	echo "<table id=\"centeredAlbums\" class=\"indexalbums\">\n";
 
-	if ($type == 'dynamiconly' OR $type == 'frontpage')
+	if ($type == 'dynamiconly')
 	{
 		while (next_album(true))
 		{
@@ -398,7 +398,7 @@ function drawIndexAlbums($type=null, $site=null)
  * Used by drawIndexAlbums() in this file
  *
  */
-function drawWongmAlbumRow()
+function drawWongmAlbumRow($type = "")
 {
 	global $_zp_current_album;
 ?>
@@ -407,7 +407,7 @@ function drawWongmAlbumRow()
 		<a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
 	</td><td class="albumdesc">
 		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
-		<p><small><?php printAlbumDate("", "%B %d, %Y"); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></p>
+		<?php if ($type != 'frontpage') { ?><p><small><?php printAlbumDate("", "%B %d, %Y"); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></p><?php } ?>
 		<p><?php printAlbumDesc(); ?></p>
 <? 	if (zp_loggedin())
 	{

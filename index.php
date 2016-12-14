@@ -111,36 +111,13 @@ $randomFilepath4 = getThumbnailURLFromRandomImagesSet($randomImages[3]);
 	</td>
 </tr>
 <?php
-
-$sql = " SELECT `title`, `desc`, `folder`, thumb FROM " . prefix('albums') . "
-		WHERE folder LIKE '%.alb' ORDER BY title";
-$dynamicAlbumResults = query_full_array( $sql );
-
-foreach ($dynamicAlbumResults as $album)
+while (next_album(true))
 {
-	$albumTitle = get_language_string($album['title']);
-	$albumDesc = get_language_string($album['desc']);
-?>
-<tr class="album">
-	<td class="albumthumb">
-		<a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags($albumTitle);?>">
-		<img src="/cache<?=replace_filename_with_cache_thumbnail_version($album['thumb']); ?>" alt="<?php echo $albumTitle; ?>" title="<?php echo $albumTitle; ?>" /></a>
-	</td><td class="albumdesc">
-		<h4><a href="/<?=$album['folder'];?>/" title="<?php echo gettext('View album:'); ?> <?php echo $albumTitle; ?>"><?php echo $albumTitle; ?></a></h4>
-		<p><?php echo $albumDesc; ?></p>
-<? 	if (zp_loggedin())
+	if ($_zp_current_album->isDynamic())
 	{
-		echo "<p>";
-		echo printLinkHTML('/zp-core/admin-edit.php?page=edit&album=' . urlencode($album['folder']), gettext("Edit details"), NULL, NULL, NULL);
-		echo '</p>';
-	}		
-?>
-	</td>
-
-</tr>
-<?
-}
-
+		drawWongmAlbumRow('frontpage');
+	}
+}		
 echo "</table>\n";
 include_once('footer.php');
 
