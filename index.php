@@ -99,8 +99,7 @@ $randomFilepath3 = getThumbnailURLFromRandomImagesSet($randomImages[2]);
 echo "<h2 class=\"index\">Albums</h2>\n";
 echo "<table class=\"indexalbums\">\n";
 
-global $albumNumber;
-
+global $totalGalleryAlbumCount;
 $randomFilepath4 = getThumbnailURLFromRandomImagesSet($randomImages[3]);
 ?>
 <tr class="album">
@@ -108,7 +107,7 @@ $randomFilepath4 = getThumbnailURLFromRandomImagesSet($randomImages[3]);
 		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath4 ?>" alt="All albums" /></a>
 	 </td><td class="albumdesc">
 		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
-		<p>Every album - all <?=$albumNumber?> of them</p>
+		<p>Every album - all <?=$totalGalleryAlbumCount?> of them</p>
 	</td>
 </tr>
 <?php
@@ -193,8 +192,6 @@ function getThumbnailURLFromRandomImagesSet($array)
 
 function getMostRecentImageData()
 {
-	global $photosNumber;
-	
 	$thresholdText = $thresholdTextMiddle = '';
 	
 	// options
@@ -292,13 +289,14 @@ function getMostRecentImageData()
 		$thresholdText .= $thresholdTextMiddle;
 	}
 	
+	global $totalGalleryImageCount;
 	if ($thresholdText == '')
 	{
-		$thresholdText .= "$photosNumber photos sorted by when they were uploaded.";
+		$thresholdText .= "$totalGalleryImageCount photos sorted by when they were uploaded.";
 	}
 	else
 	{
-		$thresholdText .= ", a total of $photosNumber photos sorted by when they were uploaded.";
+		$thresholdText .= ", a total of $totalGalleryImageCount photos sorted by when they were uploaded.";
 	}
 	
 	if ($thresholdText != '')

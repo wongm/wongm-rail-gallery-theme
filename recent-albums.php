@@ -4,7 +4,8 @@ $rssType = 'AlbumsRSS';
 $rssTitle = 'Recent albums';
 $pageTitle = ' - '.$rssTitle;
 
-include_once('header.php'); 
+include_once('header.php');
+global $totalGalleryAlbumCount;
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
@@ -13,7 +14,7 @@ include_once('header.php');
 </table>
 <div class="topbar">
   	<h2><?=$rssTitle?></h2>
-	<span>Occasionally I will add new albums that contain older photos, here are the most recently added.</span>
+	<span>Occasionally I will add new albums that contain older photos, here are the most recently added. There are <?=$totalGalleryAlbumCount?> in total.</span>
 </div>
 <?
 drawIndexAlbums('recent');

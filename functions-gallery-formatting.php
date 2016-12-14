@@ -674,13 +674,15 @@ function printMetadata($pageTitle)
 
 function buildGalleryImageAlbumCountMessage()
 {
+    global $totalGalleryPhotoCount, $totalGalleryAlbumCount;
+    
     $albumsArray = query_single_row("SELECT count(*) FROM ".prefix('albums'));
-    $albumNumber = number_format(array_shift($albumsArray), 0, '.', ',');
+    $totalGalleryAlbumCount = number_format(array_shift($albumsArray), 0, '.', ',');
     
     $photosArray = query_single_row("SELECT count(*) FROM ".prefix('images'));
-    $photosNumber = number_format(array_shift($photosArray), 0, '.', ',');
+    $totalGalleryImageCount = number_format(array_shift($photosArray), 0, '.', ',');
     
-    return "$photosNumber images in $albumNumber albums.";
+    return "$totalGalleryImageCount images in $totalGalleryAlbumCount albums.";
 }
 
 function drawWongmImageCell($pageType)

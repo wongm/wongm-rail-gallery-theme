@@ -31,6 +31,7 @@ else
 	$rssTitle = 'Recent uploads';
 
 	include_once('header.php');
+	global $totalGalleryAlbumCount;
 ?>
 <table class="headbar">
 	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
@@ -39,7 +40,7 @@ else
 </table>
 <div class="topbar">
   	<h2>All albums</h2>
-	<span>All <?=$albumNumber?> albums that are currently on the site.</span>
+	<span>All <?=$totalGalleryAlbumCount?> albums that are currently on the site.</span>
 </div>
 <?
 	drawIndexAlbums('nodynamic');
