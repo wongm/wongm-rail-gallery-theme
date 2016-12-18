@@ -674,7 +674,7 @@ function printMetadata($pageTitle)
 
 function buildGalleryImageAlbumCountMessage()
 {
-    global $totalGalleryPhotoCount, $totalGalleryAlbumCount;
+    global $totalGalleryImageCount, $totalGalleryAlbumCount;
     
     $albumsArray = query_single_row("SELECT count(*) FROM ".prefix('albums'));
     $totalGalleryAlbumCount = number_format(array_shift($albumsArray), 0, '.', ',');
