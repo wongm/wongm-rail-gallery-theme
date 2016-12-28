@@ -277,25 +277,15 @@ function drawWongmGridImages($numberOfItems)
     
 	?>
 <!-- Images -->
-<table class="centeredTable">
+<div id="imagewrapper">
+<div id="images">
 <?php
-  // neater for when only 4 items
-    if ($numberOfItems != 4)
-    {
-        $row = 0;
-        $style = ' class="trio"';
-    }
 
     // also enforce limit on items displayed
     while (next_image() && ($count <= $numberOfItems))
     {
         $column++;
         $count++;
-        
-        if ($row == 0)
-        {
-            echo "<tr$style>\n";
-        }
         
         if (in_context(ZP_SEARCH))
         {
@@ -304,28 +294,20 @@ function drawWongmGridImages($numberOfItems)
         
         global $_zp_current_image;
 ?>
-<td class="image">
+<div class="image">
 	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
-		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+		<img src="<? echo getDefaultSizedImage() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
 	</a></div>
 	<div class="imagetitle">
 		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
 		<small><?php printImageDate(); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
 	</div>
-</td>
+</div>
 <?php
-        if ($row == 2 || ($numberOfItems == 4 && $row == 1))
-        {
-            echo "</tr>\n";
-            $row = 0;
-        }
-        else
-        {
-            $row++;
-        }
     } ?>
-</table>
+</div>
+</div>
 <?
 }	// end function
 
@@ -712,9 +694,9 @@ function drawWongmImageCell($pageType)
 		$hitcounterText = '<br/>' . $hitcounterText;
 	}
 ?>
-<td class="image">
+<div class="image">
 	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
-		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+		<img src="<? echo getDefaultSizedImage() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
 	</a></div>
 	<div class="imagetitle">
 		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
@@ -722,7 +704,7 @@ function drawWongmImageCell($pageType)
 		<small><?php printImageDate(); ?><?php echo $hitcounterText ?></small>
 		<?php echo $albumLinkText ?>
 	</div>
-</td>
+</div>
 <?php
 }
 

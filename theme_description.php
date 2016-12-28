@@ -2,7 +2,7 @@
 // Zenphoto theme definition file
 $theme_description['name'] = 'Wongm\'s Rail Gallery';
 $theme_description['author'] = gettext('<a href="http://wongm.com" target="_blank">Marcus Wong</a>');
-$theme_description['version'] = '2.8';
-$theme_description['date'] = 'June 7, 2015';
-$theme_description['desc'] = gettext("desc::Variant of the Rail Geelong theme, itself based upon the 'Sub-Albums Testing Theme' by Tristan Harward. Now resets the last visited dates when in admin 'recent uploads' or 'popular' views.");
+$theme_description['version'] = '3.0';
+$theme_description['date'] = 'December 28, 2016';
+$theme_description['desc'] = gettext("desc::Variant of the Rail Geelong theme, itself based upon the 'Sub-Albums Testing Theme' by Tristan Harward. Now responsive design for mobile devices!");
 ?>

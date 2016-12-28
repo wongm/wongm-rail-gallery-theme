@@ -3,12 +3,12 @@ $pageTitle = ' - '.getImageTitle();
 $rssType = 'Gallery';
 $rssTitle = 'Recent uploads';
 include_once('header.php'); ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
 		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
 		<a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
-	</td><td><?php printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 
 <div class="topbar">
 	<h2><?php printMWEditableImageTitle(true);?></h2>

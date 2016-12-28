@@ -14,11 +14,11 @@ $pageTitle = ' - On this day';
 include_once('header.php');
 $pageBreadCrumb = 'On this day';
 ?>
-<table class="headbar">
-    <tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
     <?=$pageBreadCrumb?>
-    </td><td id="righthead"><? printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <?
 
 $now = time();
@@ -66,8 +66,8 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
         echo "<div class=\"pastyears\"><h3>$year $suffix ago</h3>\n";
         echo "<p>$photocount photos found - <a href=\"/page/archive/$dayLink\">View more...</a>$extraText</p></div>";
 ?>
-<table class="centeredTable">
-    <tr class="trio">
+<div id="imagewrapper">
+    <div id="images">
 <?php
         $count = 0;
 
@@ -78,8 +78,8 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
         }
     }
 ?>
-    </tr>
-</table>
+    </div>
+</div>
 <?
 }
 

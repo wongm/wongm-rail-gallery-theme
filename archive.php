@@ -26,11 +26,11 @@ if ($showSingleMonth)
 }
 include_once('header.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<a href="<?=ARCHIVE_URL_PATH?>" title="Gallery Archive">Archive</a><?=$headbarextra?>
-	</td><td><?printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <div class="topbar">
 	<h2><?=$timeformatted?></h2>
 </div>

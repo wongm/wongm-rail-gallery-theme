@@ -67,20 +67,20 @@ if (function_exists('printMetadata')) {
 <?php zp_apply_filter("theme_body_open"); ?>
 <div id="container">
 <div id="header">
-<div id="sitename">
-	<h1><a href="/" title="Gallery Index"><?=getGalleryTitle();?></a></h1>
-</div>
-<div id="sitedesc"><?=getGalleryDesc();?></div>
-<div style="clear:both;"></div>
-<table class="buttonbar"><tr class="sitemenu">
-<td class="menu"><a href="/news" title="News">News</a></td>
-<td class="menu"><a href="<?=EVERY_ALBUM_PATH?>" title="Show all albums">All albums</a></td>
-<td class="menu"><a href="<?=RECENT_ALBUM_PATH?>" title="Recently added albums">Recent albums</a></td>
-<td class="menu"><a href="<?=UPDATES_URL_PATH?>" title="Recently uploaded photos">Recent uploads</a></td>
-<td class="menu"><a href="<?=POPULAR_URL_PATH?>" title="Most popular images">Popular</a></td>
-<td class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" title="A selection of random photos">Random</a></td>
-<td class="menu"><a href="<?=ARCHIVE_URL_PATH?>" title="View photos in the order they were taken">Archives</a></td>
-<td class="menu"><a href="<?=CONTACT_URL_PATH?>" title="Want to drop me a line?">About me</a></td>
-</tr></table>
+	<div id="sitename">
+		<h1><a href="/" title="Gallery Index"><?=getGalleryTitle();?></a></h1>
+	</div>
+	<div id="sitedesc"><?=getGalleryDesc();?></div>
+	<div style="clear:both;"></div>
+	<div class="sitemenu">
+		<div class="menu"><a href="/news" title="News">News</a></div>
+		<div class="menu"><a href="<?=EVERY_ALBUM_PATH?>" title="Show all albums">All albums</a></div>
+		<div class="menu"><a href="<?=RECENT_ALBUM_PATH?>" title="Recently added albums">Recent albums</a></div>
+		<div class="menu"><a href="<?=UPDATES_URL_PATH?>" title="Recently uploaded photos">Recent uploads</a></div>
+		<div class="menu"><a href="<?=POPULAR_URL_PATH?>" title="Most popular images">Popular</a></div>
+		<div class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" title="A selection of random photos">Random</a></div>
+		<div class="menu"><a href="<?=ARCHIVE_URL_PATH?>" title="View photos in the order they were taken">Archives</a></div>
+		<div class="menu"><a href="<?=CONTACT_URL_PATH?>" title="Want to drop me a line?">About me</a></div>
+	</div>
 </div>
 <div id="content" class="<?=$contentdiv?>">

@@ -66,11 +66,11 @@ if (isset($_REQUEST['words'])) { ?>
 <? 
 }
  ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<a href="<?=SEARCH_URL_PATH?>" title="Gallery Search">Search</a>
-	</td><td id="righthead"><? printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <div class="topbar">
 	<?php echo $leadingIntroText; ?>
 </div>
@@ -94,11 +94,9 @@ if ($totalAlbums > 0)
 	}
 	echo "</table>";
 }
-?>
-<div id="images">
-<?php drawWongmGridImages($totalImages); ?>
-</div>
-<?php
+
+drawWongmGridImages($totalImages); 
+
 if (function_exists('printSlideShowLink')) {
 	echo "<p align=\"center\">";
 	printSlideShowLink(gettext('View Slideshow'));

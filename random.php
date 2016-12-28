@@ -3,18 +3,19 @@
 $pageTitle = ' - Random photos';
 include_once('header.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<a href="<?=RANDOM_ALBUM_PATH?>" title="Random Images">Random photos</a>
-	</td><td><?printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <div class="topbar">
 	<h2>Random images</h2>
 	<p>A selection of random photos each time you refresh the page</p>
 </div>
+<div id="imagewrapper">
+    <div id="images">
 <?php
 
-echo "<table class=\"centeredTable\">";
 $i=0;
 $j=0;
 $photoDesc = "";
@@ -29,7 +30,7 @@ while ($i < getOption('wongm_randompage_count'))
 		$randomImageURL = $randomImage->getLink();
 		$photoTitle = $randomImage->getTitle();
 		$photoDate = strftime(getOption('date_format'), strtotime($randomImage->getDateTime()));
-		$imageCode = "<img src='".$randomImage->getThumb()."' alt='".$photoTitle."'>";
+		$imageCode = "<img src='".$randomImage->getSizedImage(getOption('image_size'))."' alt='".$photoTitle."'>";
 
 		$albumForPhoto = $randomImage->getAlbum();
 		$photoAlbumTitle = $albumForPhoto->getTitle();
@@ -44,7 +45,7 @@ while ($i < getOption('wongm_randompage_count'))
 			$photoDesc = 'Description: '.$photoDesc;
 		}
 ?>
-<td class="image">
+<div class="image">
 	<div class="imagethumb"><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>">
 		<?=$imageCode?>
 	</a></div>
@@ -57,15 +58,16 @@ while ($i < getOption('wongm_randompage_count'))
 		?></small>
 		<p>In Album: <a href="http://<?=$_SERVER['HTTP_HOST'].$photoPath; ?>"><?=$photoAlbumTitle; ?></a></p>
 	</div>
-</td>
+</div>
 <?
 		$j++;
 		$i++;
 	}	//end while for cols
 	$j=0;
-	echo "</tr>";
 }	//end while for rows
-
-echo "</table>";
+?>
+</div>
+</div>
+<?php
 include_once('footer.php');
 ?>

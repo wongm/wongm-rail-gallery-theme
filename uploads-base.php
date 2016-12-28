@@ -42,11 +42,11 @@ switch ($pageClass)
 		break;
 }
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<?=$pageBreadCrumb?>
-	</td><td id="righthead"><?printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <div class="topbar">
 	<h2><?=$subheading?></h2>
 </div>
@@ -60,41 +60,15 @@ if (array_key_exists('subtext', $popularImageText[$pageType]))
 ?>
 </p>
 
-<div id="images">
-<table class="centeredTable">
-<?php
-  // neater for when only 4 items
-  if (isset($numberOfItems) && $numberOfItems == 4)
-  {
-	  $row = 1;
-  }
-  else
-  {
-	  $row = 0;
-	  $style = ' class="trio"';
-  }
-  
+<div id="imagewrapper">
+	<div id="images">
+<?php  
   $column = 0;
 
-  while (next_photostream_image()): $column++;
-	  if ($row == 0)
-	  {
-		  echo "<tr$style>\n";
-	  }
-	  
+  while (next_photostream_image()): $column++;	  
 	  drawWongmImageCell($pageType);
-	  
-	  if ($row == 2)
-	  {
-		  echo "</tr>\n";
-		  $row = 0;
-	  }
-	  else
-	  {
-		  $row++;
-	  }
   endwhile; ?>
-</table>
+	</div>
 </div>
 <?php printPhotostreamPageListWithNav("« ".gettext("Prev"), gettext("Next")." »"); ?>
 <?php

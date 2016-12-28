@@ -20,10 +20,10 @@ $startTime = array_sum(explode(" ",microtime()));
 $pageTitle = ' - 404 Page Not Found';
 include_once('header.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found
-	</td><td id="righthead"><? printSearchForm(); ?></td></tr>
-</table>
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <div class="topbar">
   	<h2>404 Page Not Found</h2>
 </div>

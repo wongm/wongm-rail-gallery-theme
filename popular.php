@@ -13,11 +13,11 @@ $pageTitle = ' - Popular photos';
 include_once('header.php');
 $pageBreadCrumb = 'Popular photos';
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<?=$pageBreadCrumb?>
-	</td><td id="righthead"><? printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <?
 
 foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
@@ -33,11 +33,11 @@ foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 	
 	echo '<div class="topbar"><h2>'.$popularImageText[$viewType]['text']."</h2>\n";
 	echo "<p><a href=\"".$popularImageText[$viewType]['url']."\">View more...</a>$extraText</p></div>";
-			
+
 	setCustomPhotostream($popularImageText[$viewType]['where'], "", $popularImageText[$viewType]['order']);
 ?>
-<table class="centeredTable">
-	<tr class="trio">
+<div id="imagewrapper">
+	<div id="images">
 <?php
 	$count = 0;
 
@@ -46,17 +46,20 @@ foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 	{
 		drawWongmImageCell($viewType);
 	}
-	
-	while (++$count <= 3)
-	{
-		echo "<td class=\"image\"></td>";
-	}
 ?>
-	</tr>
-</table>
+	</div>
+</div>
 <?
-
 }
-
+?>
+<style>
+/* big screens */
+@media screen and (min-width: 600px) {
+	#imagewrapper .image {
+		width: calc(33% - 14px);
+	}
+}
+</style>
+<?php
 include_once('footer.php'); 
 ?>

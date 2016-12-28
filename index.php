@@ -10,10 +10,10 @@ global $_randomImageAttempts;
 
 $mostRecentImageData = getMostRecentImageData();
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; Home</td>
-	<td><?printSearchForm();?></td></tr>
-</table>
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; Home
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <h2 class="index">News</h2>
 <table class="indexalbums">
 <tr class="album">

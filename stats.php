@@ -5,10 +5,10 @@ $pageTitle = " - $title";
 include_once('header.php');
 
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <?=$title?>
-	</td><td><?printSearchForm();?></td></tr>
-  </table>
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <?=$title?>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <?
 if (zp_loggedin()) 
 {

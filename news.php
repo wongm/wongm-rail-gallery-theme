@@ -9,13 +9,13 @@ if (substr($pageTitle, $len-2, 1) == '-')
 	$pageTitle = substr($pageTitle, 0, $len-3);
 }
 include_once('header.php');?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a>
+<div class="headbar">
+	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a>
 		<?php printNewsIndexURL("News"," » "); ?>
 		<?php printCurrentNewsCategory(" » "); ?>
 		<?php printNewsTitle(" » "); ?>
-	</td><td><?printSearchForm();?></td></tr>
-</table>
+	</span><span id="righthead"><?printSearchForm();?></span>
+</div>
 <?php 
 
 // single news article
