@@ -179,7 +179,7 @@ function drawWongmGridAlbums($numberOfItems)
 {
 ?>
 <!-- Sub-Albums -->
-<table class="centeredTable">
+<div id="indexalbums">
 <?php
 	// neater for when only 4 items
 	if ($numberOfItems == 4)
@@ -198,13 +198,16 @@ function drawWongmGridAlbums($numberOfItems)
     	}
     	global $_zp_current_album;
 ?>
-<td class="album" valign="top">
+<div class="album">
 	<div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
 	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
-	<div class="albumtitle"><h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
-	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></div>
-	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
-</td>
+	<div class="albumdesc">
+		<h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
+		<?php printAlbumTitle(); ?></a></h4>
+		<small><?php printAlbumDate(); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small>
+		<?php printAlbumDesc(); ?>
+	</div>
+</div>
 <?php
     	if ($i == 2)
     	{
@@ -224,7 +227,7 @@ function drawWongmGridAlbums($numberOfItems)
     
 	endwhile;
 ?>
-</table>
+</div>
 <?
 }	/// end function
 
@@ -324,7 +327,7 @@ function drawIndexAlbums($type=null)
 {
 	global $_zp_current_album;
 
-	echo "<table id=\"centeredAlbums\" class=\"indexalbums\">\n";
+	echo "<div id=\"indexalbums\">\n";
 
 	if ($type == 'dynamiconly')
 	{
@@ -367,7 +370,7 @@ function drawIndexAlbums($type=null)
 		}
 	}
  ?>
-</table>
+</div>
 <?
 }
 
@@ -384,10 +387,11 @@ function drawWongmAlbumRow($type = "")
 {
 	global $_zp_current_album;
 ?>
-<tr class="album">
-	<td class="albumthumb">
+<div class="album">
+	<div class="albumthumb">
 		<a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
-	</td><td class="albumdesc">
+	</div>
+	<div class="albumdesc">
 		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
 		<?php if ($type != 'frontpage') { ?><p><small><?php printAlbumDate("", "%B %d, %Y"); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></p><?php } ?>
 		<p><?php printAlbumDesc(); ?></p>
@@ -398,8 +402,8 @@ function drawWongmAlbumRow($type = "")
 		echo '</p>';
 	}
 ?>
-	</td>
-</tr>
+	</div>
+</div>
 <?
 
 }	// end function
@@ -716,14 +720,14 @@ function drawWongmListSubalbums()
 	{
 ?>
 <!-- Sub-Albums -->
-<table class="indexalbums">
+<div id="indexalbums">
 <?php
 	while (next_album()):
 		drawWongmAlbumRow();
 		$toReturn++;
 	endwhile;
 ?>
-</table>
+</div>
 <?
 	}
 	

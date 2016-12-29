@@ -136,16 +136,13 @@ a:hover {
   flex-wrap: wrap;
   justify-content: space-between; /* or space-around */
 }
-
 #imagewrapper .image {
 	width: calc(33% - 12px);
 	padding: 5px;
 }
-
-.imagethumb {
+.imagethumb, .albumthumb {
   text-align: center;
 }
-
 .image {
 	text-align: center;
 	padding: 0;
@@ -155,20 +152,17 @@ a:hover {
 	text-decoration: none;
 	color: black;
 }
-
 .imagetitle {
   width: 95%;
   margin: 5px auto 20px;
 }
-
-#imagewrapper img {
+.imagethumb img, .albumthumb img {
 	border: none;
 	max-width: 100%;
 	max-height: 300px;
 	height: auto;
 	width:auto;
 }
-
 .imagetitle {
 	vertical-align: top;
 }
@@ -186,12 +180,27 @@ a:hover {
 	background-color: #F5F6F5;
 	padding: 10px;
 }
+.album {
+    clear: both;
+	overflow:auto; 
+	margin-bottom: 5px;
+}
 .album h4, .image h4 {
 	padding: 5px 0;
 	margin: 0;
 }
-.albumdesc h4 {
-	padding: 10px 0 0 0.5em;
+#indexalbums {
+	padding: 5px;
+}
+.albumthumb {
+	min-width: 280px;
+	vertical-align: top;
+	float: left;
+}
+.albumdesc {
+	text-align: left;
+	vertical-align: top;
+	display: table;
 }
 .pages {
 	margin: 10px 0;
@@ -280,20 +289,6 @@ h2.index {
 p.recent {
 	color: red;
 }
-.indexalbums {
-	width: 100%;
-	padding: 5px;
-}
-.indexalbums .albumthumb {
-	width: 280px;
-	text-align: center;
-	padding: 10px;
-	vertical-align: top;
-}
-.indexalbums .albumdesc {
-	text-align: left;
-	vertical-align: top;
-}
 /* General page layout stuff 
 ------------------------------ */
 #container {
@@ -321,22 +316,14 @@ p.recent {
 	margin-top: 2em;
 	font-style: italic;
 }
-.content p {
-	width: 98%;	
-}
 p {
-	margin: 0.7em auto;
+	margin-top: 0;
 	line-height: 1.3em;
 }
 #footer { 
 	margin: 10px 0 0 0;
 	text-align: center;
 	font-size: 0.8em;
-}
-.centeredTable, #centeredAlbums {
-	margin: auto;
-	width: 98%;
-	margin-top: 5px;
 }
 .error {
 	text-align: center;
@@ -416,6 +403,7 @@ p.iconimage img {
 	display: inline-block;
 	vertical-align: middle;
 	line-height: 3em;
+	padding-left: 10px;
 }
 /* Lighbox
 ------------------------------ */
@@ -477,6 +465,9 @@ p.iconimage img {
 .newsarticle, #news #hitcounter {
 	padding-left: 1%;
 }
+#news img , .newsdesc img {
+    max-width: 100%;
+}
 
 /* Comments
 ------------------------------ */
@@ -516,6 +507,12 @@ p.iconimage img {
 .commentdate {
 	margin-top: 12px;
 	font-size: 85%;
+}
+#message {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
 }
 
 /* Page Navigation
@@ -574,6 +571,16 @@ div.pagelist .disabledlink {
 	margin-bottom:5px;
 }
 
+/* big screens */
+@media screen and (min-width: 1400px) {
+	#imagewrapper .image {
+		width: calc(25% - 15px);
+	}
+	.imagetitle {
+		width: 80%;
+	}
+}
+
 /* smallish screens menu fix */
 @media screen and (max-width: 1000px) {
 	.menu {
@@ -590,15 +597,26 @@ div.pagelist .disabledlink {
 	#imagewrapper .image {
 		width: calc(50% - 15px);
 	}
+	.albumthumb, .albumdesc {
+		width: 100%;
+	}
+	.albumthumb {
+		padding: 0 0 15px 0;
+	}
+	.albumthumb img {
+		float: left;
+	}
+	.albumdesc {
+		padding: 0;
+	}	
 }
 
 /* mobile screens */
 @media screen and (max-width: 600px) {
-	#imagewrapper .image {
+	#imagewrapper .image, #imagewrapper {
 		width: 100%;
 	}
 	#imagewrapper {
-	  width: 100%;
 	  margin: 0;
 	}
 	.menu {
@@ -612,15 +630,5 @@ div.pagelist .disabledlink {
 	}
 	#search_form {
 		width: inherit;
-	}
-}
-
-/* big screens */
-@media screen and (min-width: 1400px) {
-	#imagewrapper .image {
-		width: calc(25% - 15px);
-	}
-	.imagetitle {
-		width: 80%;
 	}
 }

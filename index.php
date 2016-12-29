@@ -15,11 +15,12 @@ $mostRecentImageData = getMostRecentImageData();
 	</span><span id="righthead"><?printSearchForm();?></span>
 </div>
 <h2 class="index">News</h2>
-<table class="indexalbums">
-<tr class="album">
-	<td class="albumthumb">
+<div id="indexalbums">
+<div class="album">
+	<div class="albumthumb">
 		<a href="<?=UPDATES_URL_PATH?>" title="Recent uploads"><img src="<? echo $mostRecentImageData['thumbnailUrl']; ?>" alt="Recent uploads" /></a>
-	 </td><td class="albumdesc">
+	 </div>
+	 <div class="albumdesc">
 		<h4><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h4>
 		<p><? echo $mostRecentImageData['content']; ?></p>
 		<ul><?php NewDailySummary(5);
@@ -27,8 +28,8 @@ $mostRecentImageData = getMostRecentImageData();
         <li><p><?php echo date("F j", strtotime(getDailySummaryDate())); ?> - <?php echo getDailySummaryNumImages(); ?> new photos in <?php echo getDailySummaryAlbumNameText(); ?></p></li>
         <?php } ?>
         </ul>
-	</td>
-</tr>
+	</div>
+</div>
 <?
 
 if (function_exists('next_news')) {
@@ -36,28 +37,27 @@ if (function_exists('next_news')) {
     $i = 0;    
     
     while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
-<tr class="album">
- 	<? if ($i == 1) { ?>
-	<td class="albumthumb" rowspan="<?=getOption('wongm_news_count') + 1?>" valign="top"></td>
-	<? } ?>
- 	<td class="albumdesc">
+<div class="album news">
+	<div class="albumthumb newsthumb">&nbsp;</div>
+ 	<div class="albumdesc newsdesc">
     	<h4><?php printNewsURL(); ?></h4>
     	<p class="date"><?php printNewsDate();?></p>
     	<?php echo getNewsContent(true); ?>
-    </td>
-</tr>
+    </div>
+</div>
 <?php
     endwhile; 
 ?>
-<tr class="album">
- 	<td class="albumdesc"><p><a title="See more news items" href="/news">See more news items...</a></p></td>
-</tr>
+<div class="album">
+	<div class="albumthumb">&nbsp;</div>
+	<div class="albumdesc"><p><a title="See more news items" href="/news">See more news items...</a></p></div>
+</div>
 <?php
 
 } // end new if
 
 ?>
-</table>
+</div>
 <h2 class="index">Sliced and diced</h2>
 <?php
 
@@ -67,49 +67,53 @@ $randomFilepath1 = getThumbnailURLFromRandomImagesSet($randomImages[0]);
 $randomFilepath2 = getThumbnailURLFromRandomImagesSet($randomImages[1]);
 $randomFilepath3 = getThumbnailURLFromRandomImagesSet($randomImages[2]);
 ?>
-<table class="indexalbums">
-<tr class="album">
-	<td class="albumthumb">
+<div id="indexalbums">
+<div class="album">
+	<div class="albumthumb">
 		<a href="<?=POPULAR_URL_PATH?>" title="Popular photos"><img src="<?=$randomFilepath1 ?>" alt="Popular photos" /></a>
-	 </td><td class="albumdesc">
+	 </div>
+	 <div class="albumdesc">
 		<h4><a href="<?=POPULAR_URL_PATH?>" title="Popular photos">Popular photos</a></h4>
 		<p>The most popular photos - by week, month, all time, or your ratings!</p>
-	</td>
-</tr>
-<tr class="album">
-	<td class="albumthumb">
+	</div>
+</div>
+<div class="album">
+	<div class="albumthumb">
 		<a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos"><img src="<?=$randomFilepath2 ?>" alt="Rate my photos" /></a>
-	 </td><td class="albumdesc">
+	 </div>
+	 <div class="albumdesc">
 		<h4><a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos">Rate my photos</a></h4>
 		<p>Photo death match - I show you two random photos, you choose which one you like better.</p>
-	</td>
-</tr>
-<tr class="album">
-	<td class="albumthumb">
+	</div>
+</div>
+<div class="album">
+	<div class="albumthumb">
 		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath3 ?>" alt="Random photos" /></a>
-	 </td><td class="albumdesc">
+	 </div>
+	 <div class="albumdesc">
 		<h4><a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos">Random photos</a></h4>
 		<p>A selection of random photos each time you refresh the page</p>
-	</td>
-</tr>
-</table>
+	</div>
+</div>
+</div>
 <?php
 
 // dynamic albums
 echo "<h2 class=\"index\">Albums</h2>\n";
-echo "<table class=\"indexalbums\">\n";
+echo "<div id=\"indexalbums\">\n";
 
 global $totalGalleryAlbumCount;
 $randomFilepath4 = getThumbnailURLFromRandomImagesSet($randomImages[3]);
 ?>
-<tr class="album">
-	<td class="albumthumb">
+<div class="album">
+	<div class="albumthumb">
 		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath4 ?>" alt="All albums" /></a>
-	 </td><td class="albumdesc">
+	 </div>
+	 <div class="albumdesc">
 		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
 		<p>Every album - all <?=$totalGalleryAlbumCount?> of them</p>
-	</td>
-</tr>
+	</div>
+</div>
 <?php
 while (next_album(true))
 {
@@ -118,7 +122,7 @@ while (next_album(true))
 		drawWongmAlbumRow('frontpage');
 	}
 }		
-echo "</table>\n";
+echo "</div>\n";
 include_once('footer.php');
 
 

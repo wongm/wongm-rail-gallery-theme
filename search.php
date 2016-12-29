@@ -78,7 +78,7 @@ if (isset($_REQUEST['words'])) { ?>
 <?
 if ($totalAlbums > 0)
 {
-	echo "<table class=\"indexalbums\">\n";
+	echo "<div id=\"indexalbums\">\n";
 	while (next_album())
 	{
 		if (is_null($firstAlbum))
@@ -92,7 +92,7 @@ if ($totalAlbums > 0)
 		}
 		drawWongmAlbumRow();
 	}
-	echo "</table>";
+	echo "</div>";
 }
 
 drawWongmGridImages($totalImages); 
