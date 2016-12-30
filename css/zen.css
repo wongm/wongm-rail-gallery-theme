@@ -107,10 +107,6 @@ h1 a, h2 a, h4 a {
 h1 a:hover, h2 a:hover, h4 a:hover {
 	text-decoration: underline;
 }
-.photocredit {
-	font-style:italic; 
-	font-size:xx-small;
-}
 h5 {
 	font-size:13px;
 	display: inline;
@@ -125,11 +121,7 @@ a:hover {
 	background-color: inherit;
 	text-decoration: none;
 }
-.credit {
-	font-size: .8em;
-	line-height: 1em;
-}
-/* Gallery specific stuff
+/* Album / Image specific stuff
 ------------------------------ */
 #images {
   display: flex;
@@ -218,10 +210,21 @@ a:hover {
 #imageContainer {
 	padding: 10px;	
 }
+.pastyears h3 {
+	text-align: left;
+	margin: 15px 0 0 1%;
+}
+
+/* Image detail
+------------------------------ */
 #mainImage {
 	max-width: 100%;
-    left: 25%;
     position: absolute;
+	left: 50%; 
+}
+#imageOverlay {
+	position: relative;
+	left: 50%;
 }
 #viewImage p {
 	text-align: center;
@@ -237,26 +240,6 @@ a:hover {
 }
 #edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
 	width:600px;
-}
-
-.jcarousel-container {
-	width: 100% !important;
-}
-.jcarousel-clip {
-	height: 250px !important;
-	width: 80% !important;
-}
-.jcarousel-list {
-	height: 250px !important;
-}
-.jcarousel-list li {
-	height: 250px !important;
-	width: 250px !important;
-}
-
-.pastyears h3 {
-	text-align: left;
-	margin: 15px 0 0 1%;
 }
 	
 /* Archive
@@ -528,11 +511,14 @@ p.iconimage img {
 
 /* Page Navigation
 ------------------------------ */
-div.pagelist, table.pagelist { 
+.pagelist { 
   margin-top: 10px;
   border: 1px 0 solid white;
   background: #FAFAFA;
   width: 100%;
+}
+div.pagelist {
+	display: table;
 }
 table.pagelist td {
 	width: 25%;
@@ -555,6 +541,11 @@ ul.pagelist li a,ul.pagelist span.disabledlink, .pagelist a {
 ul.pagelist li.current a {
 	text-decoration: none;
 	cursor: default;
+}
+.pagelist .wrapper {
+	padding: 10px;
+	align-items: center;
+    display: flex;
 }
 .pagelist .prev, .pagelist .nextIcon {
 	padding-left: 10px;
@@ -645,5 +636,14 @@ div.pagelist .disabledlink {
 	}
 	#search_form {
 		width: inherit;
+	}
+	#mainImage {
+		position: relative;
+		left: 0;
+		margin: 0 !important;
+		height: auto;
+	}
+	#imageOverlay {
+		display: none;
 	}
 }
