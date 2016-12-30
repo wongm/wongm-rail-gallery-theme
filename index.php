@@ -20,7 +20,7 @@ $mostRecentImageData = getMostRecentImageData();
 	<div class="albumthumb">
 		<a href="<?=UPDATES_URL_PATH?>" title="Recent uploads"><img src="<? echo $mostRecentImageData['thumbnailUrl']; ?>" alt="Recent uploads" /></a>
 	 </div>
-	 <div class="albumdesc">
+	 <div class="summarydesc">
 		<h4><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h4>
 		<p><? echo $mostRecentImageData['content']; ?></p>
 		<ul><?php NewDailySummary(5);
@@ -37,9 +37,8 @@ if (function_exists('next_news')) {
     $i = 0;    
     
     while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
-<div class="album news">
-	<div class="albumthumb newsthumb">&nbsp;</div>
- 	<div class="albumdesc newsdesc">
+<div class="news">
+ 	<div class="newsdesc">
     	<h4><?php printNewsURL(); ?></h4>
     	<p class="date"><?php printNewsDate();?></p>
     	<?php echo getNewsContent(true); ?>
@@ -48,9 +47,8 @@ if (function_exists('next_news')) {
 <?php
     endwhile; 
 ?>
-<div class="album">
-	<div class="albumthumb">&nbsp;</div>
-	<div class="albumdesc"><p><a title="See more news items" href="/news">See more news items...</a></p></div>
+<div class="news">
+	<div class="newsdesc"><p><a title="See more news items" href="/news">See more news items...</a></p></div>
 </div>
 <?php
 

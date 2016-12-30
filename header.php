@@ -42,7 +42,7 @@ $galleryImageAlbumCountMessage = buildGalleryImageAlbumCountMessage();
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title><?php echo $pageTitle; ?> - <?php printGalleryTitle(); ?></title>
-<link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/zen.css" type="text/css" />
+<link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/zen.css?v=3" type="text/css" />
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/slimbox2.css" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml" href="/provider.xml" />

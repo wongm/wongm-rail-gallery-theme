@@ -200,7 +200,7 @@ function drawWongmGridAlbums($numberOfItems)
 ?>
 <div class="album">
 	<div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
-	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
+	<?php printSizedAlbumThumbImage(getAlbumTitle()); ?></a></div>
 	<div class="albumdesc">
 		<h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
 		<?php printAlbumTitle(); ?></a></h4>
@@ -389,10 +389,13 @@ function drawWongmAlbumRow($type = "")
 ?>
 <div class="album">
 	<div class="albumthumb">
-		<a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
+		<a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?><?php echo strip_tags(getAlbumTitle());?>">
+			<?php printSizedAlbumThumbImage(getAlbumTitle()); ?>
+		</a>
 	</div>
 	<div class="albumdesc">
-		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
+		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?><?php echo strip_tags(getAlbumTitle());?>">
+		<?php printAlbumTitle(); ?></a></h4>
 		<?php if ($type != 'frontpage') { ?><p><small><?php printAlbumDate("", "%B %d, %Y"); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></p><?php } ?>
 		<p><?php printAlbumDesc(); ?></p>
 <? 	if (zp_loggedin())
@@ -410,17 +413,17 @@ function drawWongmAlbumRow($type = "")
 
 function replace_filename_with_cache_thumbnail_version($filename)
 {
-    $thumb_size = getOption('thumb_size');
+    $thumb_size = getOption('image_size');
     
     // gotcha - cached thumbnails always have lower case file extension
-	$imgURL = str_replace('.jpg', '_' . $thumb_size . '_thumb.jpg', $filename);
-	$imgURL = str_replace('.JPG', '_' . $thumb_size . '_thumb.jpg', $imgURL);
-	$imgURL = str_replace('.gif', '_' . $thumb_size . '_thumb.gif', $imgURL);
-	$imgURL = str_replace('.GIF', '_' . $thumb_size . '_thumb.gif', $imgURL);
-	$imgURL = str_replace('.png', '_' . $thumb_size . '_thumb.png', $imgURL);
-	$imgURL = str_replace('.PNG', '_' . $thumb_size . '_thumb.png', $imgURL);
-	$imgURL = str_replace('.jpeg', '_' . $thumb_size . '_thumb.jpeg', $imgURL);
-	$imgURL = str_replace('.JPEG', '_' . $thumb_size . '_thumb.jpeg', $imgURL);
+	$imgURL = str_replace('.jpg', '_' . $thumb_size . '.jpg', $filename);
+	$imgURL = str_replace('.JPG', '_' . $thumb_size . '.jpg', $imgURL);
+	$imgURL = str_replace('.gif', '_' . $thumb_size . '.gif', $imgURL);
+	$imgURL = str_replace('.GIF', '_' . $thumb_size . '.gif', $imgURL);
+	$imgURL = str_replace('.png', '_' . $thumb_size . '.png', $imgURL);
+	$imgURL = str_replace('.PNG', '_' . $thumb_size . '.png', $imgURL);
+	$imgURL = str_replace('.jpeg', '_' . $thumb_size . '.jpeg', $imgURL);
+	$imgURL = str_replace('.JPEG', '_' . $thumb_size . '.jpeg', $imgURL);
 	return $imgURL;	
 }
 
@@ -734,5 +737,16 @@ function drawWongmListSubalbums()
 	return $toReturn;
 	
 }	/// end function
+
+// based on printAlbumThumbImage
+function printSizedAlbumThumbImage($alt)
+{
+	global $_zp_current_album;
+	$thumbobj = $_zp_current_album->getAlbumThumbImage();
+	$html = '<img src="' . html_encode(pathurlencode($thumbobj->getSizedImage(getOption('image_size')))) . '" alt="' . html_encode($alt) . '" />';
+	$html = zp_apply_filter('standard_album_thumb_html', $html);
+	echo $html;
+	
+}
 
 ?>

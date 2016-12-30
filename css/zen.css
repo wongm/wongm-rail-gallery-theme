@@ -176,13 +176,15 @@ a:hover {
 .imagetitle p {
 	margin: 0.3em auto;	
 }
-.album, .image {
+.album, .image, .news {
 	background-color: #F5F6F5;
 	padding: 10px;
 }
-.album {
+.album, .news {
     clear: both;
 	overflow:auto; 
+}
+.album {
 	margin-bottom: 5px;
 }
 .album h4, .image h4 {
@@ -193,14 +195,19 @@ a:hover {
 	padding: 5px;
 }
 .albumthumb {
-	min-width: 280px;
 	vertical-align: top;
 	float: left;
+	padding: 0 10px 15px 0;
+	max-width: 400px;
 }
-.albumdesc {
+.albumdesc, .summarydesc {
 	text-align: left;
 	vertical-align: top;
 	display: table;
+}
+.albumdesc {
+	padding: 0 20px 0 415px;
+	position: absolute;
 }
 .pages {
 	margin: 10px 0;
@@ -212,6 +219,7 @@ a:hover {
 	padding: 10px;	
 }
 #mainImage {
+	max-width: 100%;
     left: 25%;
     position: absolute;
 }
@@ -468,6 +476,9 @@ p.iconimage img {
 #news img , .newsdesc img {
     max-width: 100%;
 }
+.newsdesc img {
+	width: 400px;
+}
 
 /* Comments
 ------------------------------ */
@@ -597,17 +608,21 @@ div.pagelist .disabledlink {
 	#imagewrapper .image {
 		width: calc(50% - 15px);
 	}
-	.albumthumb, .albumdesc {
+	.albumthumb, .albumdesc , .summarydesc {
 		width: 100%;
 	}
 	.albumthumb {
+		display: table-footer-group;
+		float: none;
 		padding: 0 0 15px 0;
 	}
 	.albumthumb img {
 		float: left;
 	}
-	.albumdesc {
+	.albumdesc, .summarydesc {
+		display: table-header-group;
 		padding: 0;
+		position: relative;
 	}	
 }
 
