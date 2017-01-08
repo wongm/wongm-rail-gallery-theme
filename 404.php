@@ -36,7 +36,7 @@ if ($displaySearch)
     {
         $numberofresults = getNumImages();
         // will only show top images
-        drawWongmGridImages(3);
+        drawWongmGridImages('404', 3);
     }
     else
     {

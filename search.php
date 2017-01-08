@@ -95,7 +95,7 @@ if ($totalAlbums > 0)
 	echo "</div>";
 }
 
-drawWongmGridImages($totalImages); 
+drawWongmGridImages('search', $totalImages); 
 
 if (function_exists('printSlideShowLink')) {
 	echo "<p align=\"center\">";

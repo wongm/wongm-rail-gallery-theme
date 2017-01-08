@@ -207,10 +207,8 @@ function printImageDescWrapped()
  * Used by album.php and search.php
  *
  */
-function drawWongmGridImages($numberOfItems)
+function drawWongmGridImages($pageType, $numberOfItems)
 {
-    $albumLinkHtml = "";
-    $column = 0;
     $count = 0;
     
 	?>
@@ -222,27 +220,8 @@ function drawWongmGridImages($numberOfItems)
     // also enforce limit on items displayed
     while (next_image() && ($count <= $numberOfItems))
     {
-        $column++;
         $count++;
-        
-        if (in_context(ZP_SEARCH))
-        {
-            $albumLinkHtml = getImageAlbumLink();
-        }
-        
-        global $_zp_current_image;
-?>
-<div class="image">
-	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
-		<img src="<? echo getDefaultSizedImage() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
-	</a></div>
-	<div class="imagetitle">
-		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
-		<?php echo printImageDescWrapped(); ?>
-		<small><?php printImageDate(); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
-	</div>
-</div>
-<?php
+        drawWongmImageCell($pageType);
     } ?>
 </div>
 </div>
@@ -253,22 +232,26 @@ function drawWongmImageCell($pageType)
 {
 	global $_zp_current_image;
 	
-	$albumLinkText = getImageAlbumLink();
+	$albumLinkText = "";
+    if ($pageType != 'album')
+    {
+        $albumLinkText = getImageAlbumLink();
+    }
 	
 	// if recent uploads and not logged in
 	if ($pageType == 'uploads' && !zp_loggedin())
 	{
 		$hitcounterText = '';
 	}
-	// other types of recent items / most viewed pages
-	else if ($pageType != 'ratings')
-	{
-		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
-	}
 	// ratings instead
-	else
+	else if ($pageType == 'ratings')
 	{
 		$hitcounterText = getDeathmatchRatingsText();
+	}
+	// other types of recent items / most viewed pages
+	else
+	{
+		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
 	}
 	
 	if (strlen($hitcounterText) > 0)
