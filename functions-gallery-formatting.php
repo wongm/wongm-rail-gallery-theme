@@ -249,6 +249,47 @@ function drawWongmGridImages($numberOfItems)
 <?
 }	// end function
 
+function drawWongmImageCell($pageType)
+{
+	global $_zp_current_image;
+	
+	$albumLinkText = getImageAlbumLink();
+	
+	// if recent uploads and not logged in
+	if ($pageType == 'uploads' && !zp_loggedin())
+	{
+		$hitcounterText = '';
+	}
+	// other types of recent items / most viewed pages
+	else if ($pageType != 'ratings')
+	{
+		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
+	}
+	// ratings instead
+	else
+	{
+		$hitcounterText = getDeathmatchRatingsText();
+	}
+	
+	if (strlen($hitcounterText) > 0)
+	{
+		$hitcounterText = '<br/>' . $hitcounterText;
+	}
+?>
+<div class="image">
+	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
+		<img src="<? echo getDefaultSizedImage() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+	</a></div>
+	<div class="imagetitle">
+		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<?php echo printImageDescWrapped(); ?>
+		<small><?php printImageDate(); ?><?php echo $hitcounterText ?></small>
+		<?php echo $albumLinkText ?>
+	</div>
+</div>
+<?php
+}
+
 /*
  *
  * drawIndexAlbums()
@@ -315,6 +356,29 @@ function drawIndexAlbums($type=null, $numberOfItems = null)
 </div>
 <?
 }
+
+function drawWongmListSubalbums()
+{
+	$toReturn = 0;
+	
+	if (getNumAlbums() > 0)
+	{
+?>
+<!-- Sub-Albums -->
+<div id="indexalbums">
+<?php
+	while (next_album()):
+		drawWongmAlbumRow();
+		$toReturn++;
+	endwhile;
+?>
+</div>
+<?
+	}
+	
+	return $toReturn;
+	
+}	/// end function
 
 /*
  *
@@ -615,70 +679,6 @@ function buildGalleryImageAlbumCountMessage()
     
     return "$totalGalleryImageCount images in $totalGalleryAlbumCount albums.";
 }
-
-function drawWongmImageCell($pageType)
-{
-	global $_zp_current_image;
-	
-	$albumLinkText = getImageAlbumLink();
-	
-	// if recent uploads and not logged in
-	if ($pageType == 'uploads' && !zp_loggedin())
-	{
-		$hitcounterText = '';
-	}
-	// other types of recent items / most viewed pages
-	else if ($pageType != 'ratings')
-	{
-		$hitcounterText = getRollingHitCounter($_zp_current_image, $pageType);
-	}
-	// ratings instead
-	else
-	{
-		$hitcounterText = getDeathmatchRatingsText();
-	}
-	
-	if (strlen($hitcounterText) > 0)
-	{
-		$hitcounterText = '<br/>' . $hitcounterText;
-	}
-?>
-<div class="image">
-	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
-		<img src="<? echo getDefaultSizedImage() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
-	</a></div>
-	<div class="imagetitle">
-		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
-		<?php echo printImageDescWrapped(); ?>
-		<small><?php printImageDate(); ?><?php echo $hitcounterText ?></small>
-		<?php echo $albumLinkText ?>
-	</div>
-</div>
-<?php
-}
-
-function drawWongmListSubalbums()
-{
-	$toReturn = 0;
-	
-	if (getNumAlbums() > 0)
-	{
-?>
-<!-- Sub-Albums -->
-<div id="indexalbums">
-<?php
-	while (next_album()):
-		drawWongmAlbumRow();
-		$toReturn++;
-	endwhile;
-?>
-</div>
-<?
-	}
-	
-	return $toReturn;
-	
-}	/// end function
 
 // based on printAlbumThumbImage
 function printSizedAlbumThumbImage($alt)
