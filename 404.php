@@ -41,7 +41,7 @@ if ($displaySearch)
     else
     {
         $numberofresults = getNumAlbums();
-        drawWongmGridAlbums(3);
+        drawIndexAlbums('404', 3);
     }
 }
 

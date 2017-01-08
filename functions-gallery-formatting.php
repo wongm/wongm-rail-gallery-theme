@@ -168,71 +168,6 @@ function drawNewsFrontpageNextables()
   <?php }
 }
 
-/*
- *
- * drawWongmGridSubalbums()
- *
- * Draw a grid of sub-albums for an album
- *
- */
-function drawWongmGridAlbums($numberOfItems)
-{
-?>
-<!-- Sub-Albums -->
-<div id="indexalbums">
-<?php
-	// neater for when only 4 items
-	if ($numberOfItems == 4)
-	{
-		$i = 1;
-	}
-	else
-	{
-		$i = 0;
-	}
-	while (next_album()):
-    	$count++;
-    	if ($i == 0)
-    	{
-    		echo '<tr>';
-    	}
-    	global $_zp_current_album;
-?>
-<div class="album">
-	<div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
-	<?php printSizedAlbumThumbImage(getAlbumTitle()); ?></a></div>
-	<div class="albumdesc">
-		<h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
-		<?php printAlbumTitle(); ?></a></h4>
-		<small><?php printAlbumDate(); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small>
-		<?php printAlbumDesc(); ?>
-	</div>
-</div>
-<?php
-    	if ($i == 2)
-    	{
-    		echo "</tr>\n";
-    		$i = 0;
-    	}
-    	else
-    	{
-    		$i++;
-    	}
-    	 
-        // enforce limit on items displayed
-        if ($count >= $numberOfItems)
-        {
-            break;
-        }
-    
-	endwhile;
-?>
-</div>
-<?
-}	/// end function
-
-
-
 /**
  * Returns the raw title of the current image.
  *
@@ -323,7 +258,7 @@ function drawWongmGridImages($numberOfItems)
  * Used by recent-albums.php (recent albums) and everything.php (all albums)
  *
  */
-function drawIndexAlbums($type=null)
+function drawIndexAlbums($type=null, $numberOfItems = null)
 {
 	global $_zp_current_album;
 
@@ -367,6 +302,13 @@ function drawIndexAlbums($type=null)
 		while (next_album())
 		{
 			drawWongmAlbumRow();
+			
+            // enforce limit on items displayed
+    		$count++;
+            if ($numberOfItems!= null && $count >= $numberOfItems)
+            {
+                break;
+            }
 		}
 	}
  ?>
