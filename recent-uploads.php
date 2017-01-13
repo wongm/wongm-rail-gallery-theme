@@ -2,5 +2,6 @@
 
 $popularImageText['key'] = 'uploads';
 
+setCustomPhotostream("a.folder NOT LIKE 'wagons%'");
 require_once('uploads-base.php');
 ?>
