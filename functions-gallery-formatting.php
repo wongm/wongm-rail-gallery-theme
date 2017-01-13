@@ -259,7 +259,7 @@ function drawWongmImageCell($pageType)
 		$hitcounterText = '<br/>' . $hitcounterText;
 	}
 ?>
-<div class="image">
+<div class="image<?=getCssClassForImage()?>">
 	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
 		<img src="<? echo getDefaultSizedImage() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
 	</a></div>
@@ -271,6 +271,26 @@ function drawWongmImageCell($pageType)
 	</div>
 </div>
 <?php
+}
+
+function getCssClassForImage()
+{
+    if (!zp_loggedin())
+		return;
+
+	global $_zp_current_image;
+	
+	$width = $_zp_current_image->getWidth();
+	$height = $_zp_current_image->getHeight();
+
+	if (($width == 1024 && $height != 683)
+	    || ($width != 1024 && $height == 683)
+	    || ($width == 1920 && $height != 1280)
+	    || ($width != 1920 && $height == 1280))
+	{
+        return " aspectratioerror";
+	}
+	return;
 }
 
 /*

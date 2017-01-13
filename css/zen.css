@@ -71,6 +71,9 @@
 #admin h3:hover { 
 	color: #036; 
 }
+.aspectratioerror {
+    background-color: #f5a0a0 !important;
+}
 
 /* Font style attributes
 ------------------------------ */
