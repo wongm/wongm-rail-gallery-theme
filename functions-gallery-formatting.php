@@ -283,14 +283,26 @@ function getCssClassForImage()
 	$width = $_zp_current_image->getWidth();
 	$height = $_zp_current_image->getHeight();
 
-	if (($width == 1024 && $height != 683)
-	    || ($width != 1024 && $height == 683)
-	    || ($width == 1920 && $height != 1280)
-	    || ($width != 1920 && $height == 1280))
+	if (($width == 1024 && $height == 683)
+	    || ($width == 683 && $height == 1024)
+	    || ($width == 1920 && $height == 1280)
+	    || ($width == 1280 && $height == 1920))
 	{
-        return " aspectratioerror";
+        return;
 	}
-	return;
+	
+	$aspectratio = ($width / $height);
+	if ($height > $width) 
+	{
+    	$aspectratio = ($height / $width);
+	}
+	
+	if ($aspectratio <= 1.499)
+	{
+    	return " aspectratioerrorshrink $aspectratio";
+	}
+	
+	return " aspectratioerrorexpand $aspectratio";
 }
 
 /*
