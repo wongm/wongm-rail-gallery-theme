@@ -1,8 +1,7 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $popularImageText['key'] = 'duplicates';
-
-$where = "1=1) GROUP BY i.filename HAVING  ( COUNT(i.filename) > 1 ";
-setCustomPhotostream($where);
+$sqlJoin = "INNER JOIN (SELECT inside.filename FROM zen_images inside GROUP BY inside.filename HAVING ( COUNT(inside.filename) > 1 )) AS dupes ON i.filename = dupes.filename";
+setCustomPhotostream("", "", "", $sqlJoin);
 require_once('uploads-base.php');
 ?>
