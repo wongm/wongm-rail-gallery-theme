@@ -29,6 +29,7 @@ include_once('header.php'); ?>
 	</p>
 <?php 
 	printEXIFData();
+	printTags('links', 'Tags');
   
   ?>
 </div>
