@@ -17,7 +17,7 @@ if ($showSingleMonth)
 	$month = $_GET['page'];
 	$splitmonth = explode('-', $month);
 	
-	if (is_numeric($splitmonth[0]))
+	if (sizeof($splitmonth) == 2)
 	{	
 		$timeformatted = strftime('%B %Y', mktime(1, 1, 1, $splitmonth[1], 1, $splitmonth[0]));
 		$pageTitle .= " - $timeformatted";
