@@ -41,6 +41,8 @@ class wongmTheme {
         	case 'recent-uncaptioned-albums':
         	case 'recent-uploads':
         	case 'recent-wagons':
+        	case 'recent-trams':
+        	case 'recent-buses':
         	case 'rss-updates':
         	    return true;
 		}

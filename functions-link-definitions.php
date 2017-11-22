@@ -8,6 +8,8 @@ DEFINE ('RANDOM_ALBUM_PATH', "/page/random");
 
 DEFINE ('UPDATES_URL_PATH', "/page/recent-uploads");
 DEFINE ('WAGON_UPDATES_URL_PATH', "/page/recent-wagons");
+DEFINE ('BUSES_UPDATES_URL_PATH', "/page/recent-buses");
+DEFINE ('TRAMS_UPDATES_URL_PATH', "/page/recent-trams");
 
 DEFINE ('RECENT_ALBUM_PATH', "/page/recent-albums");
 
@@ -70,7 +72,7 @@ $popularImageText['duplicates']['title'] = 'Duplicated images';
 
 $popularImageText['wagons']['url'] = WAGON_UPDATES_URL_PATH;
 $popularImageText['wagons']['title'] = 'Recent uploads - Wagons';
-$popularImageText['wagons']['text'] = 'Wagons and containers';
+$popularImageText['wagons']['text'] = 'Recent wagons and container uploads';
 $popularImageText['wagons']['type'] = 'recent';
 $popularImageText['wagons']['order'] = "i.mtime DESC";
 $popularImageText['wagons']['where'] = "folder LIKE 'wagons%'";
