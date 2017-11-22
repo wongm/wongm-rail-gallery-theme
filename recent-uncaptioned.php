@@ -2,7 +2,7 @@
 
 $popularImageText['key'] = 'uncaptioned';
 
-$where = "i.title REGEXP '_[0-9]{4}' OR i.title REGEXP 'DSCF[0-9]{4}'";
+$where = UNCAPTIONED_IMAGE_REGEX;
 setCustomPhotostream($where);
 require_once('uploads-base.php');
 ?>
