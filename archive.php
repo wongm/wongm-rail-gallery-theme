@@ -38,7 +38,12 @@ include_once('header.php');
 <?	
 if ($showSingleMonth and $month != '' and function_exists("printSingleMonthArchive"))
 {
+	echo '<p>Photos by day:</p>';
+	
 	printSingleMonthArchive();
+	
+	// link to search page for all photos of this month
+	echo "<p>Or <a href=\"".html_encode(getSearchURL(null, substr($month, 0, 7), null, 0, null))."\" rel=\"nofollow\">show all photos</a></p>\n";
 	echo '</div>';
 }
 else
