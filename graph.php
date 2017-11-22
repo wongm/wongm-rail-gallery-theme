@@ -4,7 +4,7 @@ if (isset($_GET['page']))
 {
 	//header('Content-Type: application/json');
 	echo $_GET['callback']. "([";
-	$i = 0;
+	$lastValue = $i = 0;
 	foreach (getAllDates() as $key => $value)
 	{
 		$archiveURL = SEO_WEBPATH . '/' . _ARCHIVE_ . '/?page=' . substr($key, 0, 7);
