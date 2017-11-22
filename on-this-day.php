@@ -76,11 +76,11 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
         {
             drawWongmImageCell('uploads');
         }
-    }
 ?>
     </div>
 </div>
 <?
+    }
 }
 
 include_once('footer.php'); 
