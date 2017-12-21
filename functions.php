@@ -43,6 +43,7 @@ class wongmTheme {
         	case 'recent-wagons':
         	case 'recent-trams':
         	case 'recent-buses':
+        	case 'recent-trains':
         	case 'rss-updates':
         	    return true;
 		}
