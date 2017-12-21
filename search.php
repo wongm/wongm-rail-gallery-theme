@@ -63,7 +63,7 @@ if (isset($_REQUEST['words'])) { ?>
 <script type="text/javascript">$(document).ready(function() {
 	document.getElementById('search_input').value = '<? echo str_replace("\"", "", getSearchWords()); ?>';
 });</script>
-<? 
+<?php
 }
  ?>
 <div class="headbar">
@@ -75,7 +75,7 @@ if (isset($_REQUEST['words'])) { ?>
 	<?php echo $leadingIntroText; ?>
 </div>
 <div id="searchpage">
-<?
+<?php
 if ($totalAlbums > 0)
 {
 	echo "<div id=\"indexalbums\">\n";

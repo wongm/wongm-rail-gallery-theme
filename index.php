@@ -30,7 +30,7 @@ $mostRecentImageData = getMostRecentImageData();
         </ul>
 	</div>
 </div>
-<?
+<?php
 
 if (function_exists('next_news')) {
 

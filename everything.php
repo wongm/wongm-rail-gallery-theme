@@ -17,7 +17,7 @@ if(isset($_REQUEST['by-theme']))
 	<a href="/gallery" title="Albums by theme">Albums by theme</a>
 	</span><span id="righthead"><?printSearchForm();?></span>
 </div>
-<?
+<?php
 	drawIndexAlbums('dynamiconly');
 }
 /*
@@ -42,7 +42,7 @@ else
   	<h2>All albums</h2>
 	<span>All <?=$totalGalleryAlbumCount?> albums that are currently on the site.</span>
 </div>
-<?
+<?php
 	drawIndexAlbums('nodynamic');
 
 	if(hasNextPage() || hasPrevPage())

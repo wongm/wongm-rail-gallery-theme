@@ -17,7 +17,7 @@ include_once('header.php');
   	<h2><?php printMWEditableAlbumTitle(true);?></h2>
   	<?php printMWEditableAlbumDesc(true); ?>
 </div>
-<?
+<?php
  	drawWongmListSubalbums();
 
  	/* Only print if we have images. */
