@@ -657,7 +657,7 @@ function printMetadata($pageTitle)
 		$title = getBareAlbumTitle();
 	}
 	
-	echo "<meta name=\"og:description\" content=\"$description\" />\n";
+	echo "<meta property=\"og:description\" content=\"$description\" />\n";
 	
 	if (strlen($title) > 0)
 	{
@@ -667,8 +667,8 @@ function printMetadata($pageTitle)
 		}
 		$imagePath = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . $imagePath;
 		
-		echo "<meta name=\"og:image\" content=\"$imagePath\" />\n";
-		echo "<meta name=\"og:title\" content=\"$title\" />\n";	
+		echo "<meta property=\"og:image\" content=\"$imagePath\" />\n";
+		echo "<meta property=\"og:title\" content=\"$title\" />\n";	
 		echo "<meta name=\"twitter:card\" content=\"photo\">\n";
 		echo "<meta name=\"twitter:title\" content=\"$title\">\n";
 		echo "<meta name=\"twitter:image:src\" content=\"$imagePath\">\n";
