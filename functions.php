@@ -32,6 +32,7 @@ class wongmTheme {
         	case 'popular-ratings':
         	case 'popular-this-month':
         	case 'popular-this-week':
+        	case 'popular-this-year':
         	case 'recent-albums':
         	case 'recent-duplicates':
         	case 'recent-resize':
