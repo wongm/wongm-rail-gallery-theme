@@ -621,10 +621,10 @@ function printMetadata($pageTitle)
 		if (isset($_REQUEST['date']) && strlen($_REQUEST['date']) > 8 && getNumImages() && strlen($_REQUEST['date']) > 7)
 		{
 			global $_zp_current_DailySummaryItem;
-			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);			
+			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);
 			$description = getDailySummaryDesc();
-			$title = getDailySummaryTitle();
-			$imagePath = $_zp_current_DailySummaryItem->getDailySummaryThumbImage()->getSizedImage(getOption('image_size'));
+			$title = getDailySummaryTitleAndDesc();
+			$imagePath = $_zp_current_DailySummaryItem->getDailySummaryThumbImage()->getFullImageURL();
 		}
 	}
 	// image page
@@ -634,7 +634,7 @@ function printMetadata($pageTitle)
 		if (strlen(getImageDesc()) > 0) {
 			$description = strip_tags(getImageDesc());
 		}
-		$title = getImageTitle();
+		$shortTitle = $title = getImageTitle();
 	} 
 	// album page
 	else if (in_context(ZP_ALBUM))
@@ -658,6 +658,8 @@ function printMetadata($pageTitle)
 	}
 	
 	echo "<meta property=\"og:description\" content=\"$description\" />\n";
+	echo "<meta property=\"og:type\" content=\"article\" />\n";
+	echo "<meta property=\"og:site_name\" content=\"" . getGalleryTitle() . "\" />\n";
 	
 	if (strlen($title) > 0)
 	{

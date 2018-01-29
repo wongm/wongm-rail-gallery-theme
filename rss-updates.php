@@ -40,7 +40,7 @@ NewDailySummary(getOption('RSS_items'));
 	$imagePath = getDefaultSizedImage();
 ?>
 <item>
-    <title><?php echo getDailySummaryTitle(); ?></title>
+    <title><?php echo getDailySummaryTitleAndDesc(); ?></title>
     <link><![CDATA[<?php echo $protocol . '://' . $host . getDailySummaryUrl(); ?>]]></link>
     <description><![CDATA[<img border="0" src="<?php echo $protocol . '://' . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo getDailySummaryDesc(); ?>]]></description>
     <guid><![CDATA[<?php echo $protocol . '://' . $host . getDailySummaryUrl(); ?>]]></guid>
