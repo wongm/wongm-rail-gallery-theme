@@ -14,27 +14,72 @@ $mostRecentImageData = getMostRecentImageData();
 	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; Home
 	</span><span id="righthead"><?printSearchForm();?></span>
 </div>
-<h2 class="index">News</h2>
 <div id="indexalbums">
-<div class="album">
+<?php 
+NewDailySummary(8);
+while (next_DailySummaryItem()) { 
+    global $_zp_current_DailySummaryItem;
+	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());	
+	$dayData = new stdClass;
+	$dayData->date = date("l, j F", strtotime(getDailySummaryDate()));
+	$dayData->imagePath = getDefaultSizedImage();
+	$dayData->imageCaption = $dayData->date . ' - ' . getImageTitle();
+	$dayData->description = getDailySummaryNumImages() . ' new photos ' . getDailySummaryDescInternal();
+	$dayData->link = getDailySummaryUrl();
+	$dailySummaryData[] = $dayData;
+	$i = 0;
+}
+?>
+<div class="album recentuploads">
 	<div class="albumthumb">
-		<a href="<?=UPDATES_URL_PATH?>" title="Recent uploads"><img src="<? echo $mostRecentImageData['thumbnailUrl']; ?>" alt="Recent uploads" /></a>
-	 </div>
-	 <div class="summarydesc">
-		<h4><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h4>
+<?php   while ($i++ < 3) 
+	    { ?>
+		<a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">
+		    <img src="<? echo $dailySummaryData[$i]->imagePath; ?>" alt="<?php echo $dailySummaryData[$i]->imageCaption; ?>" title="<?php echo $dailySummaryData[$i]->imageCaption; ?>" />
+		</a>
+<?php   } ?>
+	</div>
+	<div class="summarydesc">
+	    <h2><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h2>
 		<p><? echo $mostRecentImageData['content']; ?></p>
-		<ul><?php NewDailySummary(5);
-        while (next_DailySummaryItem()) { ?>
-        <li><p><?php echo date("F j", strtotime(getDailySummaryDate())); ?> - <?php echo getDailySummaryNumImages(); ?> new photos in <?php echo getDailySummaryAlbumNameText(); ?></p></li>
-        <?php } ?>
-        </ul>
+		<ul>
+<?php   foreach ($dailySummaryData as $dayData)
+        { ?>
+		<li>
+		    <p><?php echo $dayData->date; ?></p>
+		    <p><?php echo $dayData->description; ?></p>
+		<?php   } ?>
+		</ul>
+	</div>
+</div>
+<?
+
+if (function_exists('getSummaryForCurrentDay')) {
+
+    $customDate = "";
+    if (isset($_GET['date']))
+    {
+        $customDate = $_GET['date'];
+    }
+    $summaryForCurrentDay = getSummaryForCurrentDay($customDate);
+    $link = "/page/on-this-day?date=$summaryForCurrentDay->currentDayLink";
+?>
+<div class="album recentuploads">
+	<div class="albumthumb">
+	    <a href="/page/on-this-day" title="On this day"><img src="<?php echo $summaryForCurrentDay->imageUrl; ?>" /></a>
+	</div>
+	<div class="summarydesc">
+	    <h2><a href="/page/on-this-day" title="On this day">On this day</a></h2>	    
+	    <p class="recent"><? echo $summaryForCurrentDay->title; ?></p>
+		<p><? echo $summaryForCurrentDay->desc; ?></p>
 	</div>
 </div>
 <?php
+}
 
 if (function_exists('next_news')) {
 
-    $i = 0;    
+    $i = 0;
     
     while (next_news() AND $i++ < getOption('wongm_news_count')): ;?>
 <div class="news">
@@ -56,108 +101,10 @@ if (function_exists('next_news')) {
 
 ?>
 </div>
-<h2 class="index">Sliced and diced</h2>
 <?php
 
-$_randomImageAttempts = 0;
-$randomImages = getRandomImagesSet(4);
-$randomFilepath1 = getThumbnailURLFromRandomImagesSet($randomImages[0]);
-$randomFilepath2 = getThumbnailURLFromRandomImagesSet($randomImages[1]);
-$randomFilepath3 = getThumbnailURLFromRandomImagesSet($randomImages[2]);
-?>
-<div id="indexalbums">
-<div class="album">
-	<div class="albumthumb">
-		<a href="<?=POPULAR_URL_PATH?>" title="Popular photos"><img src="<?=$randomFilepath1 ?>" alt="Popular photos" /></a>
-	 </div>
-	 <div class="albumdesc">
-		<h4><a href="<?=POPULAR_URL_PATH?>" title="Popular photos">Popular photos</a></h4>
-		<p>The most popular photos - by week, month, all time, or your ratings!</p>
-	</div>
-</div>
-<div class="album">
-	<div class="albumthumb">
-		<a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos"><img src="<?=$randomFilepath2 ?>" alt="Rate my photos" /></a>
-	 </div>
-	 <div class="albumdesc">
-		<h4><a href="<?=DO_RATINGS_URL_PATH?>" title="Rate my photos">Rate my photos</a></h4>
-		<p>Photo death match - I show you two random photos, you choose which one you like better.</p>
-	</div>
-</div>
-<div class="album">
-	<div class="albumthumb">
-		<a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos"><img src="<?=$randomFilepath3 ?>" alt="Random photos" /></a>
-	 </div>
-	 <div class="albumdesc">
-		<h4><a href="<?=RANDOM_ALBUM_PATH?>" title="Random photos">Random photos</a></h4>
-		<p>A selection of random photos each time you refresh the page</p>
-	</div>
-</div>
-</div>
-<?php
-
-// dynamic albums
-echo "<h2 class=\"index\">Albums</h2>\n";
-echo "<div id=\"indexalbums\">\n";
-
-global $totalGalleryAlbumCount;
-$randomFilepath4 = getThumbnailURLFromRandomImagesSet($randomImages[3]);
-?>
-<div class="album">
-	<div class="albumthumb">
-		<a href="<?=EVERY_ALBUM_PATH?>" title="All albums"><img src="<?=$randomFilepath4 ?>" alt="All albums" /></a>
-	 </div>
-	 <div class="albumdesc">
-		<h4><a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a></h4>
-		<p>Every album - all <?=$totalGalleryAlbumCount?> of them</p>
-	</div>
-</div>
-<?php
-while (next_album(true))
-{
-	if ($_zp_current_album->isDynamic())
-	{
-		drawWongmAlbumRow('frontpage');
-	}
-}		
-echo "</div>\n";
 include_once('footer.php');
 
-
-/**
- * Returns a randomly selected image from the gallery. (May be NULL if none exists)
- * @param bool $daily set to true and the picture changes only once a day.
- *
- * @return object
- */
-function getRandomImagesSet($toReturn = 5) {
-	global $_zp_gallery;
-	global $_randomImageAttempts;
-	
-	$SQLwhere = prefix('images') . ".show=1 
-	    AND (" . prefix('images') . ".hitCounter > " . getOption('random_threshold_hitcounter') . " 
-	    AND " . prefix('images') . ".ratings_score > " . getOption('random_threshold_ratings') . ")";
-	
-	$offsetResult = query_full_array( " SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM " . prefix('images') . " WHERE " . $SQLwhere);
-	$offset = $offsetResult[0]['offset'];
-	
-	$sql = " SELECT " . prefix('images') . ".title, " . prefix('images') . ".filename, " . prefix('albums') . ".folder
-		FROM " . prefix('images') . "
-		INNER JOIN " . prefix('albums') . " ON " . prefix('images') . ".albumid = " . prefix('albums') . ".id 
-		WHERE " . $SQLwhere . " 
-		LIMIT $offset, $toReturn ";
-		
-	$randomImagesResult = query_full_array( $sql );
-	$imageCount = count($randomImagesResult);
-	
-	if ($imageCount != $toReturn AND $_randomImageAttempts < 5)
-	{
-		$_randomImageAttempts++;
-		return getRandomImagesSet($toReturn);
-	}
-	
-	return $randomImagesResult;
-}
 
 function getThumbnailURLFromRandomImagesSet($array)
 {
@@ -213,7 +160,7 @@ function getMostRecentImageData()
 	$todayDate = strtotime(Date("Y-m-d", time()));
     $dateDiff = $todayDate - $mostRecentImageDate;
 	$daysSinceUpdate = floor($dateDiff/(60*60*24));
-	$formattedUpdatedDate = strftime('%A %B %e, %Y', $mostRecentImageTimestamp);
+	$formattedUpdatedDate = strftime('%A %e %B, %Y', $mostRecentImageTimestamp);
 	
 	$plural = "s";
 	
