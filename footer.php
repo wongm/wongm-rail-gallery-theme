@@ -1,6 +1,6 @@
 </div>
 <div id="footer">
-<a href="/">Home</a> :: <a href="<?=CONTACT_URL_PATH?>">Contact</a><br/>
+<a href="/">Home</a> :: <a href="https://www.facebook.com/wongms.rail.gallery">Facebook</a> :: <a href="https://twitter.com/wongmsrailpics">Twitter</a> :: <a href="<?php echo CONTACT_URL_PATH; ?>">Contact</a><br/>
 <?php 	//display page generation time
 $endTime = array_sum(explode(" ",microtime()));
 $generation = str_replace('-', '', round(($endTime - $startTime), 3));
