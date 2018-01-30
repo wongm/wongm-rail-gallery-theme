@@ -63,8 +63,9 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
 
     if ($photocount > 0)
     {
+		$_zp_current_DailySummaryItem = new DailySummaryItem($dayLink);		
         echo "<div class=\"pastyears\"><h3>$year $suffix ago</h3>\n";
-        echo "<p>$photocount photos found - <a href=\"/page/archive/$dayLink\">View more...</a>$extraText</p></div>";
+        echo "<p>$photocount photos " . getDailySummaryDescInternal() . " - <a href=\"/page/archive/$dayLink\">View more...</a>$extraText</p></div>";
 ?>
 <div id="imagewrapper">
     <div id="images">
