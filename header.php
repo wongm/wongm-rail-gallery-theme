@@ -42,7 +42,7 @@ $galleryImageAlbumCountMessage = buildGalleryImageAlbumCountMessage();
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title><?php echo $pageTitle; ?> - <?php printGalleryTitle(); ?></title>
-<link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/zen.css?v=4" type="text/css" />
+<link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/zen.css?v=4.51" type="text/css" />
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/css/slimbox2.css" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml" href="/provider.xml" />
@@ -74,14 +74,36 @@ if (function_exists('printMetadata')) {
 	<div id="sitedesc"><?=getGalleryDesc();?></div>
 	<div style="clear:both;"></div>
 	<div class="sitemenu">
-		<div class="menu"><a href="/news" title="News">News</a></div>
-		<div class="menu"><a href="<?=EVERY_ALBUM_PATH?>" title="Show all albums">All albums</a></div>
-		<div class="menu"><a href="<?=RECENT_ALBUM_PATH?>" title="Recently added albums">Recent albums</a></div>
-		<div class="menu"><a href="<?=UPDATES_URL_PATH?>" title="Recently uploaded photos">Recent uploads</a></div>
-		<div class="menu"><a href="<?=POPULAR_URL_PATH?>" title="Most popular images">Popular</a></div>
-		<div class="menu"><a href="<?=RANDOM_ALBUM_PATH?>" title="A selection of random photos">Random</a></div>
-		<div class="menu"><a href="<?=ARCHIVE_URL_PATH?>" title="View photos in the order they were taken">Archives</a></div>
-		<div class="menu"><a href="<?=CONTACT_URL_PATH?>" title="Want to drop me a line?">About me</a></div>
+		<nav id="nav" role="navigation"> <a href="#nav" title="Show navigation">Show navigation</a> <a href="#" title="Hide navigation">Hide navigation</a>
+		  <ul class="clearfix">
+			<li><a href="/news">News</a></li>
+			<li><a><span>Albums</span></a>
+				  <ul>
+					<li><a href="<?=EVERY_ALBUM_PATH?>" title="Show all albums">Everything</a></li>
+					<li><a href="/page/albums">Albums by theme</a></li>
+					<li><a href="<?=RECENT_ALBUM_PATH?>" title="Recently added albums">Recent albums</a></li>
+				  </ul>
+				</li>
+			<li><a title="Recently uploaded photos"><span>Recent uploads</span></a>
+				  <ul>
+					<li><a href="<?=UPDATES_URL_PATH?>" title="Recently uploaded photos">Everything</a></li>
+					<li><a href="/page/recent-trains">Trains</a></li>
+					<li><a href="/page/recent-trams">Trams</a></li>
+					<li><a href="/page/recent-buses">Buses</a></li>
+					<li><a href="/page/recent-wagons">Wagons and containers</a></li>
+				  </ul>
+				</li>
+			<li><a><span>Explore</span></a>
+				  <ul>
+					<li><a href="/page/on-this-day">On this day</a></li>
+					<li><a href="<?=POPULAR_URL_PATH?>" title="Most popular photos">Popular photos</a></li>
+					<li><a href="<?=RANDOM_ALBUM_PATH?>" title="A selection of random photos">Random photos</a></li>
+					<li><a href="<?=ARCHIVE_URL_PATH?>">Archives</a></li>
+				  </ul>
+				</li>
+			<li><a href="<?=CONTACT_URL_PATH?>" title="Want to drop me a line?">About me</a></li>
+		  </ul>
+		</nav>
 	</div>
 </div>
 <div id="content" class="<?=$contentdiv?>">
