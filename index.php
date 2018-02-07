@@ -27,17 +27,18 @@ while (next_DailySummaryItem()) {
 	$dayData->description = getDailySummaryNumImages() . ' new photos ' . getDailySummaryDescInternal();
 	$dayData->link = getDailySummaryUrl();
 	$dailySummaryData[] = $dayData;
-	$i = 0;
 }
 ?>
 <div class="album recentuploads">
 	<div class="albumthumb">
-<?php   while ($i++ < 3) 
+<?php   foreach ($dailySummaryData as $key=>$dayData)
 	    { ?>
-		<a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">
-		    <img src="<? echo $dailySummaryData[$i]->imagePath; ?>" alt="<?php echo $dailySummaryData[$i]->imageCaption; ?>" title="<?php echo $dailySummaryData[$i]->imageCaption; ?>" />
+		<a href="<?php echo UPDATES_URL_PATH; ?>" title="Recent uploads">
+		    <img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" />
 		</a>
-<?php   } ?>
+<?php       if ($key >= 2)
+                break;
+        } ?>
 	</div>
 	<div class="summarydesc">
 	    <h2><a href="<?php echo UPDATES_URL_PATH; ?>" title="Recent uploads">Recent uploads</a></h2>
