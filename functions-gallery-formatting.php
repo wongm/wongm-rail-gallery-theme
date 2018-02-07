@@ -106,16 +106,14 @@ function printEXIFData()
 
 	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
 	{
-		$date = explode(':', $result['EXIFDateTimeOriginal']);
-		$splitdate = explode(' ', $date[2]);
-		$udate = mktime($splitdate[1], $date[3],$date[4],$date[1],$splitdate[0],$date[0]);
+		$udate = strtotime($result['EXIFDateTimeOriginal']);
 		$fdate = strftime('%B %d, %Y', $udate);
 		$ftime = strftime('%H:%M %p', $udate);
+		$dateString = strftime('%Y-%m-%d', $udate);
 
 		//check if seach by date exists, should be in set up in plugins\archive_days.php
 		if (function_exists('printSingleMonthArchive'))
 		{
-    		$dateString = $date[0] . '-' . $date[1] . '-' . $splitdate[0];
     		$dateLink = "<a href=\"".html_encode(getSearchURL(null, $dateString, null, 0, null))."\" title=\"See other photos from this date\">$fdate</a> $ftime";
 		}
 		else
