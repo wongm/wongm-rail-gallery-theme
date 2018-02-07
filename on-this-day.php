@@ -15,11 +15,11 @@ include_once('header.php');
 $pageBreadCrumb = 'On this day';
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-    <?=$pageBreadCrumb?>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+    <?php echo $pageBreadCrumb; ?>
+	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>
-<?
+<?php
 
 $now = time();
 if (isset($_GET['date']))
@@ -36,7 +36,7 @@ $timestamp->setTimezone($melbournetimezone);
 <div class="topbar">
     <h2>On this day, <?php echo $timestamp->format('F d') ?></h2>
 </div>
-<?
+<?php
 
 foreach (array(1, 2, 5, 10, 15) AS $year)
 {
@@ -80,7 +80,7 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
 ?>
     </div>
 </div>
-<?
+<?php
     }
 }
 

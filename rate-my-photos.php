@@ -15,9 +15,9 @@ include_once('header.php');
 ?>
 <div class="headbar">
 	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
-<?
+<?php
 
 if (isset($_POST['option']))
 {	
@@ -116,19 +116,19 @@ if (isset($_POST['option']))
 	<p><i><?=$resultText?></i></p>
 	<p><a href="<?=RATINGS_URL_PATH?>">See the highest rated photos</a></p>
 </td></tr></table>
-<?
+<?php
 	} 	// end successful submit
 }		// end any submit
 ?>
 <div class="topbar"><h2><?=$votePromptText?></h2></div>
-<?
+<?php
 $imageOptions = array(getRandomImageForRatings(), getRandomImageForRatings());
 $titleOptions = array('A', 'B');
 $reverseOptions = array($imageOptions[0], $imageOptions[1], $imageOptions[0]);
 $i = 0;
 ?>
 <table class="indexalbums">
-<?
+<?php
 
 // draw out the image options
 foreach ($imageOptions as $random)
@@ -150,7 +150,7 @@ foreach ($imageOptions as $random)
 ?>
 <tr class="album">
 <td class="albumthumb">
-<?
+<?php
 	echo "<form method=\"post\" action=\"" . DO_RATINGS_URL_PATH . "\" id=\"dorating\">\n";
 	echo "<input id=\"option\" name=\"option\" type=\"hidden\" value=\"$title\" />\n";
 	echo "<input id=\"image\" name=\"image\" type=\"hidden\" value=\"$optionA\" />\n";
@@ -171,28 +171,28 @@ foreach ($imageOptions as $random)
 <p><small><?=$date; ?></small></p>
 <p>Album: <?=$albumTitle ?></p>
 </td><td class="albumdesc">
-<?
+<?php
 	echo "<p><img src=\"" . htmlspecialchars(getDefaultSizedImage()) . "\" alt=\" $alt \" title=\" $alt \" /></p>";
 	$i++;
 ?>
 </td></tr>
-<?
+<?php
 	if ($i == 1)
 	{
 ?>
 <tr class="album"><td class="albumthumb">
-<?
+<?php
 echo "<form method=\"post\" action=\"" . DO_RATINGS_URL_PATH . "\" id=\"dorating\">\n";
 echo "<input class=\"button\" type=\"submit\" value=\"Neither\" />\n";
 echo "</form>\n";
 ?>
 </td><td class="albumdesc"><p>I can't decide - give me 2 new photos</p></td></tr>
-<?
+<?php
 	}
 }
 ?>
 </table>
-<?
+<?php
 include_once('footer.php'); 
 
 function calculateScore($ratings_win, $ratings_view)

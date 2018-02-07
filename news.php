@@ -10,11 +10,11 @@ if (substr($pageTitle, $len-2, 1) == '-')
 }
 include_once('header.php');?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a>
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a>
 		<?php printNewsIndexURL("News"," » "); ?>
 		<?php printCurrentNewsCategory(" » "); ?>
 		<?php printNewsTitle(" » "); ?>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <?php 
 
@@ -67,6 +67,6 @@ drawNewsFrontpageNextables();
 } 
 ?>
 </div>
-<?
+<?php
 include_once('footer.php'); 
 ?>

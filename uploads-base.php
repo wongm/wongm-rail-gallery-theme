@@ -45,13 +45,13 @@ switch ($pageClass)
 <div class="headbar">
 	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<?=$pageBreadCrumb?>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <div class="topbar">
 	<h2><?=$subheading?></h2>
 </div>
 
-<p><? echo $subheading; ?>, images <? echo getNumberCurrentDisplayedRecords(); ?> shown on this page.
+<p><?php echo $subheading; ?>, images <?php echo getNumberCurrentDisplayedRecords(); ?> shown on this page.
 <?php
 if (array_key_exists('subtext', $popularImageText[$pageType]))
 {

@@ -1,24 +1,30 @@
 <?php
 
-DEFINE ('ARCHIVE_URL_PATH', "/page/archive");
-DEFINE ('SEARCH_URL_PATH', "/page/search");
-DEFINE ('EVERY_ALBUM_PATH', "/page/everything");
-DEFINE ('CONTACT_URL_PATH', "/contact.php");
-DEFINE ('RANDOM_ALBUM_PATH', "/page/random");
+DEFINE ('HOME_PATH', WEBPATH . "/");
+DEFINE ('NEWS_URL_PATH', WEBPATH . "/news");
 
-DEFINE ('UPDATES_URL_PATH', "/page/recent-uploads");
-DEFINE ('WAGON_UPDATES_URL_PATH', "/page/recent-wagons");
-DEFINE ('BUSES_UPDATES_URL_PATH', "/page/recent-buses");
-DEFINE ('TRAMS_UPDATES_URL_PATH', "/page/recent-trams");
+DEFINE ('ARCHIVE_URL_PATH', WEBPATH . "/page/archive");
+DEFINE ('SEARCH_URL_PATH', WEBPATH . "/page/search");
+DEFINE ('EVERY_ALBUM_PATH', WEBPATH . "/page/everything");
+DEFINE ('ALBUM_THEME_PATH', WEBPATH . "/page/albums");
+DEFINE ('CONTACT_URL_PATH', WEBPATH . "/contact.php");
+DEFINE ('RANDOM_ALBUM_PATH', WEBPATH . "/page/random");
 
-DEFINE ('RECENT_ALBUM_PATH', "/page/recent-albums");
+DEFINE ('UPDATES_URL_PATH', WEBPATH . "/page/recent-uploads");
+DEFINE ('WAGON_UPDATES_URL_PATH', WEBPATH . "/page/recent-wagons");
+DEFINE ('BUSES_UPDATES_URL_PATH', WEBPATH . "/page/recent-buses");
+DEFINE ('TRAMS_UPDATES_URL_PATH', WEBPATH . "/page/recent-trams");
+DEFINE ('TRAINS_UPDATES_URL_PATH', WEBPATH . "/page/recent-trains");
 
-DEFINE ('ALL_TIME_URL_PATH', "/page/popular-all-time");
-DEFINE ('THIS_MONTH_URL_PATH', "/page/popular-this-month");
-DEFINE ('THIS_WEEK_URL_PATH', "/page/popular-this-week");
-DEFINE ('RATINGS_URL_PATH', '/page/popular-by-ratings');
-DEFINE ('POPULAR_URL_PATH', "/page/popular");
-DEFINE ('DO_RATINGS_URL_PATH', '/page/rate-my-photos');
+DEFINE ('RECENT_ALBUM_PATH', WEBPATH . "/page/recent-albums");
+
+DEFINE ('ALL_TIME_URL_PATH', WEBPATH . "/page/popular-all-time");
+DEFINE ('THIS_MONTH_URL_PATH', WEBPATH . "/page/popular-this-month");
+DEFINE ('THIS_WEEK_URL_PATH', WEBPATH . "/page/popular-this-week");
+DEFINE ('RATINGS_URL_PATH', WEBPATH . '/page/popular-by-ratings');
+DEFINE ('POPULAR_URL_PATH', WEBPATH . "/page/popular");
+DEFINE ('DO_RATINGS_URL_PATH', WEBPATH . '/page/rate-my-photos');
+DEFINE ('ON_THIS_DAY_URL_PATH', WEBPATH . '/page/on-this-day');
 DEFINE ('GALLERY_PATH', '');
 
 DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . '">here</a>');

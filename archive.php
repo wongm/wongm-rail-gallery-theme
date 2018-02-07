@@ -10,6 +10,7 @@ else
 $timeformatted = "Gallery archive";
 $rssType = 'Gallery';
 $rssTitle = 'Recent uploads';
+$headbarextra = "";
 
 if ($showSingleMonth)
 {
@@ -27,15 +28,15 @@ if ($showSingleMonth)
 include_once('header.php');
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<a href="<?=ARCHIVE_URL_PATH?>" title="Gallery Archive">Archive</a><?=$headbarextra?>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<a href="<?php echo ARCHIVE_URL_PATH; ?>" title="Gallery Archive">Archive</a><?php echo $headbarextra; ?>
+	</span><span id="righthead"><?php printSearchForm();?></span>
 </div>
 <div class="topbar">
-	<h2><?=$timeformatted?></h2>
+	<h2><?php echo $timeformatted; ?></h2>
 </div>
 <div id="archive">
-<?	
+<?php
 if ($showSingleMonth and $month != '' and function_exists("printSingleMonthArchive"))
 {
 	echo '<p>Photos by day:</p>';
@@ -60,7 +61,7 @@ else
 <?php 	}
 ?>
 <div id="tag_cloud">
-	<h2><? echo gettext('Popular tags'); ?></h2>
+	<h2><?php echo gettext('Popular tags'); ?></h2>
 		<?php printAllTagsAs('cloud', 'tags'); ?>
 </div>
 <?php

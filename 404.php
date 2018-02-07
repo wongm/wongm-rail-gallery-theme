@@ -22,7 +22,7 @@ include_once('header.php');
 ?>
 <div class="headbar">
 	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found
-	</span><span id="righthead"><?printSearchForm();?></span>
+	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <div class="topbar">
   	<h2>404 Page Not Found</h2>

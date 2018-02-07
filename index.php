@@ -12,7 +12,7 @@ $mostRecentImageData = getMostRecentImageData();
 ?>
 <div class="headbar">
 	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; Home
-	</span><span id="righthead"><?printSearchForm();?></span>
+	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <div id="indexalbums">
 <?php 

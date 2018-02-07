@@ -8,15 +8,15 @@ include_once('header.php');
 global $totalGalleryAlbumCount;
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<a href="<?=RECENT_ALBUM_PATH?>" title="Recent albums">Recent albums</a>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<a href="<?php echo RECENT_ALBUM_PATH; ?>" title="Recent albums">Recent albums</a>
+	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>
 <div class="topbar">
-  	<h2><?=$rssTitle?></h2>
-	<span>Occasionally I will add new albums that contain older photos, here are the most recently added. There are <?=$totalGalleryAlbumCount?> in total.</span>
+  	<h2><?php echo $rssTitle; ?></h2>
+	<span>Occasionally I will add new albums that contain older photos, here are the most recently added. There are <?php echo $totalGalleryAlbumCount; ?> in total.</span>
 </div>
-<?
+<?php
 drawIndexAlbums('recent');
 if(hasNextPage() || hasPrevPage())
 {

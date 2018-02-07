@@ -14,11 +14,11 @@ include_once('header.php');
 $pageBreadCrumb = 'Popular photos';
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<?=$pageBreadCrumb?>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<?php echo $pageBreadCrumb; ?>
+	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>
-<?
+<?php
 
 foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 {
@@ -49,7 +49,7 @@ foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 ?>
 	</div>
 </div>
-<?
+<?php
 }
 ?>
 <style>

@@ -8,15 +8,15 @@ include_once('header.php');
 global $totalGalleryAlbumCount;
 ?>
 <div class="headbar">
-<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-<a href="<?=EVERY_ALBUM_PATH?>" title="All albums">All albums</a>
-</span><span id="righthead"><?printSearchForm();?></span>
+<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+<a href="<?php echo EVERY_ALBUM_PATH; ?>" title="All albums">All albums</a>
+</span><span id="righthead"><?echo printSearchForm(); ?></span>
 </div>
 <div class="topbar">
 	<h2>All albums</h2>
-<span>All <?=$totalGalleryAlbumCount?> albums that are currently on the site.</span>
+<span>All <?php echo $totalGalleryAlbumCount; ?> albums that are currently on the site.</span>
 </div>
-<?
+<?php
 drawIndexAlbums('nodynamic');
 
 if(hasNextPage() || hasPrevPage())

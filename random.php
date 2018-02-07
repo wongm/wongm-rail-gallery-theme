@@ -4,9 +4,9 @@ $pageTitle = ' - Random photos';
 include_once('header.php');
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<a href="<?=RANDOM_ALBUM_PATH?>" title="Random Images">Random photos</a>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<a href="<?php echo RANDOM_ALBUM_PATH; ?>" title="Random Images">Random photos</a>
+	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>
 <div class="topbar">
 	<h2>Random images</h2>
@@ -46,20 +46,20 @@ while ($i < getOption('wongm_randompage_count'))
 		}
 ?>
 <div class="image">
-	<div class="imagethumb"><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>">
-		<?=$imageCode?>
+	<div class="imagethumb"><a href="<?php echo $randomImageURL; ?>">
+		<?php echo $imageCode; ?>
 	</a></div>
 	<div class="imagetitle">	
-		<h4><a href="http://<?=$_SERVER['HTTP_HOST'].$randomImageURL?>"><?=$photoTitle; ?></a></h4>
+		<h4><a href="<?php echo $randomImageURL?>"><?php echo $photoTitle; ?></a></h4>
 		<small><?php echo $photoDate ?><?php if (zp_loggedin())
 		{
 			printRollingHitcounter($randomImage, true);
 		} 
 		?></small>
-		<p>In Album: <a href="http://<?=$_SERVER['HTTP_HOST'].$photoPath; ?>"><?=$photoAlbumTitle; ?></a></p>
+		<p>In Album: <a href="<?php echo $photoPath; ?>"><?php echo $photoAlbumTitle; ?></a></p>
 	</div>
 </div>
-<?
+<?php
 		$j++;
 		$i++;
 	}	//end while for cols

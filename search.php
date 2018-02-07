@@ -69,7 +69,7 @@ if (isset($_REQUEST['words'])) { ?>
 <div class="headbar">
 	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
 	<a href="<?=SEARCH_URL_PATH?>" title="Gallery Search">Search</a>
-	</span><span id="righthead"><?printSearchForm();?></span>
+	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <div class="topbar">
 	<?php echo $leadingIntroText; ?>
