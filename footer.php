@@ -9,7 +9,7 @@ echo "Page Generation: $generation seconds.<br/>";
 global $galleryImageAlbumCountMessage;
 echo $galleryImageAlbumCountMessage;
 ?>
-</br>Copyright 2005 - <?=date('Y')?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.<br/><br/>
+</br>Copyright 2005 - <?php echo date('Y')?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.<br/><br/>
 </div>
 </div>
 <script type="text/javascript">

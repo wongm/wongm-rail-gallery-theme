@@ -16,7 +16,7 @@ include_once('header.php'); ?>
 </div>
 
 <div id="viewImage">  
-	<img id="mainImage" src="<? echo getDefaultSizedImage() ?>" alt="<?=getImageTitle();?>" width="<?=getDefaultWidth();?>" height="<?=getDefaultHeight();?>" style="margin-left: -<?=getDefaultWidth() / 2;?>px;" />
+	<img id="mainImage" src="<?php echo getDefaultSizedImage() ?>" alt="<?=getImageTitle();?>" width="<?=getDefaultWidth();?>" height="<?=getDefaultHeight();?>" style="margin-left: -<?=getDefaultWidth() / 2;?>px;" />
 	<div id="imageOverlay" style="margin-left: -<?=getDefaultWidth() / 2;?>px; width: <?=getDefaultWidth();?>px; height: <?=getDefaultHeight();?>px;">
     <?php if (hasPrevImage()) { ?>
 		<a href="<?=getPrevImageURL();?>" id="lbPrevLink" style="height: <?=getDefaultHeight();?>px;"></a>
@@ -46,7 +46,7 @@ include_once('header.php'); ?>
     <?php } else { echo "</td><td>"; } ?>
 </div></div>
 <?php } ?>
-<?
+<?php
 if(function_exists("printImageMarkupFields"))
 {	
 	printImageMarkupFields();

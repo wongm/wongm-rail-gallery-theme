@@ -40,8 +40,8 @@ while (next_DailySummaryItem()) {
 <?php   } ?>
 	</div>
 	<div class="summarydesc">
-	    <h2><a href="<?=UPDATES_URL_PATH?>" title="Recent uploads">Recent uploads</a></h2>
-		<p><? echo $mostRecentImageData['content']; ?></p>
+	    <h2><a href="<?php echo UPDATES_URL_PATH; ?>" title="Recent uploads">Recent uploads</a></h2>
+		<p><?php echo $mostRecentImageData['content']; ?></p>
 		<ul>
 <?php   foreach ($dailySummaryData as $dayData)
         { ?>
@@ -52,7 +52,7 @@ while (next_DailySummaryItem()) {
 		</ul>
 	</div>
 </div>
-<?
+<?php
 
 if (function_exists('getSummaryForCurrentDay')) {
 
@@ -70,8 +70,8 @@ if (function_exists('getSummaryForCurrentDay')) {
 	</div>
 	<div class="summarydesc">
 	    <h2><a href="/page/on-this-day" title="On this day">On this day</a></h2>	    
-	    <p class="recent"><? echo $summaryForCurrentDay->title; ?></p>
-		<p><? echo $summaryForCurrentDay->desc; ?></p>
+	    <p class="recent"><?php echo $summaryForCurrentDay->title; ?></p>
+		<p><?php echo $summaryForCurrentDay->desc; ?></p>
 	</div>
 </div>
 <?php
@@ -163,6 +163,7 @@ function getMostRecentImageData()
 	$formattedUpdatedDate = strftime('%A %e %B, %Y', $mostRecentImageTimestamp);
 	
 	$plural = "s";
+	$class = "";
 	
 	// format text based on date difference
 	if ($daysSinceUpdate < $alertThreshold)

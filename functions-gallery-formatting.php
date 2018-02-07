@@ -77,6 +77,7 @@ function printEXIFData()
 		}
 	}
 
+	$maplink = '';
 	if ( zp_loggedin() )
 	{
 		if (strlen($hitCounterText) > 0)
@@ -86,22 +87,21 @@ function printEXIFData()
 		
 		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
 
-		if ($result['EXIFGPSLatitudeRef'] == 'S')
+		if (isset($result['EXIFGPSLatitudeRef']))
 		{
-    		$EXIFGPSLatitudeRef = '-';
-		}
-		if ($result['EXIFGPSLongitudeRef'] == 'W')
-		{
-    		$EXIFGPSLongitudeRef = '-';
-		}
+			if ($result['EXIFGPSLatitudeRef'] == 'S')
+			{
+				$EXIFGPSLatitudeRef = '-';
+			}
+			if ($result['EXIFGPSLongitudeRef'] == 'W')
+			{
+				$EXIFGPSLongitudeRef = '-';
+			}
 		
-		$maptext = $EXIFGPSLatitudeRef . $result['EXIFGPSLatitude'] . "," . $EXIFGPSLongitudeRef . $result['EXIFGPSLongitude'];
-		$mapurl = "https://www.google.com.au/maps/@$maptext,14z";
-		$maplink = "<br/><a href=\"$mapurl\" target=\"_blank\">$maptext</a>";
-	}
-	else
-	{
-    	$maplink = '';
+			$maptext = $EXIFGPSLatitudeRef . $result['EXIFGPSLatitude'] . "," . $EXIFGPSLongitudeRef . $result['EXIFGPSLongitude'];
+			$mapurl = "https://www.google.com.au/maps/@$maptext,14z";
+			$maplink = "<br/><a href=\"$mapurl\" target=\"_blank\">$maptext</a>";
+		}
 	}
 
 	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
@@ -131,7 +131,7 @@ Aperture Value: <?php echo $result['EXIFFNumber'] ?><br/>
 <?php if (isset($result['EXIFFocalLength'])) { ?>Focal Length: <?php echo $result['EXIFFocalLength'] ?><br/><?php } ?>
 <?php echo $hitCounterText.$ratingsText.$maplink?>
 </p>
-<?
+<?php
 	}
 	else
 	{
@@ -139,7 +139,7 @@ Aperture Value: <?php echo $result['EXIFFNumber'] ?><br/>
 <p class="exif">
 <?php echo $hitCounterText.$ratingsText; ?>
 </p>
-<?
+<?php
 	}	// end if
 }		// end function
 
