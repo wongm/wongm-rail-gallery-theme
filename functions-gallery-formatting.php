@@ -613,7 +613,7 @@ function printMetadata($pageTitle)
 	$title = "";
 	
 	// if date based search with images - we can get summary data for the current date
-	if (in_context(ZP_SEARCH))
+	if (in_context(ZP_SEARCH) && function_exists('getDailySummaryDesc'))
 	{
 		// check for images, and that we are not on a month based archive page
 		if (isset($_REQUEST['date']) && strlen($_REQUEST['date']) > 8 && getNumImages() && strlen($_REQUEST['date']) > 7)

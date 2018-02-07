@@ -16,17 +16,21 @@ $mostRecentImageData = getMostRecentImageData();
 </div>
 <div id="indexalbums">
 <?php 
-NewDailySummary(8);
-while (next_DailySummaryItem()) { 
-    global $_zp_current_DailySummaryItem;
-	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());	
-	$dayData = new stdClass;
-	$dayData->date = date("l, j F", strtotime(getDailySummaryDate()));
-	$dayData->imagePath = getDefaultSizedImage();
-	$dayData->imageCaption = $dayData->date . ' - ' . getImageTitle();
-	$dayData->description = getDailySummaryNumImages() . ' new photos ' . getDailySummaryDescInternal();
-	$dayData->link = getDailySummaryUrl();
-	$dailySummaryData[] = $dayData;
+$dailySummaryData = array();
+if (function_exists('NewDailySummary')) 
+{
+    NewDailySummary(8);
+    while (next_DailySummaryItem()) { 
+        global $_zp_current_DailySummaryItem;
+    	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());	
+    	$dayData = new stdClass;
+    	$dayData->date = date("l, j F", strtotime(getDailySummaryDate()));
+    	$dayData->imagePath = getDefaultSizedImage();
+    	$dayData->imageCaption = $dayData->date . ' - ' . getImageTitle();
+    	$dayData->description = getDailySummaryNumImages() . ' new photos ' . getDailySummaryDescInternal();
+    	$dayData->link = getDailySummaryUrl();
+    	$dailySummaryData[] = $dayData;
+    }
 }
 ?>
 <div class="album recentuploads">
