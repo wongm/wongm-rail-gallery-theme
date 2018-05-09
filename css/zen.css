@@ -725,13 +725,14 @@ div.pagelist .disabledlink {
 	.albumthumb, .albumdesc , .summarydesc {
 		width: 100%;
 	}
+	.album {
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+	}
 	.albumthumb {
 		display: table-footer-group;
-		float: none;
 		padding: 0 0 15px 0;
-	}
-	.albumthumb img {
-		float: left;
 	}
 	.albumdesc, .summarydesc {
 		display: table-header-group;

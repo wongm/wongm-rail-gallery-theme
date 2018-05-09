@@ -38,7 +38,7 @@ if (function_exists('NewDailySummary'))
 <?php   foreach ($dailySummaryData as $key=>$dayData)
 	    { ?>
 		<a href="<?php echo UPDATES_URL_PATH; ?>" title="Recent uploads">
-		    <img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" />
+		    <img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" /><br>
 		</a>
 <?php       if ($key >= 2)
                 break;
