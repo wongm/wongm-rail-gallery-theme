@@ -166,7 +166,7 @@ function getMostRecentImageData()
 	$todayDate = strtotime(Date("Y-m-d", time()));
     $dateDiff = $todayDate - $mostRecentImageDate;
 	$daysSinceUpdate = floor($dateDiff/(60*60*24));
-	$formattedUpdatedDate = strftime('%A %e %B, %Y', $mostRecentImageTimestamp);
+	$formattedUpdatedDate = strftime('%A, %e %B %Y', $mostRecentImageTimestamp);
 	
 	$plural = "s";
 	$class = "";

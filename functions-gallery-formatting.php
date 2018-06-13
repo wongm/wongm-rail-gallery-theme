@@ -85,7 +85,7 @@ function printEXIFData()
 			$hitCounterText .= "<br/>";
 		}
 		
-		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
+		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset').", Year reset = ".$_zp_current_image->get('hitcounter_year_reset')."<BR>";
 
 		if (isset($result['EXIFGPSLatitudeRef']))
 		{
@@ -598,7 +598,7 @@ function getFullSearchDate($format='F Y') {
 		if ($date == '0000-00') { return gettext("no date"); };
 
 		if (sizeof(explode('-', $date)) == 3) {
-			$format='F d, Y';
+			$format='l, j F Y';
 		}
 
 		$dt = strtotime($date."-01");
