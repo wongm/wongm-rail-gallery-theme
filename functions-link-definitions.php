@@ -19,6 +19,7 @@ DEFINE ('TRAINS_UPDATES_URL_PATH', WEBPATH . "/page/recent-trains");
 DEFINE ('RECENT_ALBUM_PATH', WEBPATH . "/page/recent-albums");
 
 DEFINE ('ALL_TIME_URL_PATH', WEBPATH . "/page/popular-all-time");
+DEFINE ('THIS_YEAR_URL_PATH', WEBPATH . "/page/popular-this-year");
 DEFINE ('THIS_MONTH_URL_PATH', WEBPATH . "/page/popular-this-month");
 DEFINE ('THIS_WEEK_URL_PATH', WEBPATH . "/page/popular-this-week");
 DEFINE ('RATINGS_URL_PATH', WEBPATH . '/page/popular-by-ratings');
@@ -35,6 +36,13 @@ $popularImageText['all-time']['text'] = 'Most viewed of all time';
 $popularImageText['all-time']['type'] = 'popular';
 $popularImageText['all-time']['order'] = "i.hitcounter DESC";
 $popularImageText['all-time']['where'] = "i.hitcounter > " . getOption('popular_threshold_hitcounter');
+
+$popularImageText['this-year']['url'] = THIS_YEAR_URL_PATH;
+$popularImageText['this-year']['title'] = 'Popular photos - Most viewed this year';
+$popularImageText['this-year']['text'] = 'Most viewed this year';
+$popularImageText['this-year']['type'] = 'popular';
+$popularImageText['this-year']['order'] = "i.hitcounter_year DESC";
+$popularImageText['this-year']['where'] = "i.hitcounter_year > " . getOption('popular_threshold_hitcounter');
 
 $popularImageText['this-month']['url'] = THIS_MONTH_URL_PATH;
 $popularImageText['this-month']['title'] = 'Popular photos - Most viewed this month';
