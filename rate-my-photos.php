@@ -14,7 +14,8 @@ $votePromptText = "Cast your vote";
 include_once('header.php');
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a>
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span> 
+	<a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a>
 	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <?php

@@ -2,10 +2,11 @@
 
 $pageTitle = ' - About me';
 include_once('header.php'); ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; About me
-	</td><td><?printSearchForm();?></td></tr>
-</table>
+<div class="headbar">
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span> 
+	About me
+	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
+</div>
 <style>
 #mailform { 
     border: 1px solid grey;

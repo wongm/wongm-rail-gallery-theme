@@ -7,7 +7,7 @@ $rssTitle = getAlbumTitle();
 include_once('header.php');
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span>
       	<?php printParentBreadcrumb('', ' » ', ' » '); ?>
       	<?php echo getAlbumTitle();?>
 	</span><span id="righthead"><?php echo printSearchForm(); ?></span>

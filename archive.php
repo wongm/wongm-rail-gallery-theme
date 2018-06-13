@@ -28,7 +28,7 @@ if ($showSingleMonth)
 include_once('header.php');
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span>
 	<a href="<?php echo ARCHIVE_URL_PATH; ?>" title="Gallery Archive">Archive</a><?php echo $headbarextra; ?>
 	</span><span id="righthead"><?php printSearchForm();?></span>
 </div>

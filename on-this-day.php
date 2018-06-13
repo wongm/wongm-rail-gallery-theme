@@ -15,7 +15,7 @@ include_once('header.php');
 $pageBreadCrumb = 'On this day';
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span>
     <?php echo $pageBreadCrumb; ?>
 	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>

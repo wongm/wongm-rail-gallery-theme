@@ -10,8 +10,8 @@ if (substr($pageTitle, $len-2, 1) == '-')
 }
 include_once('header.php');?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a>
-		<?php printNewsIndexURL("News"," » "); ?>
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span>
+		<?php printNewsIndexURL("News",""); ?>
 		<?php printCurrentNewsCategory(" » "); ?>
 		<?php printNewsTitle(" » "); ?>
 	</span><span id="righthead"><?php echo printSearchForm(); ?></span>

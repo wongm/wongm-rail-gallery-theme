@@ -11,7 +11,8 @@ global $_randomImageAttempts;
 $mostRecentImageData = getMostRecentImageData();
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; Home
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span> 
+	Home
 	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <div id="indexalbums">
@@ -74,7 +75,7 @@ if (function_exists('getSummaryForCurrentDay')) {
 	    <a href="/page/on-this-day" title="On this day"><img src="<?php echo $summaryForCurrentDay->imageUrl; ?>" /></a>
 	</div>
 	<div class="summarydesc">
-	    <h2><a href="/page/on-this-day" title="On this day">On this day</a></h2>	    
+	    <h2><a href="/page/on-this-day" title="On this day">On this day</a></h2>
 	    <p class="recent"><?php echo $summaryForCurrentDay->title; ?></p>
 		<p><?php echo $summaryForCurrentDay->desc; ?></p>
 	</div>

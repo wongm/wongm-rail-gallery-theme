@@ -14,13 +14,13 @@ include_once('header.php');
 $pageBreadCrumb = 'Popular photos';
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span>
 	<?php echo $pageBreadCrumb; ?>
 	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>
 <?php
 
-foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
+foreach (array('this-week', 'ratings', 'this-month', 'this-year', 'all-time') AS $viewType)
 {
 	if ($viewType == 'ratings')
 	{

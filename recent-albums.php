@@ -8,7 +8,7 @@ include_once('header.php');
 global $totalGalleryAlbumCount;
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span>
 	<a href="<?php echo RECENT_ALBUM_PATH; ?>" title="Recent albums">Recent albums</a>
 	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>
