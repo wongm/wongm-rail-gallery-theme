@@ -4,7 +4,7 @@ $pageTitle = ' - Random photos';
 include_once('header.php');
 ?>
 <div class="headbar">
-	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span>
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
 	<a href="<?php echo RANDOM_ALBUM_PATH; ?>" title="Random Images">Random photos</a>
 	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>

@@ -514,6 +514,10 @@ p.iconimage img {
 	line-height: 3em;
 	padding-left: 10px;
 }
+
+#albumBreadcrumbs {
+	display: none;
+}
 /* Lighbox
 ------------------------------ */
 #overlay { background-image: url(overlay.png); }
@@ -755,8 +759,11 @@ div.pagelist .disabledlink {
 	.menu {
 		width: 100%;
 	}
-	.lede {
+	#breadcrumb {
 		display: none;
+	}
+	#albumBreadcrumbs {
+		display: block;
 	}
 	#righthead {
 		float: right;
@@ -767,9 +774,6 @@ div.pagelist .disabledlink {
 	#search {
 		display: inline-block;
 		float: inherit;
-	}
-	#search_form {
-		width: inherit;
 	}
 	#mainImage {
 		position: relative;

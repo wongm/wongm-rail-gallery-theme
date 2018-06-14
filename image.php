@@ -4,7 +4,7 @@ $rssType = 'Gallery';
 $rssTitle = 'Recent uploads';
 include_once('header.php'); ?>
 <div class="headbar">
-	<span id="breadcrumb"><span class="lede"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;</span> 
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo; 
 		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
 		<a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
 	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
@@ -12,6 +12,7 @@ include_once('header.php'); ?>
 
 <div class="topbar">
 	<h2><?php printMWEditableImageTitle(true);?></h2>
+	<p id="albumBreadcrumbs">In album: <a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a></p>
 	<?php printMWEditableImageDesc(true); ?>
 </div>
 
