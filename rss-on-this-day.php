@@ -9,6 +9,10 @@ error_reporting(E_ALL);
 if (!function_exists('getSummaryForCurrentDay')) {
 	exit();
 }
+
+// hack to show large images
+setOption('image_size', '', false);
+
 $customDate = "";
 if (isset($_GET['date']))
 {

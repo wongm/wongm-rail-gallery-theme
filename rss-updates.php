@@ -10,6 +10,9 @@ if (!function_exists('next_DailySummaryItem')) {
 	exit();
 }
 
+// hack to show large images
+setOption('image_size', '', false);
+
 $lastModifiedImageDateSQL = "SELECT mtime FROM " . prefix('images') . " ORDER BY mtime DESC LIMIT 0, 1";
 $lastModifiedImageDate = query_single_row($lastModifiedImageDateSQL)['mtime'];
 
