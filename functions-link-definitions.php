@@ -71,18 +71,24 @@ $popularImageText['uploads']['subtext'] = 'For recent wagon photos go to the <a 
 
 $popularImageText['resize']['title'] = 'Images to resize';
 $popularImageText['resize']['text'] = 'Images to be resized to standard aspect ratio';
+$popularImageText['resize']['internal'] = true;
 
 $popularImageText['shrink']['title'] = 'Images to shrink';
 $popularImageText['shrink']['text'] = 'Images to be shrunk to standard aspect ratio';
+$popularImageText['shrink']['internal'] = true;
 
 $popularImageText['shrink-albums']['title'] = 'Images to shrink, by album';
 $popularImageText['shrink-albums']['text'] = 'Images to be shrunk to standard aspect ratio, ordered by album';
+$popularImageText['shrink-albums']['internal'] = true;
 
 $popularImageText['uncaptioned']['title'] = 'Images to caption';
+$popularImageText['uncaptioned']['internal'] = true;
 
 $popularImageText['uncaptioned-albums']['title'] = 'Albums with images to caption';
+$popularImageText['uncaptioned-albums']['internal'] = true;
 
 $popularImageText['duplicates']['title'] = 'Duplicated images';
+$popularImageText['duplicates']['internal'] = true;
 
 $popularImageText['wagons']['url'] = WAGON_UPDATES_URL_PATH;
 $popularImageText['wagons']['title'] = 'Recent uploads - Wagons';

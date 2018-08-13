@@ -57,6 +57,11 @@ if (array_key_exists('subtext', $popularImageText[$pageType]))
 {
 	echo ' ' . $popularImageText[$pageType]['subtext'];
 }
+
+if ($popularImageText[$pageType]['internal'])
+{
+	drawInternalLinks();
+}
 ?>
 </p>
 
@@ -73,4 +78,21 @@ if (array_key_exists('subtext', $popularImageText[$pageType]))
 <?php printPhotostreamPageListWithNav("« ".gettext("Prev"), gettext("Next")." »"); ?>
 <?php
 include_once('footer.php'); 
+
+function drawInternalLinks()
+{
+	echo "<p>";
+	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Uncaptioned images', NULL, NULL, NULL);
+	echo " - ";
+	printLinkHTML(WEBPATH.'/page/recent-uncaptioned-albums', 'Uncaptioned albums', NULL, NULL, NULL);
+	echo " - ";
+	printLinkHTML(WEBPATH.'/page/recent-resize', 'Images to resize', NULL, NULL, NULL);
+	echo " - ";
+	printLinkHTML(WEBPATH.'/page/recent-shrink', 'Images to shrink', NULL, NULL, NULL);
+	echo " - ";
+	printLinkHTML(WEBPATH.'/page/recent-shrink-albums', 'Images to shrink by album', NULL, NULL, NULL);
+	echo " - ";
+	printLinkHTML(WEBPATH.'/page/recent-duplicates', 'Duplicate images', NULL, NULL, NULL);
+	echo "</p>";
+}
 ?>

@@ -55,17 +55,7 @@ class wongmTheme {
     
     static function addGlobalLink() {
     	echo "<li>";
-    	printLinkHTML(WEBPATH.'/page/recent-resize', 'Images to resize', NULL, NULL, NULL);
-    	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/recent-shrink', 'Images to shrink', NULL, NULL, NULL);
-    	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/recent-shrink-albums', 'Images to shrink by album', NULL, NULL, NULL);
-    	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Uncaptioned images', NULL, NULL, NULL);
-    	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned-albums', 'Uncaptioned albums', NULL, NULL, NULL);
-    	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/recent-duplicates', 'Duplicate images', NULL, NULL, NULL);
+    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Images to action', NULL, NULL, NULL);
     	echo "</li>";
     }
 }
