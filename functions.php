@@ -15,6 +15,7 @@ require_once('functions-link-definitions.php');
 zp_register_filter('checkPageValidity', 'wongmTheme::checkLinks');
 zp_register_filter('admin_toolbox_album', 'wongmTheme::addAlbumLink');
 zp_register_filter('admin_toolbox_global', 'wongmTheme::addGlobalLink');
+zp_register_filter('on_this_day_additional_where', 'wongmTheme::additionalWhere');
 
 /**
  * Plugin option handling class
@@ -49,6 +50,10 @@ class wongmTheme {
         	    return true;
 		}
 	}
+
+    static function additionalWhere() {
+		return EXCLUDED_IMAGE_ALBUM_SQL;
+    }
 
     static function addAlbumLink($albumname) {
     }
