@@ -60,7 +60,7 @@ class wongmTheme {
     
     static function addGlobalLink() {
     	echo "<li>";
-    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Images to action', NULL, NULL, NULL);
+    	printLinkHTML(WEBPATH.'/page/recent-resize', 'Images to action', NULL, NULL, NULL);
     	echo "</li>";
     }
 }

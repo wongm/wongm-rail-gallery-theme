@@ -30,6 +30,15 @@ DEFINE ('GALLERY_PATH', '');
 
 DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . '">here</a>');
 
+DEFINE ('EXCLUDED_WAGONS_SQL', "a.folder NOT LIKE 'wagons%'");
+DEFINE ('BUS_ALBUM_IDs_SQL', "SELECT `objectid` FROM ". prefix('obj_to_tag') ." ott INNER JOIN ". prefix('tags') ." t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses'");
+DEFINE ('EXCLUDED_IMAGE_ALBUM_SQL', EXCLUDED_WAGONS_SQL . " AND a.folder NOT LIKE '%stations%' AND a.folder NOT LIKE '%infrastructure%' AND a.folder NOT LIKE '%bits%' AND a.folder != 'photoshop' AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ")");
+
+DEFINE ('UNCAPTIONED_IMAGE_REGEX', "i.title REGEXP '_[0-9]{4}' OR i.title REGEXP 'DSCF[0-9]{4}' OR i.title = '' OR i.title  IS NULL");
+DEFINE ('CAPTIONED_IMAGE_REGEX', "i.title NOT REGEXP '_[0-9]{4}' AND i.title NOT REGEXP 'DSCF[0-9]{4}'");
+DEFINE ('IMAGE_NEEDING_RESIZE_SQL', "((i.height = 1024 AND i.width != 683) OR (i.width = 1024 AND i.height != 683) OR (i.height = 1920 AND i.width != 1280) OR (i.width = 1920 AND i.height != 1280)) AND " . EXCLUDED_WAGONS_SQL);
+DEFINE ('IMAGE_NEEDING_SHRINK_SQL', "(i.height = 1024 AND i.width > 683) OR (i.width = 1024 AND i.height > 683) OR (i.height = 1920 AND i.width > 1280) OR (i.width = 1920 AND i.height > 1280) AND " . EXCLUDED_WAGONS_SQL);
+
 $popularImageText['all-time']['url'] = ALL_TIME_URL_PATH;
 $popularImageText['all-time']['title'] = 'Popular photos - Most viewed of all time';
 $popularImageText['all-time']['text'] = 'Most viewed of all time';
@@ -67,7 +76,6 @@ $popularImageText['ratings']['where'] = "i.ratings_view > " . getOption('popular
 
 $popularImageText['uploads']['url'] = UPDATES_URL_PATH;
 $popularImageText['uploads']['title'] = 'Recent uploads';
-$popularImageText['uploads']['subtext'] = 'For recent wagon photos go to the <a href="' . WAGON_UPDATES_URL_PATH . '" title="wagons and containers page">wagons and containers page</a>.';
 
 $popularImageText['resize']['title'] = 'Images to resize';
 $popularImageText['resize']['text'] = 'Images to be resized to standard aspect ratio';
@@ -97,5 +105,26 @@ $popularImageText['wagons']['type'] = 'recent';
 $popularImageText['wagons']['order'] = "i.mtime DESC";
 $popularImageText['wagons']['where'] = "folder LIKE 'wagons%'";
 $popularImageText['wagons']['subtext'] = 'Sorted by upload date to the site (not when they were taken).';
+
+$popularImageText['trains']['url'] = TRAINS_UPDATES_URL_PATH;
+$popularImageText['trains']['title'] = 'Recent uploads - Trains';
+$popularImageText['trains']['text'] = 'Recent train uploads';
+$popularImageText['trains']['subtext'] = 'Trains and railway infrastructure';
+$popularImageText['trains']['type'] = 'recent';
+$popularImageText['trains']['where'] = "folder NOT LIKE '%tram%' AND folder NOT LIKE '%light-rail%' AND " . EXCLUDED_WAGONS_SQL. " AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ")";
+
+$popularImageText['trams']['url'] = TRAMS_UPDATES_URL_PATH;
+$popularImageText['trams']['title'] = 'Recent uploads - Trams';
+$popularImageText['trams']['text'] = 'Recent tram uploads';
+$popularImageText['trams']['subtext'] = 'Trams, tram stops and tramway infrastructure';
+$popularImageText['trams']['type'] = 'recent';
+$popularImageText['trams']['where'] = "folder LIKE '%tram%' OR folder LIKE '%light-rail%'";
+
+$popularImageText['buses']['url'] = BUSES_UPDATES_URL_PATH;
+$popularImageText['buses']['title'] = 'Recent uploads - Buses';
+$popularImageText['buses']['text'] = 'Recent bus uploads';
+$popularImageText['buses']['subtext'] = 'Buses, bus stops and bus depots';
+$popularImageText['buses']['type'] = 'recent';
+$popularImageText['buses']['where'] = "a.id IN (" . BUS_ALBUM_IDs_SQL . ")";
 
 ?>

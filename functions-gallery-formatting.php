@@ -9,9 +9,6 @@
 //
 //******************************************************************************
 
-DEFINE ('UNCAPTIONED_IMAGE_REGEX', "i.title REGEXP '_[0-9]{4}' OR i.title REGEXP 'DSCF[0-9]{4}' OR i.title = '' OR i.title  IS NULL");
-DEFINE ('CAPTIONED_IMAGE_REGEX', "i.title NOT REGEXP '_[0-9]{4}' AND i.title NOT REGEXP 'DSCF[0-9]{4}'");
-
 function pluralNumberWord($number, $text)
 {
 	if (is_numeric($number))
