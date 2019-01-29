@@ -42,7 +42,7 @@ $galleryImageAlbumCountMessage = buildGalleryImageAlbumCountMessage();
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title><?php echo $pageTitle; ?> - <?php printGalleryTitle(); ?></title>
-<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/css/zen.css?v=4.57" type="text/css" />
+<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/css/zen.css?v=4.0" type="text/css" />
 <link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/css/slimbox2.css" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link title="<?php printGalleryTitle();?>" rel="search" type="application/opensearchdescription+xml" href="/provider.xml" />
@@ -73,6 +73,7 @@ if (function_exists('printMetadata')) {
 	</div>
 	<div id="sitedesc"><?php echo getGalleryDesc();?></div>
 	<div style="clear:both;"></div>
+	<?php if (getOption('wongm_frontpage_mode') == 'full') { ?>
 	<div class="sitemenu">
 		<nav id="nav" role="navigation"> <a href="#nav" title="Show navigation">Show navigation</a> <a href="#" title="Hide navigation">Hide navigation</a>
 		  <ul class="clearfix">
@@ -105,5 +106,6 @@ if (function_exists('printMetadata')) {
 		  </ul>
 		</nav>
 	</div>
+	<?php } ?>
 </div>
 <div id="content" class="<?php echo $contentdiv?>">
