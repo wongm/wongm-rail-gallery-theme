@@ -634,14 +634,17 @@ function printMetadata($pageTitle)
 	// album page
 	else if (in_context(ZP_ALBUM))
 	{
-		global $_zp_current_album;
+		global $_zp_current_album, $_zp_current_image;
 		
-		// makeImageCurrent can change $_zp_current_album variable to child album
+		// makeImageCurrent can change $_zp_current_album and $_zp_current_image variable to child album
 		// save a local copy, so we can get THIS album back later
+		// also need to reset image to ensure that rest of Zenphoto does not get confused
 		$currentAlbum = $_zp_current_album;
+		$currentImage = $_zp_current_image;
 		$currentContext = get_context();
 		makeImageCurrent($_zp_current_album->getAlbumThumbImage());
 		$_zp_current_album = $currentAlbum;
+		$_zp_current_image = $currentImage;
 		set_context($currentContext);
 		
 		$imagePath = getDefaultSizedImage();
