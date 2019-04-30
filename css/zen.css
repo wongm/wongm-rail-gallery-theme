@@ -574,6 +574,7 @@ p.iconimage img {
 }
 .newsarticlecredit {
 	font-size: smaller;
+	padding-bottom: 8px;
 }
 .newsarticle, #news #hitcounter {
 	padding-left: 1%;

@@ -56,7 +56,7 @@ drawNewsFrontpageNextables();
     	<h4><?php printNewsURL(); ?></h4>
         <div class="newsarticlecredit">
         	<span class="newsarticlecredit-left">
-        	<small><?php printNewsDate();?></small>
+        	    <?php printNewsDate();?>
 			</span>
 		</div>
     	<?php printNewsContent(false); ?>
