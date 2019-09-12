@@ -25,6 +25,8 @@ if(isset($popularImageText['key'])) {
 	}
 }
 
+$noIndex = true;
+
 include_once('header.php'); 
 
 $totalImages = getNumPhotostreamImages();

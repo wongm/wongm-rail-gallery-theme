@@ -56,10 +56,15 @@ $galleryImageAlbumCountMessage = buildGalleryImageAlbumCountMessage();
 //special RSS stuff
 if (isset($rssType) AND isset($rssTitle) AND strlen($rssType) > 0 AND strlen($rssTitle) > 0)
 {
-	printRSSHeaderLink($rssType, $rssTitle);
+    printRSSHeaderLink($rssType, $rssTitle);
 }
 if (function_exists('printMetadata')) {
     printMetadata($pageTitle);
+}
+if (isset($noIndex) && $noIndex) {
+?>
+<meta name="robots" content="noindex" />
+<?php
 }
 ?>
 <?php zp_apply_filter("theme_head"); ?>

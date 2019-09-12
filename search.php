@@ -29,6 +29,9 @@ $totalAlbums = getNumAlbums();
 $totalImages = getNumImages();
 $totalItems = $totalAlbums + $totalImages;
 
+// don't index search pages
+$noIndex = true;
+
 if ($totalAlbums > 0)
 {
 	$albumsText = " - $totalAlbums albums and $totalImages images";
@@ -38,6 +41,9 @@ if ($totalItems > 0)
 	if (isset($_REQUEST['date']))
 	{
 		$searchwords = getFullSearchDate();
+		
+		// but do index pages for a specific date
+		$noIndex = false;
 	}
 	else
 	{
