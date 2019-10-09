@@ -652,7 +652,7 @@ function printMetadata($pageTitle)
 		if (strlen(getAlbumDesc()) > 0) {
 			$description = strip_tags(getAlbumDesc());
 		}
-		$title = getBareAlbumTitle();
+		$title = htmlentities(getBareAlbumTitle());
 	}
 	
 	echo "<meta property=\"og:description\" content=\"$description\" />\n";
@@ -675,7 +675,7 @@ function printMetadata($pageTitle)
 	}
 	else{
 		echo "<meta name=\"twitter:card\" content=\"summary\" />\n";
-		echo "<meta name=\"twitter:title\" content=\"" . $pageTitle . "\">\n";
+		echo "<meta name=\"twitter:title\" content=\"" . htmlentities($pageTitle) . "\">\n";
 	}
 	
 	echo "<meta name=\"twitter:site\" content=\"@wongmsrailpics\">\n";
