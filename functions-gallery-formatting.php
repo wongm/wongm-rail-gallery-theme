@@ -104,7 +104,7 @@ function printEXIFData()
 	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
 	{
 		$udate = strtotime($result['EXIFDateTimeOriginal']);
-		$fdate = strftime('%B %d, %Y', $udate);
+		$fdate = strftime('%e %B %Y', $udate);
 		$ftime = strftime('%H:%M %p', $udate);
 		$dateString = strftime('%Y-%m-%d', $udate);
 
