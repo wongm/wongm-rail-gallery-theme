@@ -13,7 +13,7 @@ if (!function_exists('getSummaryForCurrentDay')) {
 // hack to show large images
 setOption('image_size', '', false);
 
-$validationMode = isset($_GET['validation']);
+$validationMode = isset($_GET['validation']) && zp_loggedin();
 if ($validationMode)
 {
     $customDate=date('Y-m-d', time());
