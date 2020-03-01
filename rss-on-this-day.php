@@ -34,14 +34,13 @@ $summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rs
 $locale = getOption('locale');
 $validlocale = strtr($locale,"_","-");
 $host = htmlentities($_SERVER["HTTP_HOST"], ENT_QUOTES, 'UTF-8');
-$protocol = SERVER_PROTOCOL;
 $albumname = "On this day";
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
 <title><?php echo strip_tags(get_language_string(getOption('gallery_title'), $locale)).' - '.strip_tags($albumname); ?></title>
-<link><?php echo $protocol."://".$host.WEBPATH; ?></link>
-<atom:link href="<?php echo $protocol; ?>://<?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self" type="application/rss+xml" />
+<link><?php echo SERVER_PROTOCOL."://".$host.WEBPATH; ?></link>
+<atom:link href="<?php echo SERVER_PROTOCOL; ?>://<?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self" type="application/rss+xml" />
 <description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)); ?></description>
 <language><?php echo $validlocale; ?></language>
 <pubDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></pubDate>
@@ -49,23 +48,41 @@ $albumname = "On this day";
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>ZenPhoto RSS Generator</generator>
 <?php
-$i = 0;
-while (isset($summaryForCurrentDay->yearsAgo))
+if ($validationMode)
 {
-    $domain = $protocol . '://' . $host;
-    $link = "/page/on-this-day?date=$summaryForCurrentDay->currentDayLink";
-    $imageEditLink = "";
-    $description = "<img border=\"0\" src=\"" . $domain . $summaryForCurrentDay->imageUrl . "\" alt=\"" . $summaryForCurrentDay->title . "\" /><br>" . $summaryForCurrentDay->desc;
-    if ($validationMode)
+    $i = 0;
+    while ($i <= 35)
     {
         echo "<br><div>";
-        $imageEditLink = " <br><a href=\"$domain$summaryForCurrentDay->imagePageUrl\">Edit image</a><br>";
-        $description .= $imageEditLink;
+        $customDate=date('Y-m-d', time() + ($i * 86400));
+        $summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
+        printCurrentData($summaryForCurrentDay, $validationMode, $host);
+        echo "<hr></div>";
+        $i++;
     }
-    else
+}
+else
+{
+    printCurrentData($summaryForCurrentDay, $validationMode, $host);
+}
+
+function printCurrentData($summaryForCurrentDay, $validationMode, $host)
+{
+    if (isset($summaryForCurrentDay->yearsAgo))
     {
-        $description = "<![CDATA[$description]]>";
-    }
+        $domain = SERVER_PROTOCOL . '://' . $host;
+        $link = "/page/on-this-day?date=$summaryForCurrentDay->currentDayLink";
+        $imageEditLink = "";
+        $description = "<img border=\"0\" src=\"" . $domain . $summaryForCurrentDay->imageUrl . "\" alt=\"" . $summaryForCurrentDay->title . "\" /><br>" . $summaryForCurrentDay->desc;
+        if ($validationMode)
+        {
+            $imageEditLink = " <br><a href=\"$domain$summaryForCurrentDay->imagePageUrl\">Edit image</a><br>";
+            $description .= $imageEditLink;
+        }
+        else
+        {
+            $description = "<![CDATA[$description]]>";
+        }
 ?>
 <item>
     <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  $summaryForCurrentDay->desc; ?></title>
@@ -75,16 +92,6 @@ while (isset($summaryForCurrentDay->yearsAgo))
     <pubDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></pubDate>
 </item>
 <?php 
-    if ($validationMode && $i < 31)
-    {
-        $customDate=date('Y-m-d', time() + ($i * 86400));
-        $summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
-        $i++;
-        echo "<hr></div>";
-    }
-    else
-    {
-        $summaryForCurrentDay = null;
     }
 } 
 ?>

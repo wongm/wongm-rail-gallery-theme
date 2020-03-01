@@ -67,6 +67,10 @@ if (function_exists('getSummaryForCurrentDay')) {
     }
     $summaryForCurrentDay = getSummaryForCurrentDay($customDate);
     $link = "/page/on-this-day?date=$summaryForCurrentDay->currentDayLink";
+
+    if (strlen($summaryForCurrentDay->desc) == 0) {
+		$summaryForCurrentDay->desc = "Nothing of note happened today!";
+	}
 ?>
 <div class="album recentuploads">
     <div class="albumthumb">
