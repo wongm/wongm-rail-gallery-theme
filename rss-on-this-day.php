@@ -76,7 +76,7 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host)
         $description = "<img border=\"0\" src=\"" . $domain . $summaryForCurrentDay->imageUrl . "\" alt=\"" . $summaryForCurrentDay->title . "\" /><br>" . $summaryForCurrentDay->desc;
         if ($validationMode)
         {
-            $imageEditLink = " <br><a href=\"$domain$summaryForCurrentDay->imagePageUrl\">Edit image</a><br>";
+            $imageEditLink = "<br>" . $summaryForCurrentDay->title . "<br><a href=\"$domain$summaryForCurrentDay->imagePageUrl\">Edit image</a><br>";
             $description .= $imageEditLink;
         }
         else
