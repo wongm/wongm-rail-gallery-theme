@@ -16,7 +16,8 @@ if (isset($_GET['page']))
 		if ($i > 0) {
 			echo ",";
 		}
-		echo "{x: Date.UTC(" . str_replace('-', ',', $key) . "), y:" . $value . ", url: '" . $archiveURL . "'}";
+		$bits = explode('-', $key);
+		echo "{x: Date.UTC(" . $bits[0] . "," . ($bits[1] - 1) . "," . $bits[2] . "), y:" . $value . ", url: '" . $archiveURL . "'}";
 		$lastValue = $value;
 		$i++;
 	}
