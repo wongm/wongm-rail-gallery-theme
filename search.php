@@ -11,11 +11,7 @@ if (isset($_zp_current_search))
     // dates show the newest item first
     else if (isset($_REQUEST['words']))
     {
-        if (strpos($_REQUEST['words'],'js-agent.newrelic.com') !== false) {
-            http_response_code(404);
-            die();
-        }
-        $_zp_current_search->setSortDirection(true);  
+        $_zp_current_search->setSortDirection(true);
     }
     // let everything else use the defaults
     else
@@ -29,6 +25,9 @@ $totalAlbums = getNumAlbums();
 $totalImages = getNumImages();
 $totalItems = $totalAlbums + $totalImages;
 
+$breadcrumbLinks = '<a href="' . SEARCH_URL_PATH . '" title="Gallery Search">Search</a>';
+$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)."$albumsText, ordered by date.</p>";
+
 // don't index search pages
 $noIndex = true;
 
@@ -41,6 +40,10 @@ if ($totalItems > 0)
 	if (isset($_REQUEST['date']))
 	{
 		$searchwords = getFullSearchDate();
+		$pageTitle = $searchwords;
+		$leadingIntroText = "<h2>Gallery archive</h2>\n";
+		$breadcrumbLinks = '<a href="' . ARCHIVE_URL_PATH . '" title="Gallery Archive">Archive</a> &raquo; ' . $searchwords;
+		$leadingIntroText .= '<p>'.sprintf(gettext('%2$u photos taken on %1$s'), $searchwords, $totalItems)."$albumsText.</p>";
 		
 		// but do index pages for a specific date
 		$noIndex = false;
@@ -48,6 +51,8 @@ if ($totalItems > 0)
 	else
 	{
 		$searchwords = getSearchWords();
+		$pageTitle = 'Search results - ' . $searchwords;
+		$leadingIntroText = "<h2>Search results</h2>\n";
 	}
 }
 
@@ -55,12 +60,6 @@ if (strlen($searchwords) == 0)
 {
 	$pageTitle = 'Search';
 	$leadingIntroText = "<h2>Search</h2>";
-}
-else
-{
-	$pageTitle = 'Search results - ' . $searchwords;
-	$leadingIntroText = "<h2>Search results</h2>\n";
-	$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)."$albumsText, ordered by date.</p>";
 }
 
 include_once('header.php');
@@ -73,9 +72,10 @@ if (isset($_REQUEST['words'])) { ?>
 }
  ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
-	<a href="<?=SEARCH_URL_PATH?>" title="Gallery Search">Search</a>
-	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
+	<span id="breadcrumb">
+		<a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo; <?php echo $breadcrumbLinks; ?>
+	</span>
+	<span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 <div class="topbar">
 	<?php echo $leadingIntroText; ?>
