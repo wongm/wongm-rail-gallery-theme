@@ -26,7 +26,7 @@ $totalImages = getNumImages();
 $totalItems = $totalAlbums + $totalImages;
 
 $breadcrumbLinks = '<a href="' . SEARCH_URL_PATH . '" title="Gallery Search">Search</a>';
-$leadingIntroText .= '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)."$albumsText, ordered by date.</p>";
+$leadingIntroText = '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $totalItems)."$albumsText, ordered by date.</p>";
 
 // don't index search pages
 $noIndex = true;
