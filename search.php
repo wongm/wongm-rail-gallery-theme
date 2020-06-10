@@ -39,11 +39,16 @@ if ($totalItems > 0)
 {
 	if (isset($_REQUEST['date']))
 	{
+		$joiner = "in";
+		if (sizeof(explode('-', $_REQUEST['date'])) == 3) {
+			$joiner = "on";
+		}
+		
 		$searchwords = getFullSearchDate();
 		$pageTitle = $searchwords;
 		$leadingIntroText = "<h2>Gallery archive</h2>\n";
 		$breadcrumbLinks = '<a href="' . ARCHIVE_URL_PATH . '" title="Gallery Archive">Archive</a> &raquo; ' . $searchwords;
-		$leadingIntroText .= '<p>'.sprintf(gettext('%2$u photos taken on %1$s'), $searchwords, $totalItems)."$albumsText.</p>";
+		$leadingIntroText .= '<p>'.sprintf(gettext('%1$u photos taken %2$s %3$s'), $totalItems, $joiner, $searchwords)."$albumsText.</p>";
 		
 		// but do index pages for a specific date
 		$noIndex = false;
