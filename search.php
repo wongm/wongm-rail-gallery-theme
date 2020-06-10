@@ -58,6 +58,12 @@ if ($totalItems > 0)
 		$searchwords = getSearchWords();
 		$pageTitle = 'Search results - ' . $searchwords;
 		$leadingIntroText = "<h2>Search results</h2>\n";
+		
+		if (strlen($searchwords) > 3 && getCurrentPage() == 1)
+		{
+			// but do index search results for 'real' words, but only first page
+			$noIndex = false;
+		}
 	}
 }
 
