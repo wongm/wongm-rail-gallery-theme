@@ -59,7 +59,7 @@ if ($totalItems > 0)
 		$pageTitle = 'Search results - ' . $searchwords;
 		$leadingIntroText = "<h2>Search results</h2>\n";
 		
-		if (strlen($searchwords) > 3 && getCurrentPage() == 1)
+		if ((strlen($searchwords) > 3 || preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $searchwords)) && getCurrentPage() == 1)
 		{
 			// but do index search results for 'real' words, but only first page
 			$noIndex = false;
