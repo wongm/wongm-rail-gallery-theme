@@ -119,6 +119,80 @@ function drawChart(data, type, title) {
     });
 }
 </script>
-<?php 
+<?php
+if (zp_loggedin())
+{
+	$locationSql = array();
+	$locations = ['Geelong', 'Ascot Vale', 'William Street', 'Flagstaff', 'Boronia', 'Glenferrie', 'Sunshine', 'Blackburn', 'Route 57', 'Route 219', 'Route 903'];
+	foreach ($locations as $location)
+	{
+		$locationSql[] = "SELECT YEAR(`date`) AS `year`, count(1) as `count`, '$location' AS `location` FROM ". prefix('images') . " WHERE `title` LIKE '%$location%' GROUP BY YEAR(`date`)";
+	}
+	
+	$sql = join(" UNION ALL ", $locationSql);
+	$results = query_full_array($sql);
+
+	$yearLocationCounts = array();
+	foreach($results as $locationYearCount)
+	{
+		$yearLocationCounts[$locationYearCount['year']][$locationYearCount['location']] = $locationYearCount['count'];
+	}
+?>
+<div id="locations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<script type="text/javascript">
+Highcharts.chart('locations', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Photos taken by location over time'
+    },
+    xAxis: {
+        categories: [
+            <?php echo join(",", array_keys($yearLocationCounts)); ?>
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: '# photos'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span>{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} photos</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [
+	<?php foreach ($locations as $location)
+	{
+		$locationCount = array();
+		foreach (array_keys($yearLocationCounts) as $year)
+		{
+			$count = $yearLocationCounts[$year][$location];
+			$locationCount[] = empty($count) ? 0 : $count;
+		}
+		?>
+	{
+		name: '<?php echo $location; ?>',
+		data: [<?php echo join(",", $locationCount); ?>]
+	},
+	<?php } ?>
+    ]
+});
+</script>
+<?
+}
+
 include_once('footer.php'); 
 ?>
