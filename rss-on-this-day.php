@@ -14,12 +14,16 @@ if (!function_exists('getSummaryForCurrentDay')) {
 setOption('image_size', '', false);
 
 // pull down V/Line images: we just want the photo
-$vlineMode = isset($_GET['vline']);
+$vlineMode = isset($_GET['page']) && $_GET['page'] == 'vline';
 $feedTitle = "On this day - " . getGalleryTitle();
 if ($vlineMode)
 {
     $feedTitle = "V/Line on this day";
     zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhereVline');
+}
+else
+{
+    zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhere');
 }
 
 // add support for validating upcoming photos
@@ -87,6 +91,10 @@ else
 
 function rssAdditionalWhereVline() {
     return "a.id IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'vline') AND a.id NOT IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses')";
+}
+
+function rssAdditionalWhere($value) {
+    return $value . " AND a.folder NOT LIKE '%interiors%'";
 }
 
 function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protocol, $vlineMode)
