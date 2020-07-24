@@ -19,11 +19,6 @@ $feedTitle = "On this day - " . getGalleryTitle();
 if ($vlineMode)
 {
     $feedTitle = "V/Line on this day";
-    zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhereVline');
-}
-else
-{
-    zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhere');
 }
 
 // add support for validating upcoming photos
@@ -44,7 +39,8 @@ if (isset($_GET['date']))
 {
     $customDate = $_GET['date'];
 }
-$summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
+
+$summaryForCurrentDay = getSummaryForCurrentDayWithFallback($customDate, $vlineMode);
 
 $locale = getOption('locale');
 $validlocale = strtr($locale,"_","-");
@@ -78,7 +74,7 @@ if ($validationMode)
     {
         echo "<br><div>";
         $customDate=date('Y-m-d', time() + ($i * 86400));
-        $summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
+        $summaryForCurrentDay = getSummaryForCurrentDayWithFallback($customDate, $vlineMode);
         printCurrentData($summaryForCurrentDay, $validationMode, $host, $protocol, $vlineMode);
         echo "<hr></div>";
         $i++;
@@ -90,11 +86,30 @@ else
 }
 
 function rssAdditionalWhereVline() {
-    return "a.id IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'vline') AND a.id NOT IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses')";
+    global $_wongm_initial_filename;
+    return EXCLUDED_IMAGE_ALBUM_SQL . " AND a.id IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'vline') AND a.id NOT IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses') AND filename <> '" . $_wongm_initial_filename. "'";
 }
 
-function rssAdditionalWhere($value) {
-    return $value . " AND a.folder NOT LIKE '%interiors%'";
+function rssAdditionalWhere() {
+    return EXCLUDED_IMAGE_ALBUM_SQL;
+}
+
+function getSummaryForCurrentDayWithFallback($customDate, $vlineMode)
+{
+	zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhere');
+	$summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
+
+	if ($vlineMode)
+	{
+		global $_zp_current_image, $_wongm_initial_filename;
+		$_wongm_initial_filename = $_zp_current_image->getFileName();
+		
+		zp_remove_filter('on_this_day_additional_where', 'rssAdditionalWhere');
+		zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhereVline');
+		return getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));	
+	}
+	
+	return $summaryForCurrentDay;
 }
 
 function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protocol, $vlineMode)
@@ -113,10 +128,10 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
         }
         
         $imageEditLink = "";
-        $description = "<img border=\"0\" src=\"" . $domain . $summaryForCurrentDay->imageUrl . "\" alt=\"" . $summaryForCurrentDay->title . "\" /><br>" . $summaryForCurrentDay->desc;
+        $description = "<img border=\"0\" src=\"" . $domain . getDefaultSizedImage() . "\" alt=\"" . $summaryForCurrentDay->title . "\" /><br>" . getImageTitle() . ". " . getImageDesc();
         if ($validationMode)
         {
-            $imageEditLink = "<br>" . $summaryForCurrentDay->title . "<br><a href=\"$domain$summaryForCurrentDay->imagePageUrl\">Edit image</a><br>";
+            $imageEditLink = "<br>" . $summaryForCurrentDay->title . "<br><a href=\"" . getImageURL() . "\">Edit image</a><br>";
             $description .= $imageEditLink;
         }
         else
@@ -125,7 +140,7 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
         }
 ?>
 <item>
-    <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  $summaryForCurrentDay->desc; ?></title>
+    <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  getImageTitle() . ". " . getImageDesc(); ?></title>
     <link><?php echo $link; ?></link>
     <description><?php echo $description; ?></description>
     <guid><?php echo $guid; ?></guid>

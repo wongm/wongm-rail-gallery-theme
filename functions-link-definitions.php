@@ -32,7 +32,7 @@ DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . 
 
 DEFINE ('EXCLUDED_WAGONS_SQL', "a.folder NOT LIKE 'wagons%'");
 DEFINE ('BUS_ALBUM_IDs_SQL', "SELECT `objectid` FROM ". prefix('obj_to_tag') ." ott INNER JOIN ". prefix('tags') ." t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses'");
-DEFINE ('EXCLUDED_IMAGE_ALBUM_SQL', EXCLUDED_WAGONS_SQL . " AND a.folder NOT LIKE '%stations%' AND a.folder NOT LIKE '%infrastructure%' AND a.folder NOT LIKE '%bits%' AND a.folder != 'photoshop' AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ")");
+DEFINE ('EXCLUDED_IMAGE_ALBUM_SQL', EXCLUDED_WAGONS_SQL . " AND a.folder NOT LIKE '%stations%' AND a.folder NOT LIKE '%infrastructure%' AND a.folder NOT LIKE '%bits%' AND a.folder != 'photoshop' AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ") AND a.folder NOT LIKE '%interiors%'");
 
 DEFINE ('UNCAPTIONED_IMAGE_REGEX', "i.title REGEXP '_[0-9]{4}' OR i.title REGEXP 'DSCF[0-9]{4}' OR i.title = '' OR i.title  IS NULL");
 DEFINE ('CAPTIONED_IMAGE_REGEX', "i.title NOT REGEXP '_[0-9]{4}' AND i.title NOT REGEXP 'DSCF[0-9]{4}'");
