@@ -55,7 +55,7 @@ else {
   $protocol = 'http://';
 }
 ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
 <title><?php echo strip_tags($feedTitle); ?></title>
 <link><?php echo $protocol . $host.WEBPATH; ?></link>
@@ -143,6 +143,7 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
     <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  getImageTitle() . ". " . getImageDesc(); ?></title>
     <link><?php echo $link; ?></link>
     <description><?php echo $description; ?></description>
+    <content:encoded><![CDATA[<?php echo $imageLink; ?>]]></content:encoded>
     <guid><?php echo $guid; ?></guid>
     <pubDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></pubDate>
 </item>
