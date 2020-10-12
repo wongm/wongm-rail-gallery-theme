@@ -96,20 +96,20 @@ function rssAdditionalWhere() {
 
 function getSummaryForCurrentDayWithFallback($customDate, $vlineMode)
 {
-	zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhere');
-	$summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
+    zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhere');
+    $summaryForCurrentDay = getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
 
-	if ($vlineMode)
-	{
-		global $_zp_current_image, $_wongm_initial_filename;
-		$_wongm_initial_filename = $_zp_current_image->getFileName();
-		
-		zp_remove_filter('on_this_day_additional_where', 'rssAdditionalWhere');
-		zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhereVline');
-		return getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));	
-	}
-	
-	return $summaryForCurrentDay;
+    if ($vlineMode)
+    {
+        global $_zp_current_image, $_wongm_initial_filename;
+        $_wongm_initial_filename = $_zp_current_image->getFileName();
+        
+        zp_remove_filter('on_this_day_additional_where', 'rssAdditionalWhere');
+        zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhereVline');
+        return getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));    
+    }
+    
+    return $summaryForCurrentDay;
 }
 
 function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protocol, $vlineMode)
@@ -128,7 +128,14 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
         }
         
         $imageEditLink = "";
-        $description = "<img border=\"0\" src=\"" . $domain . getDefaultSizedImage() . "\" alt=\"" . $summaryForCurrentDay->title . "\" /><br>" . getImageTitle() . ". " . getImageDesc();
+        $imageLink = "<img border=\"0\" src=\"" . $domain . getFullImageURL() . "\" alt=\"" . $summaryForCurrentDay->title . "\" />";
+        $description = $imageLink . "<br>" . getImageTitle();
+        
+        if (strlen(getImageDesc()) > 0)
+        {
+            $description .=  ". " . getImageDesc();
+        }
+        
         if ($validationMode)
         {
             $imageEditLink = "<br>" . $summaryForCurrentDay->title . "<br><a href=\"" . getImageURL() . "\">Edit image</a><br>";
