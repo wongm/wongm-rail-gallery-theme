@@ -126,15 +126,16 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
             $link = "";
             $guid = md5($guid);
         }
+
+        $titleAndDescription = getImageTitle();
+        if (strlen(getImageDesc()) > 0)
+        {
+            $titleAndDescription .=  ". " . getImageDesc();
+        }
         
         $imageEditLink = "";
         $imageLink = "<img border=\"0\" src=\"" . $domain . getFullImageURL() . "\" alt=\"" . $summaryForCurrentDay->title . "\" />";
-        $description = $imageLink . "<br>" . getImageTitle();
-        
-        if (strlen(getImageDesc()) > 0)
-        {
-            $description .=  ". " . getImageDesc();
-        }
+        $description = $imageLink . "<br>" . $titleAndDescription;
         
         if ($validationMode)
         {
@@ -147,7 +148,7 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
         }
 ?>
 <item>
-    <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  getImageTitle() . ". " . getImageDesc(); ?></title>
+    <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  $titleAndDescription; ?></title>
     <link><?php echo $link; ?></link>
     <description><?php echo $description; ?></description>
     <content:encoded><![CDATA[<?php echo $imageLink; ?>]]></content:encoded>
