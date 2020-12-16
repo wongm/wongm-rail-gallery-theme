@@ -43,11 +43,11 @@ include_once('header.php');
 <div id="cumulative" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <div id="monthly" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <script type="text/javascript">
-$.getJSON('?page=data-<?php echo date('Ymd') ?>&cumulative=1&callback=?', function(data) { drawChart(data, 'cumulative', 'Total photos taken'); } );
-$.getJSON('?page=data-<?php echo date('Ymd') ?>&callback=?', function(data) { drawChart(data, 'monthly', 'Photos taken per month'); } );
+$.getJSON('?page=data-<?php echo date('Ymd') ?>&cumulative=1&callback=?', function(data) { drawChart(data, 'cumulative', 'area', 'Total photos taken'); } );
+$.getJSON('?page=data-<?php echo date('Ymd') ?>&callback=?', function(data) { drawChart(data, 'monthly', 'column', 'Photos taken per month'); } );
 
-function drawChart(data, type, title) {
-	Highcharts.chart(type, {
+function drawChart(data, element, type, title) {
+	Highcharts.chart(element, {
         chart: {
             zoomType: 'x'
         },
@@ -105,7 +105,7 @@ function drawChart(data, type, title) {
         },
 
         series: [{
-            type: 'area',
+            type: type,
             name: '# photos',
             data: data,
 			point: {
