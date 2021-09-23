@@ -10,6 +10,13 @@ if (!function_exists('next_DailySummaryItem')) {
 	exit();
 }
 
+$instagramMode = isset($_GET['page']) && $_GET['page'] == 'instagram';
+$feedTitle = "Recent updates by upload date";
+if ($instagramMode)
+{
+    $feedTitle .= " (selected image title, not summary of the day)";
+}
+
 // hack to show large images
 setOption('image_size', '', false);
 
@@ -27,16 +34,17 @@ if (isset($_SERVER['HTTPS']) &&
     $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
   $protocol = 'https://';
 }
-else {
+else 
+{
   $protocol = 'http://';
 }
-$albumname = "Recent updates by upload date";
+
 
 NewDailySummary(getOption('RSS_items'));
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
-<title><?php echo strip_tags(get_language_string(getOption('gallery_title'), $locale)).' - '.strip_tags($albumname); ?></title>
+<title><?php echo getGalleryTitle().' - '.strip_tags($feedTitle); ?></title>
 <link><?php echo $protocol . $host.WEBPATH; ?></link>
 <atom:link href="<?php echo $protocol; ?><?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self"	type="application/rss+xml" />
 <description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)); ?></description>
@@ -49,11 +57,22 @@ NewDailySummary(getOption('RSS_items'));
 	global $_zp_current_DailySummaryItem;
 	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());
 	$imagePath = getDefaultSizedImage();
+	
+	if ($instagramMode) 
+	{
+		$desc = $titleAndDesc = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new images at railgallery.wongm.com";
+	}
+	else
+	{
+		$titleAndDesc = getDailySummaryTitleAndDesc();
+		$desc = getDailySummaryDesc();
+	}
+		
 ?>
 <item>
-    <title><?php echo getDailySummaryTitleAndDesc(); ?></title>
+    <title><?php echo $titleAndDesc; ?></title>
     <link><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></link>
-    <description><![CDATA[<img border="0" src="<?php echo $protocol . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo getDailySummaryDesc(); ?>]]></description>
+    <description><![CDATA[<img border="0" src="<?php echo $protocol . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo $desc; ?>]]></description>
     <guid><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></guid>
     <pubDate><?php echo getDailySummaryDate("%a, %d %b %Y %H:%M:%S %z"); ?></pubDate>
 </item>
