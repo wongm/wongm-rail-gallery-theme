@@ -20,13 +20,14 @@ $i=0;
 $j=0;
 $photoDesc = "";
 
+$randomImages = getImageStatistic(getOption('wongm_randompage_count'), 'random');
 while ($i < getOption('wongm_randompage_count'))
 {
 	echo '<tr class="trio">';
 
 	while ($j < 3)
 	{
-		$randomImage = getRandomImages();
+		$randomImage = $randomImages[$i];
 		$randomImageURL = $randomImage->getLink();
 		$photoTitle = $randomImage->getTitle();
 		$photoDate = strftime(getOption('date_format'), strtotime($randomImage->getDateTime()));
