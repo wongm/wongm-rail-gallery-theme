@@ -130,7 +130,13 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
         $titleAndDescription = getImageTitle();
         if (strlen(getImageDesc()) > 0)
         {
-            $titleAndDescription .=  ". " . getImageDesc();
+            $lastchar = $titleAndDescription[-1];
+            if (!ctype_punct($lastchar)) 
+            {
+                $titleAndDescription .=  ".";
+            }
+            
+            $titleAndDescription .= " " . getImageDesc();
         }
         
         $imageEditLink = "";
