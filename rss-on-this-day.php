@@ -140,7 +140,8 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
         }
         
         $imageEditLink = "";
-        $imageLink = "<img border=\"0\" src=\"" . $domain . getFullImageURL() . "\" alt=\"" . $summaryForCurrentDay->title . "\" />";
+        $imageUrl = $domain . getFullImageURL();
+        $imageLink = "<img border=\"0\" src=\"" . $imageUrl . "\" alt=\"" . $summaryForCurrentDay->title . "\" />";
         $description = $imageLink . "<br>" . $titleAndDescription;
         
         if ($validationMode)
@@ -157,6 +158,7 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
     <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  $titleAndDescription; ?></title>
     <link><?php echo $link; ?></link>
     <description><?php echo $description; ?></description>
+    <imageUrl><?php echo $imageUrl; ?></imageUrl>
     <content:encoded><![CDATA[<?php echo $imageLink; ?>]]></content:encoded>
     <guid><?php echo $guid; ?></guid>
     <pubDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></pubDate>
