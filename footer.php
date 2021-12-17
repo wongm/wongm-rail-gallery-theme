@@ -1,7 +1,7 @@
 </div>
 <div id="footer">
 <?php if (getOption('wongm_frontpage_mode') == 'full') { ?>
-<a href="/">Home</a> :: <a href="https://www.facebook.com/wongms.rail.gallery">Facebook</a> :: <a href="https://twitter.com/wongmsrailpics">Twitter</a> :: <a href="<?php echo CONTACT_URL_PATH; ?>">Contact</a><br/>
+<a href="/">Home</a> :: <a href="https://www.facebook.com/wongms.rail.gallery">Facebook</a> :: <a href="https://twitter.com/wongmsrailpics">Twitter</a> :: <a href="https://www.instagram.com/wongmsrailgallery/">Instagram</a> :: <a href="<?php echo CONTACT_URL_PATH; ?>">Contact</a><br/>
 <?php } ?>
 <?php 	//display page generation time
 $endTime = array_sum(explode(" ",microtime()));
