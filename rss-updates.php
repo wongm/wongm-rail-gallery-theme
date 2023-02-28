@@ -60,7 +60,7 @@ NewDailySummary(getOption('RSS_items'));
 	
 	if ($instagramMode) 
 	{
-		$desc = $titleAndDesc = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new images at railgallery.wongm.com";
+		$desc = $titleAndDesc = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new photos at Wongm's Rail Gallery";
 	}
 	else
 	{
