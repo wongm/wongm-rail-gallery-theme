@@ -64,8 +64,18 @@ NewDailySummary(getOption('RSS_items'));
 	}
 	else
 	{
-		$titleAndDesc = getDailySummaryTitleAndDesc();
-		$desc = getDailySummaryDesc();
+		$imageDesc = getImageDesc();
+		if (strlen($imageDesc) > 0)
+		{
+			$imageDesc = ". $imageDesc";
+		}
+		
+		$desc = $titleAndDesc = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . $imageDesc;
+		
+		if (getDailySummaryNumImages() > 1)
+		{
+			$desc .= ". Plus " . (getDailySummaryNumImages() - 1) . " more new photo" . ((getDailySummaryNumImages() == 2) ? "" : "s") . " in the " . getDailySummaryAlbumNameText() . " albums";
+		}
 	}
 		
 ?>
