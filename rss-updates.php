@@ -60,7 +60,7 @@ NewDailySummary(getOption('RSS_items'));
 	
 	if ($instagramMode) 
 	{
-		$desc = $titleAndDesc = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new photos at Wongm's Rail Gallery";
+		$description = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new photos at Wongm's Rail Gallery";
 	}
 	else
 	{
@@ -70,18 +70,20 @@ NewDailySummary(getOption('RSS_items'));
 			$imageDesc = ". $imageDesc";
 		}
 		
-		$desc = $titleAndDesc = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . $imageDesc;
+		$description = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . $imageDesc;
 		
 		if (getDailySummaryNumImages() > 1)
 		{
-			$desc .= ". Plus " . (getDailySummaryNumImages() - 1) . " more new photo" . ((getDailySummaryNumImages() == 2) ? "" : "s") . " in the " . getDailySummaryAlbumNameText() . " albums";
+			$description .= ". Plus " . (getDailySummaryNumImages() - 1) . " more new photo" . ((getDailySummaryNumImages() == 2) ? "" : "s") . " in the " . getDailySummaryAlbumNameText() . " albums";
 		}
+		
+		
 	}
 ?>
 <item>
-    <title><?php echo $titleAndDesc; ?></title>
+    <title><?php echo $description; ?></title>
     <link><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></link>
-    <description><![CDATA[<img border="0" src="<?php echo $protocol . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo $desc; ?>]]></description>
+    <description><![CDATA[<img border="0" src="<?php echo $protocol . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo $description; ?>]]></description>
     <guid><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></guid>
     <pubDate><?php echo getDailySummaryDate("%a, %d %b %Y %H:%M:%S %z"); ?></pubDate>
 </item>
