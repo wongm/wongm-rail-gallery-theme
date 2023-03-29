@@ -77,7 +77,6 @@ NewDailySummary(getOption('RSS_items'));
 			$desc .= ". Plus " . (getDailySummaryNumImages() - 1) . " more new photo" . ((getDailySummaryNumImages() == 2) ? "" : "s") . " in the " . getDailySummaryAlbumNameText() . " albums";
 		}
 	}
-		
 ?>
 <item>
     <title><?php echo $titleAndDesc; ?></title>
