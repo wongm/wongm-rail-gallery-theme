@@ -624,8 +624,12 @@ function printMetadata($pageTitle)
 		else
 		{
 			global $_zp_current_search;
-			$title = htmlspecialchars($pageTitle);
-			$imagePath = getDefaultSizedImage($_zp_current_search->getImage(1));
+			$firstImage = $_zp_current_search->getImage(1);
+			if ($firstImage)
+			{
+				$title = htmlspecialchars($pageTitle);
+				$imagePath = getDefaultSizedImage($_zp_current_search->getImage(1));
+			}
 		}
 	}
 	// image page
