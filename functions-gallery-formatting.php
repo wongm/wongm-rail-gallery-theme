@@ -344,7 +344,7 @@ function drawIndexAlbums($type=null, $numberOfItems = null)
     	
 		while (next_non_dynamic_album(false, 'ID', 'DESC'))
 		{
-			if (!$_zp_current_album->isDynamic() && $totalDisplayed < getOption('wongm_recentalbum_count'))
+			if (!$_zp_current_album->isDynamic()) // && $totalDisplayed < getOption('wongm_recentalbum_count'))
 			{
     			$totalDisplayed++;
     			drawWongmAlbumRow();
@@ -620,6 +620,12 @@ function printMetadata($pageTitle)
 			$description = getDailySummaryDesc();
 			$title = getDailySummaryTitleAndDesc();
 			$imagePath = $_zp_current_DailySummaryItem->getDailySummaryThumbImage()->getFullImageURL();
+		}
+		else
+		{
+			global $_zp_current_search;
+			$title = htmlspecialchars($pageTitle);
+			$imagePath = getDefaultSizedImage($_zp_current_search->getImage(1));
 		}
 	}
 	// image page
