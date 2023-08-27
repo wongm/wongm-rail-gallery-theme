@@ -96,6 +96,7 @@ if (isset($_REQUEST['words'])) { ?>
 if ($totalAlbums > 0)
 {
 	echo "<div id=\"indexalbums\">\n";
+	$firstAlbum = "";
 	while (next_album())
 	{
 		if (is_null($firstAlbum))
