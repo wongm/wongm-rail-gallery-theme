@@ -10,9 +10,9 @@
 $rss = new DOMDocument();
 $feed = array();
 $urlarray = array(
-  array( 'name' => 'From my blog',          'url' => 'https://wongm.com/feed/' ),
-  array( 'name' => 'Tales from Europe',     'url' => 'https://www.eurogunzel.com/feed/' ),
-  array( 'name' => 'Tales from Hong Kong',  'url' => 'https://www.checkerboardhill.com/feed/' ),
+  array( 'name' => 'From my blog',          'url' => 'https://wongm.com/category/trains,trams/feed/' ),
+  array( 'name' => 'Tales from Europe',     'url' => 'https://www.eurogunzel.com/category/trains,trams/feed/' ),
+  array( 'name' => 'Tales from Hong Kong',  'url' => 'https://www.checkerboardhill.com/category/transport/feed/' ),
 );
 
 foreach ( $urlarray as $url ) {
@@ -52,9 +52,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
 	>
 	<channel>
-		<title>All blog posts by Marcus Wong</title>
-		<atom:link href="https://railgallery.wongm.com/page/rss-blogs" rel="self" type="application/rss+xml" />
-		<description>All blog posts by Marcus Wong</description>
+		<title>Transport related blog posts by Marcus Wong</title>
+		<atom:link href="https://railgallery.wongm.com/page/rss-transport-blogs" rel="self" type="application/rss+xml" />
+		<description>Transport related blog posts by Marcus Wong</description>
 		<lastBuildDate><?php echo date('r', time()); ?></lastBuildDate>
 		<language>en-AU</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
