@@ -39,6 +39,7 @@ usort( $feed, function( $a, $b ) {
   return strtotime( $b['pubDate'] ) - strtotime( $a['pubDate'] );
 });
 
+header('Content-Type: text/xml');
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <rss version="2.0"
