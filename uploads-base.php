@@ -39,6 +39,9 @@ switch ($pageClass)
 	case 'recent':
 		$pageBreadCrumb = '<a href="' . UPDATES_URL_PATH . '">Recent uploads</a> &raquo; <a href="' . $popularImageText[$pageType]['url'] . '">' . $popularImageText[$pageType]['text'] . '</a>';
 		break;
+	case 'fleetlist':
+		$pageBreadCrumb = '<a href="' . FLEETLISTS_URL_PATH . '">Fleetlists</a> &raquo; ' . $popularImageText[$pageType]['title'];
+		break;
 	default:
 		$pageBreadCrumb = '<a href="' . UPDATES_URL_PATH . '">Recent uploads</a>';
 		break;
@@ -53,11 +56,16 @@ switch ($pageClass)
 	<h2><?=$subheading?></h2>
 </div>
 
-<p><?php echo $subheading; ?>, images <?php echo getNumberCurrentDisplayedRecords(); ?> shown on this page.
+<?php 
+if ($pageClass != 'fleetlist')
+{
+?>
+<p><?php echo $subheading; ?>, images <?php echo getNumberCurrentDisplayedRecords(); ?> shown on this page. 
 <?php
+}
 if (array_key_exists('subtext', $popularImageText[$pageType]))
 {
-	echo ' ' . $popularImageText[$pageType]['subtext'];
+	echo $popularImageText[$pageType]['subtext'];
 }
 
 if ($popularImageText[$pageType]['internal'])
@@ -72,13 +80,17 @@ if ($popularImageText[$pageType]['internal'])
 <?php  
   $column = 0;
 
-  while (next_photostream_image()): $column++;	  
+  while (next_photostream_image()): $column++;
 	  drawWongmImageCell($pageType);
   endwhile; ?>
 	</div>
 </div>
-<?php printPhotostreamPageListWithNav("« ".gettext("Prev"), gettext("Next")." »"); ?>
-<?php
+<?php 
+if ($pageClass != 'fleetlist')
+{
+	printPhotostreamPageListWithNav("« ".gettext("Prev"), gettext("Next")." »");
+}
+
 include_once('footer.php'); 
 
 function drawInternalLinks()

@@ -104,6 +104,7 @@ if (isset($noIndex) && $noIndex) {
 					<li><a href="<?php echo ON_THIS_DAY_URL_PATH; ?>">On this day</a></li>
 					<li><a href="<?php echo POPULAR_URL_PATH; ?>" title="Most popular photos">Popular photos</a></li>
 					<li><a href="<?php echo RANDOM_ALBUM_PATH; ?>" title="A selection of random photos">Random photos</a></li>
+					<li><a href="<?php echo FLEETLISTS_URL_PATH; ?>" title="Photos of every single vehicle in a fleet">Fleetlists</a></li>
 					<li><a href="<?php echo ARCHIVE_URL_PATH; ?>">Archives</a></li>
 				  </ul>
 				</li>
