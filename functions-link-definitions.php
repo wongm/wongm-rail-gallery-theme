@@ -151,8 +151,8 @@ $popularImageText['nr-class']['where'] = "i.id IN (SELECT id FROM
 $popularImageText['nr-class']['order'] =  "CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*NR+[0-9]*'), 'NR', ''), DECIMAL)";+
 
 $popularImageText['vlocity']['url'] = 'every-vlocity';
-$popularImageText['vlocity']['title'] = 'Every single single V/Line VLocity railcar';
-$popularImageText['vlocity']['subtext'] = 'Every single single V/Line VLocity railcar from VL00 up to whatever is the current highest number - now VL100 and upwards!';
+$popularImageText['vlocity']['title'] = 'Every single V/Line VLocity railcar';
+$popularImageText['vlocity']['subtext'] = 'Every single V/Line VLocity railcar from VL00 up to whatever is the current highest number - now VL100 and upwards!';
 $popularImageText['vlocity']['maxcount'] = 300;
 $popularImageText['vlocity']['type'] = 'fleetlist';
 $popularImageText['vlocity']['where'] = "i.id IN (SELECT id FROM
