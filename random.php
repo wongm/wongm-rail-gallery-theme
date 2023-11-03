@@ -18,7 +18,6 @@ include_once('header.php');
 
 $i=0;
 $j=0;
-$photoDesc = "";
 
 $randomImages = getImageStatistic(getOption('wongm_randompage_count'), 'random');
 while ($i < getOption('wongm_randompage_count'))
@@ -37,13 +36,10 @@ while ($i < getOption('wongm_randompage_count'))
 		$photoAlbumTitle = $albumForPhoto->getTitle();
 		$photoPath = $albumForPhoto->getLink();
 
-		if ($photoDesc == '')
+		$photoDesc = $randomImage->getDesc();
+		if (strlen($photoDesc) > 0)
 		{
-			$photoDesc = $photoTitle;
-		}
-		else
-		{
-			$photoDesc = 'Description: '.$photoDesc;
+			$photoDesc = "<p>" . $photoDesc . "</p>\n";
 		}
 ?>
 <div class="image">
@@ -52,6 +48,7 @@ while ($i < getOption('wongm_randompage_count'))
 	</a></div>
 	<div class="imagetitle">	
 		<h4><a href="<?php echo $randomImageURL?>"><?php echo $photoTitle; ?></a></h4>
+		<?php echo $photoDesc; ?>
 		<small><?php echo $photoDate ?><?php if (zp_loggedin())
 		{
 			printRollingHitcounter($randomImage, true);
