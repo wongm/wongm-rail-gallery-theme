@@ -148,7 +148,7 @@ $popularImageText['nr-class']['where'] = "i.id IN (SELECT id FROM
 	AND zen_albums.folder NOT LIKE '%bits%' AND zen_albums.folder NOT LIKE '%vline%'
 	) as trains
 	WHERE RowNumber = 1 AND locoID <> 0)";
-$popularImageText['nr-class']['order'] =  "CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*NR+[0-9]*'), 'NR', ''), DECIMAL)";+
+$popularImageText['nr-class']['order'] =  "CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*NR+[0-9]*'), 'NR', ''), DECIMAL)";
 
 $popularImageText['vlocity']['url'] = 'every-vlocity';
 $popularImageText['vlocity']['title'] = 'Every single V/Line VLocity railcar';
