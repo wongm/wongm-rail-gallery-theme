@@ -87,11 +87,11 @@ else
 
 function rssAdditionalWhereVline() {
     global $_wongm_initial_filename;
-    return EXCLUDED_IMAGE_ALBUM_SQL . " AND a.id IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'vline') AND a.id NOT IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses') AND filename <> '" . $_wongm_initial_filename. "'";
+    return rssAdditionalWhere() . " AND a.id IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'vline') AND a.id NOT IN (SELECT `objectid` FROM `zen_obj_to_tag` ott INNER JOIN `zen_tags` t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses') AND filename <> '" . $_wongm_initial_filename. "'";
 }
 
 function rssAdditionalWhere() {
-    return EXCLUDED_IMAGE_ALBUM_SQL;
+	return wongmTheme::additionalWhere();
 }
 
 function getSummaryForCurrentDayWithFallback($customDate, $vlineMode)
@@ -106,7 +106,7 @@ function getSummaryForCurrentDayWithFallback($customDate, $vlineMode)
         
         zp_remove_filter('on_this_day_additional_where', 'rssAdditionalWhere');
         zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhereVline');
-        return getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));    
+        return getSummaryForCurrentDay($customDate, getOption('wongm_rss_hour_threshold'));
     }
     
     return $summaryForCurrentDay;

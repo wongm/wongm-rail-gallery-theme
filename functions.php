@@ -52,7 +52,10 @@ class wongmTheme {
 	}
 
     static function additionalWhere() {
-		return EXCLUDED_IMAGE_ALBUM_SQL;
+		$foldersToExclude = explode(',' , getOption('wongm_ratings_folder_exclude'));
+		$foldersToExcludePartialString = join("%' AND a.folder NOT LIKE '%", $foldersToExclude);
+		$foldersToExcludeString = " a.folder NOT LIKE '%" . $foldersToExcludePartialString . "%' AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ")";
+		return $foldersToExcludeString;
     }
 
     static function addAlbumLink($albumname) {
