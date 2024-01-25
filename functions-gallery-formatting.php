@@ -104,7 +104,7 @@ function printEXIFData()
 	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
 	{
 		$udate = strtotime($result['EXIFDateTimeOriginal']);
-		$fdate = strftime('%e %B %Y', $udate);
+		$fdate = strftime('%A %e %B %Y', $udate);
 		$ftime = strftime('%H:%M %p', $udate);
 		$dateString = strftime('%Y-%m-%d', $udate);
 
@@ -194,7 +194,7 @@ function printImageDescWrapped()
 	if (strlen(getImageDesc()) > 0)
 	{
 		echo "<p>" . getImageDesc() . "</p>\n";
-	}	
+	}
 }
 
 /*
@@ -415,7 +415,7 @@ function drawWongmAlbumRow($type = "")
 	<div class="albumdesc">
 		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?><?php echo strip_tags(getAlbumTitle());?>">
 		<?php printAlbumTitle(); ?></a></h4>
-		<?php if ($type != 'frontpage') { ?><p><small><?php printAlbumDate("", "%e %B %Y"); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></p><?php } ?>
+		<?php if ($type != 'frontpage') { ?><p><small><?php printAlbumDate("", "%A %e %B %Y"); ?><?php if (zp_loggedin() && function_exists('printRollingHitcounter')) { printRollingHitcounter($_zp_current_album, true); } ?></small></p><?php } ?>
 		<p><?php printAlbumDesc(); ?></p>
 <?php 	if (zp_loggedin())
 	{
