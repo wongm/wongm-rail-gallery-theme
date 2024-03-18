@@ -2,6 +2,8 @@
 $_zp_script_timer['start'] = microtime();
 // force UTF-8 Ø
 
+global $_zp_db;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -20,8 +22,8 @@ if ($instagramMode)
 // hack to show large images
 setOption('image_size', '', false);
 
-$lastModifiedImageDateSQL = "SELECT mtime FROM " . prefix('images') . " ORDER BY mtime DESC LIMIT 0, 1";
-$lastModifiedImageDate = query_single_row($lastModifiedImageDateSQL)['mtime'];
+$lastModifiedImageDateSQL = "SELECT mtime FROM " . $_zp_db->prefix('images') . " ORDER BY mtime DESC LIMIT 0, 1";
+$lastModifiedImageDate = $_zp_db->querySingleRow($lastModifiedImageDateSQL)['mtime'];
 
 header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastModifiedImageDate).' GMT', true, 200);
 header('Content-Type: application/xml');
@@ -47,7 +49,7 @@ NewDailySummary(getOption('RSS_items'));
 <title><?php echo getGalleryTitle().' - '.strip_tags($feedTitle); ?></title>
 <link><?php echo $protocol . $host.WEBPATH; ?></link>
 <atom:link href="<?php echo $protocol; ?><?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self"	type="application/rss+xml" />
-<description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)); ?></description>
+<description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)?? ''); ?></description>
 <language><?php echo $validlocale; ?></language>
 <pubDate><?php echo date("r", $lastModifiedImageDate); ?></pubDate>
 <lastBuildDate><?php echo date("r", $lastModifiedImageDate); ?></lastBuildDate>
@@ -60,7 +62,7 @@ NewDailySummary(getOption('RSS_items'));
 	
 	if ($instagramMode) 
 	{
-		$description = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new photos at Wongm's Rail Gallery";
+		$description = getDailySummaryDate("l j F Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new photos at Wongm's Rail Gallery";
 	}
 	else
 	{
@@ -70,7 +72,7 @@ NewDailySummary(getOption('RSS_items'));
 			$imageDesc = ". $imageDesc";
 		}
 		
-		$description = getDailySummaryDate("%A %e %B %Y") . " - " . getImageTitle() . $imageDesc;
+		$description = getDailySummaryDate("l j F Y") . " - " . getImageTitle() . $imageDesc;
 		
 		if (getDailySummaryNumImages() > 1)
 		{
@@ -85,7 +87,7 @@ NewDailySummary(getOption('RSS_items'));
     <link><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></link>
     <description><![CDATA[<img border="0" src="<?php echo $protocol . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo $description; ?>]]></description>
     <guid><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></guid>
-    <pubDate><?php echo getDailySummaryDate("%a, %d %b %Y %H:%M:%S %z"); ?></pubDate>
+    <pubDate><?php echo getDailySummaryDate("r"); ?></pubDate>
 </item>
 <?php } ?>
 </channel>
