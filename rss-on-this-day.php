@@ -60,7 +60,7 @@ else {
 <title><?php echo strip_tags($feedTitle); ?></title>
 <link><?php echo $protocol . $host.WEBPATH; ?></link>
 <atom:link href="<?php echo $protocol; ?><?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self" type="application/rss+xml" />
-<description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)); ?></description>
+<description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale) ?? ''); ?></description>
 <language><?php echo $validlocale; ?></language>
 <pubDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></pubDate>
 <lastBuildDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></lastBuildDate>
@@ -102,7 +102,7 @@ function getSummaryForCurrentDayWithFallback($customDate, $vlineMode)
     if ($vlineMode)
     {
         global $_zp_current_image, $_wongm_initial_filename;
-        $_wongm_initial_filename = $_zp_current_image->getFileName();
+        $_wongm_initial_filename = $_zp_current_image->getName();
         
         zp_remove_filter('on_this_day_additional_where', 'rssAdditionalWhere');
         zp_register_filter('on_this_day_additional_where', 'rssAdditionalWhereVline');
