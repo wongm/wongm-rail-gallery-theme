@@ -8,16 +8,6 @@ if (isset($_zp_current_search))
     {
         $_zp_current_search->setSortDirection(false);
     }
-    // dates show the newest item first
-    else if (isset($_REQUEST['words']))
-    {
-        $_zp_current_search->setSortDirection(true);
-    }
-    // let everything else use the defaults
-    else
-    {
-        $_zp_current_search->setSortDirection(false);
-    }
 }
 
 $albumsText = $searchwords = '';
