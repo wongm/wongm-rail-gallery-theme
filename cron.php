@@ -31,7 +31,7 @@ if (isset($_GET['token']))
         {
             echo "$hiddenUncaptionedImageCount IMAGES NEED CAPTIONS<br>";
 			
-			$getAlbumsToUpdate = "SELECT albumid FROM " . prefix('images') . " GROUP BY albumid HAVING max(DATE(date)) = min(DATE(date))";
+			$getAlbumsToUpdate = "SELECT albumid FROM " . $_zp_db->prefix('images') . " GROUP BY albumid HAVING max(DATE(date)) = min(DATE(date))";
 			$results = $_zp_db->queryFullArray($getAlbumsToUpdate);
 			
 			$albumIds = [];
