@@ -101,7 +101,7 @@ function printEXIFData()
 		}
 	}
 
-	if (sizeof($result) > 1 AND $result['EXIFDateTimeOriginal'] != '')
+	if ($result !== false && sizeof($result) > 1 && $result['EXIFDateTimeOriginal'] != '')
 	{
 		$udate = strtotime($result['EXIFDateTimeOriginal']);
 		$fdate = strftime('%A %e %B %Y', $udate);
