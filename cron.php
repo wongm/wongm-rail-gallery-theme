@@ -32,7 +32,7 @@ if (isset($_GET['token']))
             echo "$hiddenUncaptionedImageCount IMAGES NEED CAPTIONS<br>";
 			
 			$getAlbumsToUpdate = "SELECT albumid FROM " . prefix('images') . " GROUP BY albumid HAVING max(DATE(date)) = min(DATE(date))";
-			$results = query_full_array($getAlbumsToUpdate);
+			$results = $_zp_db->queryFullArray($getAlbumsToUpdate);
 			
 			$albumIds = [];
 			foreach ($results as $albumId)
@@ -42,7 +42,7 @@ if (isset($_GET['token']))
 			
 			$albumsToSetDates = "UPDATE " . $_zp_db->prefix('albums') . " SET sort_type = 'date', image_sortdirection = 0 WHERE id IN (" . implode(",", $albumIds) . ")";
 			$_zp_db->query($albumsToSetDates);
-			echo "UPDATED SORTING FOR " . $_zp_db->dbAffectedRows() . " ALBUMS<BR>";
+			echo "UPDATED SORTING FOR " . $_zp_db->getAffectedRows() . " ALBUMS<BR>";
 
         }
         else
