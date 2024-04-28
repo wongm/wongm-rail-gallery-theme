@@ -67,7 +67,7 @@ include_once('header.php');
 
 if (isset($_REQUEST['s'])) { ?>
 <script type="text/javascript">$(document).ready(function() {
-	document.getElementById('search_input').value = '<? echo str_replace("\"", "", getSearchWords()); ?>';
+	document.getElementById('search_input').value = '<?php echo str_replace("\"", "", getSearchWords()); ?>';
 });</script>
 <?php
 }
