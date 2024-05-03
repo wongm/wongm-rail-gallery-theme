@@ -29,7 +29,7 @@ while ($i < getOption('wongm_randompage_count'))
 		$randomImage = $randomImages[$i];
 		$randomImageURL = $randomImage->getLink();
 		$photoTitle = $randomImage->getTitle();
-		$photoDate = strftime(getOption('date_format'), strtotime($randomImage->getDateTime()));
+		$photoDate = date(getOption('date_format'), strtotime($randomImage->getDateTime()));
 		$imageCode = "<img src='".$randomImage->getSizedImage(getOption('image_size'))."' alt='".$photoTitle."'>";
 
 		$albumForPhoto = $randomImage->getAlbum();
