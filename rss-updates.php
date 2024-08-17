@@ -13,6 +13,7 @@ if (!function_exists('next_DailySummaryItem')) {
 }
 
 $instagramMode = isset($_GET['page']) && $_GET['page'] == 'instagram';
+$twitterMode = isset($_GET['page']) && $_GET['page'] == 'twitter';
 $feedTitle = "Recent updates by upload date";
 if ($instagramMode)
 {
@@ -78,8 +79,12 @@ NewDailySummary(getOption('RSS_items'));
 		{
 			$description .= ". Plus " . (getDailySummaryNumImages() - 1) . " more new photo" . ((getDailySummaryNumImages() == 2) ? "" : "s") . " in the " . getDailySummaryAlbumNameText() . " albums";
 		}
-		
-		
+	}
+	
+	if ($twitterMode)
+	{
+		//23 is magic character number to remove to support URL attachment, so truncate by 25
+		$description = (strlen($description) > (280 - 25)) ? substr($description, 0, (280 - 3 - 25)).'...' : $description;
 	}
 ?>
 <item>
