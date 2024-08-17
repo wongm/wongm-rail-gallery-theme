@@ -58,7 +58,7 @@ NewDailySummary(getOption('RSS_items'));
 <?php while (next_DailySummaryItem()) { 
 	global $_zp_current_DailySummaryItem;
 	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());
-	$imagePath = getDefaultSizedImage();
+	$imagePath = $protocol . $host . getDefaultSizedImage();
 	
 	if ($instagramMode) 
 	{
@@ -85,7 +85,8 @@ NewDailySummary(getOption('RSS_items'));
 <item>
     <title><?php echo $description; ?></title>
     <link><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></link>
-    <description><![CDATA[<img border="0" src="<?php echo $protocol . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo $description; ?>]]></description>
+    <description><![CDATA[<img border="0" src="<?php echo $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo $description; ?>]]></description>
+	<enclosure url="<?php echo htmlentities($imagePath); ?>" />
     <guid><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></guid>
     <pubDate><?php echo getDailySummaryDate("r"); ?></pubDate>
 </item>
