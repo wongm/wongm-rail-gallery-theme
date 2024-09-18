@@ -59,7 +59,7 @@ NewDailySummary(getOption('RSS_items'));
 <?php while (next_DailySummaryItem()) { 
 	global $_zp_current_DailySummaryItem;
 	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());
-	$imagePath = $protocol . $host . getDefaultSizedImage();
+	$imagePath = $protocol . $host . getFullImageURL();
 	
 	if ($instagramMode) 
 	{
