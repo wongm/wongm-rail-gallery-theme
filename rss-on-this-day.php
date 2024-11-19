@@ -138,6 +138,8 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
             
             $titleAndDescription .= " " . getImageDesc();
         }
+		
+		$titleAndDescription = htmlspecialchars($titleAndDescription);
         
         $imageEditLink = "";
         $imageUrl = $domain . getFullImageURL();
