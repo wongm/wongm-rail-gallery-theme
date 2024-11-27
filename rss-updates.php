@@ -14,6 +14,7 @@ if (!function_exists('next_DailySummaryItem')) {
 
 $instagramMode = isset($_GET['page']) && $_GET['page'] == 'instagram';
 $twitterMode = isset($_GET['page']) && $_GET['page'] == 'twitter';
+$iftttMode = (isset($_GET['page']) && $_GET['page'] == 'ifttt') || $instagramMode || $twitterMode;
 $feedTitle = "Recent updates by upload date";
 if ($instagramMode)
 {
@@ -57,13 +58,14 @@ NewDailySummary(getOption('RSS_items'));
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>ZenPhoto RSS Generator</generator>
 <?php while (next_DailySummaryItem()) { 
-	global $_zp_current_DailySummaryItem;
+	global $_zp_current_DailySummaryItem, $_zp_current_image;
 	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());
 	$imagePath = $protocol . $host . getFullImageURL();
+	$fileSize = $_zp_current_image->getFilesize();
 	
 	if ($instagramMode) 
 	{
-		$description = getDailySummaryDate("l j F Y") . " - " . getImageTitle() . ". See " . getDailySummaryNumImages() . " more new photos at Wongm's Rail Gallery";
+		$description = getDailySummaryDate("l j F Y") . " - " . getImageTitle() . ". See all " . getDailySummaryNumImages() . " new photos at Wongm's Rail Gallery";
 	}
 	else
 	{
@@ -91,9 +93,9 @@ NewDailySummary(getOption('RSS_items'));
     <title><?php echo $description; ?></title>
     <link><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></link>
     <description><![CDATA[<img border="0" src="<?php echo $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo $description; ?>]]></description>
-	<enclosure url="<?php echo htmlentities($imagePath); ?>" />
+	<enclosure url="<?php echo htmlentities($imagePath); ?>" type="image/jpeg" length="<? echo $fileSize; ?>" />
     <guid><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></guid>
-    <pubDate><?php echo getDailySummaryDate("r"); ?></pubDate>
+    <?php if (!$iftttMode) { ?><pubDate><?php echo getDailySummaryDate("r"); ?></pubDate><?php } ?>
 </item>
 <?php } ?>
 </channel>
