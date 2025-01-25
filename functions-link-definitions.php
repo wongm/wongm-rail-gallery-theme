@@ -134,20 +134,43 @@ $popularImageText['nr-class']['maxcount'] = 122;
 $popularImageText['nr-class']['type'] = 'fleetlist';
 $popularImageText['nr-class']['order'] =  "CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*NR+[0-9]*'), 'NR', ''), DECIMAL)";
 $popularImageText['nr-class']['where'] = "i.id IN (SELECT id FROM
-	(
-	select  distinct 
-		i.id,
-		i.title,
-		filename,
-		folder,
-		ROW_NUMBER() OVER (PARTITION BY REGEXP_SUBSTR (i.title, '^*NR{1,3}[0-9]*') ORDER BY i.hitcounter DESC) AS RowNumber,
-		CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*NR+[0-9]*'), 'NR', ''), DECIMAL) AS locoID 
-		from zen_images i
-		join zen_albums ON i.albumid = zen_albums.id
-	where i.title REGEXP  'NR{1,3}[0-9]'
-	AND zen_albums.folder NOT LIKE '%bits%' AND zen_albums.folder NOT LIKE '%vline%'
-	) as trains
-	WHERE RowNumber = 1 AND locoID <> 0)";
+(
+select  distinct 
+	i.id,
+	i.title,
+	filename,
+	folder,
+	ROW_NUMBER() OVER (PARTITION BY REGEXP_SUBSTR (i.title, '^*NR{1,3}[0-9]*') ORDER BY i.hitcounter DESC) AS RowNumber,
+	CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*NR+[0-9]*'), 'NR', ''), DECIMAL) AS locoID 
+	from zen_images i
+	join zen_albums ON i.albumid = zen_albums.id
+where i.title REGEXP  'NR{1,3}[0-9]'
+AND zen_albums.folder NOT LIKE '%bits%' AND zen_albums.folder NOT LIKE '%vline%'
+) as trains
+WHERE RowNumber = 1 AND locoID <> 0)";
+	
+$popularImageText['n-class']['url'] = 'every-n-class';
+$popularImageText['n-class']['title'] = 'Every single N class locomotive';
+$popularImageText['n-class']['subtext'] = 'Every single N class locomotive from N451 to N475';
+$popularImageText['n-class']['maxcount'] = 475;
+$popularImageText['n-class']['type'] = 'fleetlist';
+$popularImageText['n-class']['order'] =  "CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*N+[0-9]*'), 'N', ''), DECIMAL)";
+$popularImageText['n-class']['where'] = "i.id IN (SELECT id FROM
+(
+select  distinct 
+	i.id,
+	i.title,
+	filename,
+	folder,
+	ROW_NUMBER() OVER (PARTITION BY REGEXP_SUBSTR (i.title, '^*N{1,3}[0-9]*') ORDER BY i.hitcounter / UNIX_TIMESTAMP(i.date) DESC) AS RowNumber,
+	CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*N+[0-9]*'), 'N', ''), DECIMAL) AS locoID 
+	from zen_images i
+	join zen_albums ON i.albumid = zen_albums.id
+where i.title REGEXP  'N{1,3}[0-9]'
+AND zen_albums.folder NOT LIKE '%bits%'
+HAVING locoID >= 451 AND locoID <= 475
+) as trains
+WHERE RowNumber = 1 AND locoID <> 0)";
 
 $popularImageText['vlocity']['url'] = 'every-vlocity';
 $popularImageText['vlocity']['title'] = 'Every single V/Line VLocity railcar';
