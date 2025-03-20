@@ -54,7 +54,9 @@ class wongmTheme {
     static function additionalWhere() {
 		$foldersToExclude = explode(',' , getOption('wongm_ratings_folder_exclude'));
 		$foldersToExcludePartialString = join("%' AND a.folder NOT LIKE '%", $foldersToExclude);
-		$foldersToExcludeString = " a.folder NOT LIKE '%" . $foldersToExcludePartialString . "%' AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ")";
+		$imagesToExclude = explode(',' , getOption('wongm_ratings_image_exclude'));
+		$imagesToExcludePartialString = join("','", $imagesToExclude);
+		$foldersToExcludeString = " a.folder NOT LIKE '%" . $foldersToExcludePartialString . "%' AND filename NOT IN ('" . $imagesToExcludePartialString . "') AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ")";
 		return $foldersToExcludeString;
     }
 

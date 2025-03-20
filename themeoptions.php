@@ -28,6 +28,7 @@ class ThemeOptions {
 		return array(	
 						gettext('Content mode') => array('key' => 'wongm_frontpage_mode', 'type' => OPTION_TYPE_SELECTOR, 'desc' => gettext('Should the gallery include links to recent uploads, news, etc; or just a listing of albums'), 'selections' => array( gettext('Albums only') => 'albumsonly',  gettext('Full') => 'full') ),
 						gettext('Image rating: exclude albums') => array('key' => 'wongm_ratings_folder_exclude', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('CSV string with the folder titles to be excluded')),
+						gettext('Image rating: exclude images') => array('key' => 'wongm_ratings_image_exclude', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('CSV string with the filenames to be excluded')),
 						gettext('Image title: truncate length') => array('key' => 'wongm_imagetitle_truncate_length', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Image title in breadcrumb: truncate to this length')),
 						gettext('Front page random images: rating threshold') => array('key' => 'random_threshold_ratings', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for the frontpage random images')),
 						gettext('Front page random images: hitcounter threshold') => array('key' => 'random_threshold_hitcounter', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Threshold value for the frontpage random images')),
