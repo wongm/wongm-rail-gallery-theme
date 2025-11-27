@@ -59,12 +59,6 @@ else
 	<?php printNewsArchive("archive");	?>
 </div>
 <?php 	}
-?>
-<div id="tag_cloud">
-	<h2><?php echo gettext('Popular tags'); ?></h2>
-		<?php printAllTagsAs('cloud', 'tags'); ?>
-</div>
-<?php
 	}
 }
 include_once('footer.php');

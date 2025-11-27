@@ -4,6 +4,7 @@ DEFINE ('HOME_PATH', WEBPATH . "/");
 DEFINE ('NEWS_URL_PATH', WEBPATH . "/news");
 
 DEFINE ('ARCHIVE_URL_PATH', WEBPATH . "/page/archive");
+DEFINE ('TAGS_URL_PATH', WEBPATH . "/page/tags");
 DEFINE ('SEARCH_URL_PATH', WEBPATH . "/page/search");
 DEFINE ('EVERY_ALBUM_PATH', WEBPATH . "/page/everything");
 DEFINE ('ALBUM_THEME_PATH', WEBPATH . "/page/albums");
@@ -216,7 +217,7 @@ select  distinct
 where i.title REGEXP  'X''Trapolis {1,3}[0-9]'
 AND zen_albums.folder NOT LIKE '%bits%' AND zen_albums.folder NOT LIKE '%vicers%' AND zen_albums.folder NOT LIKE '%accessibility%'
 AND zen_albums.folder NOT LIKE '%radio%' AND zen_albums.folder NOT LIKE '%commercial%' AND zen_albums.folder NOT LIKE '%rebrand%'
- AND zen_albums.folder NOT LIKE '%trial%'   AND zen_albums.folder NOT LIKE '%interior%' AND zen_albums.folder NOT LIKE '%tram%' 
+AND zen_albums.folder NOT LIKE '%trial%'   AND zen_albums.folder NOT LIKE '%interior%' AND zen_albums.folder NOT LIKE '%tram%' 
 AND zen_albums.folder NOT LIKE '%vandals%'
 AND zen_albums.folder NOT LIKE '%transfer%'
 AND zen_albums.folder NOT LIKE '%hcmt%'
@@ -245,7 +246,7 @@ select  distinct
 where i.title REGEXP  'Comeng {1,3}[0-9]'
 AND zen_albums.folder NOT LIKE '%bits%' AND zen_albums.folder NOT LIKE '%vicers%' AND zen_albums.folder NOT LIKE '%accessibility%'
 AND zen_albums.folder NOT LIKE '%radio%' AND zen_albums.folder NOT LIKE '%commercial%' AND zen_albums.folder NOT LIKE '%rebrand%' AND zen_albums.folder NOT LIKE '%adelaide%'
- AND zen_albums.folder NOT LIKE '%trial%'   AND zen_albums.folder NOT LIKE '%interior%' AND zen_albums.folder NOT LIKE '%tram%' 
+AND zen_albums.folder NOT LIKE '%trial%'   AND zen_albums.folder NOT LIKE '%interior%' AND zen_albums.folder NOT LIKE '%tram%' 
 AND zen_albums.folder NOT LIKE '%vandals%' AND zen_albums.folder NOT LIKE '%stored%' AND zen_albums.folder NOT LIKE '%scrap%' 
 AND zen_albums.folder !='comeng-life-extension-project'
 HAVING locoID < 1000
