@@ -334,4 +334,28 @@ AND zen_albums.folder NOT LIKE '%bits%'
 ) as nrclasses
 WHERE RowNumber = 1 AND busid <> 0)";
 
+$popularImageText['bus-route']['url'] = 'every-bus-route';
+$popularImageText['bus-route']['title'] = 'Every Melbourne bus route I\'ve photographed';
+$popularImageText['bus-route']['subtext'] = 'Every single Melbourne bus route I\'ve photographed';
+$popularImageText['bus-route']['maxcount'] = 5000;
+$popularImageText['bus-route']['type'] = 'fleetlist';
+$popularImageText['bus-route']['order'] =  "CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*route +[0-9]*'), 'route ', ''), DECIMAL)";
+$popularImageText['bus-route']['where'] = "i.id IN (SELECT id FROM
+(
+select  distinct 
+	i.id,
+	i.title,
+	filename,
+	folder,
+	ROW_NUMBER() OVER (PARTITION BY REGEXP_SUBSTR (i.title, '^*route {1,3}[0-9]*') ORDER BY i.hitcounter DESC) AS RowNumber,
+	CONVERT(REPLACE(REGEXP_SUBSTR (i.title, '^*route +[0-9]*'), 'route ', ''), DECIMAL) AS locoID 
+	from zen_images i
+	join zen_albums ON i.albumid = zen_albums.id
+where (i.title REGEXP  'route {1,3}[0-9]')
+AND zen_albums.id IN (SELECT `objectid` FROM ". $_zp_db->prefix('obj_to_tag') ." ott INNER JOIN ". $_zp_db->prefix('tags') ." t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'melbourne-buses')
+AND zen_albums.folder NOT LIKE '%replacement%' AND zen_albums.folder NOT LIKE '%industrial%' 
+AND zen_albums.folder != 'bus-stops' AND zen_albums.folder != 'smartbus-pids' AND zen_albums.folder != 'night-network-melbourne' AND zen_albums.folder != 'route-109-city-express-bus'
+) as nrclasses
+WHERE RowNumber = 1 AND locoID > 112)";
+
 ?>
