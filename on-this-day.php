@@ -15,9 +15,9 @@ include_once('header.php');
 $pageBreadCrumb = 'On this day';
 ?>
 <div class="headbar">
-    <span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
+	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo;
     <?php echo $pageBreadCrumb; ?>
-    </span><span id="righthead"><?php printSearchForm(); ?></span>
+	</span><span id="righthead"><?php printSearchForm(); ?></span>
 </div>
 <?php
 
@@ -25,7 +25,7 @@ $date = "";
 $timestamp = time();
 if (isset($_GET['date']))
 {
-    $date = $_GET['date'];
+	$date = $_GET['date'];
     $timestamp = strtotime($date);
 }
 
@@ -42,8 +42,8 @@ $melbouneTimestamp->setTimezone($melbournetimezone);
 
 if (isset($_GET['wongm']))
 {
-    $summaryForCurrentDay = getSummaryForCurrentDay($date);
-    $displayedImage = $summaryForCurrentDay->imagePageUrl;
+	$summaryForCurrentDay = getSummaryForCurrentDay($date);
+	$displayedImage = $summaryForCurrentDay->imagePageUrl;
 ?>
 <div class="album recentuploads">
     <div class="albumthumb">
@@ -58,7 +58,7 @@ if (isset($_GET['wongm']))
 
 
 
-foreach (array(1, 2, 5, 10, 15) AS $year)
+foreach (array(1, 2, 5, 10, 15, 20) AS $year)
 {
     if ($year == 1)
     {
@@ -83,8 +83,8 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
 
     if ($photocount > 0)
     {
-        global $_zp_current_DailySummaryItem;
-        $_zp_current_DailySummaryItem = new DailySummaryItem($dayLink);
+		global $_zp_current_DailySummaryItem;
+		$_zp_current_DailySummaryItem = new DailySummaryItem($dayLink);
         echo "<div class=\"pastyears\"><h3>$year $suffix ago</h3>\n";
         echo "<p>$photocount photos " . getDailySummaryDescInternal() . " - <a href=\"/page/archive/$dayLink\">View more...</a></p></div>";
 ?>
@@ -96,13 +96,13 @@ foreach (array(1, 2, 5, 10, 15) AS $year)
         // draw top items
         while (next_photostream_image() && (++$count <= $photosPerItem ))
         {
-            // if image already displayed at top of page, skip over it
-            if ($displayedImage == getImageURL())
-            {
-                $count--;
-                continue;
-            }
-            
+			// if image already displayed at top of page, skip over it
+			if ($displayedImage == getImageURL())
+			{
+				$count--;
+				continue;
+			}
+			
             drawWongmImageCell('uploads');
         }
 ?>
