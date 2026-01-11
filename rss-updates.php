@@ -63,20 +63,19 @@ NewDailySummary(getOption('RSS_items'));
 	$imagePath = $protocol . $host . getFullImageURL();
 	$fileSize = $_zp_current_image->getFilesize();
 	
+	$imageDesc = getImageDesc();
+	if (strlen($imageDesc) > 0)
+	{
+		$imageDesc = ". $imageDesc";
+	}
+	$description = getDailySummaryDate("l j F Y") . " - " . getImageTitle() . $imageDesc;
+
 	if ($instagramMode) 
 	{
-		$description = getDailySummaryDate("l j F Y") . " - " . getImageTitle() . ". See all " . getDailySummaryNumImages() . " new photos at Wongm's Rail Gallery";
+		$description .= ". See all " . getDailySummaryNumImages() . " new photos at Wongm's Rail Gallery";
 	}
 	else
 	{
-		$imageDesc = getImageDesc();
-		if (strlen($imageDesc) > 0)
-		{
-			$imageDesc = ". $imageDesc";
-		}
-		
-		$description = getDailySummaryDate("l j F Y") . " - " . getImageTitle() . $imageDesc;
-		
 		if (getDailySummaryNumImages() > 1)
 		{
 			$description .= ". Plus " . (getDailySummaryNumImages() - 1) . " more new photo" . ((getDailySummaryNumImages() == 2) ? "" : "s") . " in the " . getDailySummaryAlbumNameText() . " albums";
