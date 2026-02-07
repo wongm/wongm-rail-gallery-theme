@@ -126,25 +126,11 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
             $link = "";
             $guid = md5($guid);
         }
-
-        $titleAndDescription = getImageTitle();
-        if (strlen(getImageDesc()) > 0)
-        {
-            $lastchar = $titleAndDescription[-1];
-            if (!ctype_punct($lastchar)) 
-            {
-                $titleAndDescription .=  ".";
-            }
-            
-            $titleAndDescription .= " " . getImageDesc();
-        }
-		
-		$titleAndDescription = htmlspecialchars($titleAndDescription);
         
         $imageEditLink = "";
         $imageUrl = $domain . getFullImageURL();
         $imageLink = "<img border=\"0\" src=\"" . $imageUrl . "\" alt=\"" . $summaryForCurrentDay->title . "\" />";
-        $description = $imageLink . "<br>" . $titleAndDescription;
+        $description = $imageLink . "<br>" . htmlspecialchars($summaryForCurrentDay->desc);
         
         if ($validationMode)
         {
@@ -157,7 +143,7 @@ function printCurrentData($summaryForCurrentDay, $validationMode, $host, $protoc
         }
 ?>
 <item>
-    <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  $titleAndDescription; ?></title>
+    <title>On this day <?php echo $summaryForCurrentDay->title . ': ' .  htmlspecialchars($summaryForCurrentDay->desc); ?></title>
     <link><?php echo $link; ?></link>
     <description><?php echo $description; ?></description>
     <imageUrl><?php echo $imageUrl; ?></imageUrl>

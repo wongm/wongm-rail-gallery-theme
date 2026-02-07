@@ -21,7 +21,7 @@ if (function_exists('NewDailySummary'))
     NewDailySummary(8);
     while (next_DailySummaryItem()) { 
         global $_zp_current_DailySummaryItem;
-        makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());    
+        makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());
         $dayData = new stdClass;
         $dayData->date = date("l, j F", strtotime(getDailySummaryDate()));
         $dayData->imagePath = getDefaultSizedImage();
