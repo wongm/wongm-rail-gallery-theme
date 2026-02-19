@@ -1,40 +1,45 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+
+if (isset($_GET['hitcounter']))
+{
+	echo "Hit counted";
+	exit();
+}
 $pageTitle = ' - '.getImageTitle();
 $rssType = 'Gallery';
 $rssTitle = 'Recent uploads';
 include_once('header.php'); ?>
 <div class="headbar">
-	<span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo; 
-		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
-		<a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
-	</span><span id="righthead"><?php echo printSearchForm(); ?></span>
+    <span id="breadcrumb"><a href="<?php echo getGalleryIndexURL(); ?>" title="Gallery Index"><?php echo getGalleryTitle(); ?></a> &raquo; 
+        <?php printParentBreadcrumb('', ' » ', ' » '); ?>
+        <a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
+    </span><span id="righthead"><?php echo printSearchForm(); ?></span>
 </div>
 
 <div class="topbar">
-	<h2><?php printMWEditableImageTitle(true);?></h2>
-	<p id="albumBreadcrumbs">In album: <a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a></p>
-	<?php printMWEditableImageDesc(true); ?>
+    <h2><?php printMWEditableImageTitle(true);?></h2>
+    <p id="albumBreadcrumbs">In album: <a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a></p>
+    <?php printMWEditableImageDesc(true); ?>
 </div>
 
 <div id="viewImage">  
-	<img id="mainImage" src="<?php echo getDefaultSizedImage() ?>" alt="<?=getImageTitle();?>" width="<?=getDefaultWidth();?>" height="<?=getDefaultHeight();?>" style="margin-left: -<?=getDefaultWidth() / 2;?>px;" />
-	<div id="imageOverlay" style="margin-left: -<?=getDefaultWidth() / 2;?>px; width: <?=getDefaultWidth();?>px; height: <?=getDefaultHeight();?>px;">
+    <img id="mainImage" src="<?php echo getDefaultSizedImage() ?>" alt="<?=getImageTitle();?>" width="<?=getDefaultWidth();?>" height="<?=getDefaultHeight();?>" style="margin-left: -<?=getDefaultWidth() / 2;?>px;" />
+    <div id="imageOverlay" style="margin-left: -<?=getDefaultWidth() / 2;?>px; width: <?=getDefaultWidth();?>px; height: <?=getDefaultHeight();?>px;">
     <?php if (hasPrevImage()) { ?>
-		<a href="<?=getPrevImageURL();?>" id="lbPrevLink" style="height: <?=getDefaultHeight();?>px;"></a>
-	<?php } if (hasNextImage()) { ?>
-		<a href="<?=getNextImageURL();?>" id="lbNextLink" style="height: <?=getDefaultHeight();?>px;"></a>
-	<?php } ?>	
-	</div>
-	<p>
-		<a id="showImage" href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">View full sized (<?=getFullWidth()?>px by <?=getFullHeight()?>px)</a>
-	</p>
+        <a href="<?=getPrevImageURL();?>" id="lbPrevLink" style="height: <?=getDefaultHeight();?>px;"></a>
+    <?php } if (hasNextImage()) { ?>
+        <a href="<?=getNextImageURL();?>" id="lbNextLink" style="height: <?=getDefaultHeight();?>px;"></a>
+    <?php } ?>    
+    </div>
+    <p>
+        <a id="showImage" href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">View full sized (<?=getFullWidth()?>px by <?=getFullHeight()?>px)</a>
+    </p>
 <?php 
-	printEXIFData();
-	printTags('links', 'Tags');
-  
+    printEXIFData();
+    printTags('links', 'Tags');
   ?>
 </div>
-<?php if (hasPrevImage() or hasNextImage()) { ?>    
+<?php if (hasPrevImage() or hasNextImage()) { ?>
 <div class="pagelist"><div class="prev wrapper">
     <?php if (hasPrevImage()) { ?>
     <a id="prevLink" class="prev" href="<?=getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a>
@@ -47,14 +52,15 @@ include_once('header.php'); ?>
     <?php } else { echo "</td><td>"; } ?>
 </div></div>
 <?php } ?>
+<img width="0" height="0" style="display: none" src="<?php echo $_SERVER['REQUEST_URI']; ?>?hitcounter"/>
 <?php
 if(function_exists("printImageMarkupFields"))
-{	
-	printImageMarkupFields();
+{    
+    printImageMarkupFields();
 }
 
 if (function_exists('printGoogleMap') && zp_loggedin()) {
-	printGoogleMap();
+    printGoogleMap();
 }
 
 include_once('footer.php'); 

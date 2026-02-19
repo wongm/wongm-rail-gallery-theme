@@ -59,10 +59,6 @@ function printEXIFData()
 	{
 		$hitCounterText = getRollingHitcounter($_zp_current_image);
 	}
-	else if (function_exists('formatHitCounter'))
-	{
-		$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
-	}
 	
 	if (function_exists('getDeathmatchRatingsText'))
 	{
