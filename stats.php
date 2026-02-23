@@ -38,23 +38,26 @@ if (zp_loggedin())
 
 <p>By album:</p>
 <table style="margin-left:4em;" cellpadding="3">
-<tr style="text-align: left"><th width="400px">Album</th><th width="200px">Average views</th><th width="100px">Album views</th><th></th><th width="400px">Album</th><th width="100px">Album views</th></tr>
+<tr style="text-align: left"><th width="400px">Album</th><th width="100px">Average views</th><th width="100px">Album views</th><th></th><th width="400px">Album</th><th width="100px">Album views</th></tr>
 <?php
 	$albumIndex = 0;
 	foreach($averageHitsAcrossAlbums as $imagerow)
 	{
 ?>
 	<tr><td>(<a href="/<?=$imagerow['folder'] ?>">=</a>) <?=get_language_string($imagerow['title'])?></td>
-		<td><?=$imagerow['average']?></td>
-		<td><?=$imagerow['hitcounter']?></td>
+		<td><?=number_format($imagerow['average'], 0)?></td>
+		<td><?=number_format($imagerow['hitcounter'], 0)?></td>
 		<td width="100"></td>
 		<td>(<a href="/<?=$averageAlbumHits[$albumIndex]['folder'] ?>">=</a>) <?=get_language_string($averageAlbumHits[$albumIndex]['title'])?></td>
-		<td><?=$averageAlbumHits[$albumIndex]['hitcounter']?></td></tr>
+		<td><?=number_format($averageAlbumHits[$albumIndex]['hitcounter'], 0)?></td></tr>
 <?php
 		$albumIndex++;
 	}
 ?>
 </table>
+<style>
+td:nth-child(2), td:nth-child(3), td:nth-child(6), th:nth-child(2), th:nth-child(3), th:nth-child(6) { text-align: end; }
+</style>
 <?php
 }
 include_once('footer.php'); ?>
