@@ -35,6 +35,7 @@ DEFINE ('RATINGS_TEXT', 'You can rate photos <a href="' . DO_RATINGS_URL_PATH . 
 DEFINE ('EXCLUDED_WAGONS_SQL', "a.folder NOT LIKE 'wagons%'");
 global $_zp_db;
 DEFINE ('BUS_ALBUM_IDs_SQL', "SELECT `objectid` FROM ". $_zp_db->prefix('obj_to_tag') ." ott INNER JOIN ". $_zp_db->prefix('tags') ." t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND t.`name` = 'buses'");
+DEFINE ('BUS_AND_INFRA_ALBUM_IDs_SQL', "SELECT `objectid` FROM ". $_zp_db->prefix('obj_to_tag') ." ott INNER JOIN ". $_zp_db->prefix('tags') ." t ON ott.`tagid` = t.`id` WHERE ott.`type` = 'albums' AND ( t.`name` = 'buses' OR  t.`name` = 'infrastructure')");
 DEFINE ('UNCAPTIONED_IMAGE_REGEX', "i.title REGEXP '_[0-9]{4}' OR i.title REGEXP 'DSCF[0-9]{4}' OR i.title = '' OR i.title  IS NULL");
 DEFINE ('CAPTIONED_IMAGE_REGEX', "i.title NOT REGEXP '_[0-9]{4}' AND i.title NOT REGEXP 'DSCF[0-9]{4}'");
 DEFINE ('IMAGE_NEEDING_RESIZE_SQL', "((i.height = 1024 AND i.width != 683) OR (i.width = 1024 AND i.height != 683) OR (i.height = 1920 AND i.width != 1280) OR (i.width = 1920 AND i.height != 1280)) AND " . EXCLUDED_WAGONS_SQL);
@@ -112,7 +113,7 @@ $popularImageText['trains']['title'] = 'Recent uploads - Trains';
 $popularImageText['trains']['text'] = 'Recent train uploads';
 $popularImageText['trains']['subtext'] = 'Trains and railway infrastructure';
 $popularImageText['trains']['type'] = 'recent';
-$popularImageText['trains']['where'] = "folder NOT LIKE '%tram%' AND folder NOT LIKE '%light-rail%' AND " . EXCLUDED_WAGONS_SQL. " AND a.id NOT IN (" . BUS_ALBUM_IDs_SQL . ")";
+$popularImageText['trains']['where'] = "folder NOT LIKE '%tram%' AND folder NOT LIKE '%light-rail%' AND folder != 'preston-workshops' AND " . EXCLUDED_WAGONS_SQL. " AND a.id NOT IN (" . BUS_AND_INFRA_ALBUM_IDs_SQL . ")";
 
 $popularImageText['trams']['url'] = TRAMS_UPDATES_URL_PATH;
 $popularImageText['trams']['title'] = 'Recent uploads - Trams';
