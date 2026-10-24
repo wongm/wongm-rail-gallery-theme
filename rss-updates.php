@@ -92,7 +92,7 @@ NewDailySummary(getOption('RSS_items'));
     <title><?php echo htmlentities($description); ?></title>
     <link><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></link>
     <description><![CDATA[<img border="0" src="<?php echo $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo htmlentities($description); ?>]]></description>
-	<enclosure url="<?php echo htmlentities($imagePath); ?>" type="image/jpeg" length="<? echo $fileSize; ?>" />
+	<enclosure url="<?php echo htmlentities($imagePath); ?>" type="image/jpeg" length="<?php echo $fileSize; ?>" />
     <guid><![CDATA[<?php echo $protocol . $host . getDailySummaryUrl(); ?>]]></guid>
     <?php if (!$iftttMode) { ?><pubDate><?php echo getDailySummaryDate("r"); ?></pubDate><?php } ?>
 </item>
